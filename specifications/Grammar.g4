@@ -32,6 +32,7 @@ block
 
 statement
     : 'print' expression ';'
+	| 'read' expression ';'
     | expression '=' expression ';'
     | expression ';'
     ;
