@@ -3,38 +3,85 @@ grammar Grammar;
 import Tokenizer;
 
 program
-	: (struct | variable | function)* EOF
-	;
+    : (structDeclaration | variableDeclaration | functionDeclaration)* EOF
+    ;
 
-struct
-	:'struct' ID '{' declaration* '}'
-	;
+structDeclaration
+    : 'struct' ID '{' fieldDeclaration* '}'
+    ;
 
-variable
-	: 'var' declaration
-	;
+variableDeclaration
+    : 'var' fieldDeclaration
+    ;
 
-function
-	: ID '(' parameters ')' (':' primitive_type)? '{' variable* '}'
-	;
+functionDeclaration
+    : ID '(' parameterList ')' (':' type)? block
+    ;
 
-parameters
-	: (ID ':' type (',' ID ':' type)*)?
-	;
+parameterList
+    : (parameter (',' parameter)*)?
+    ;
 
-declaration
-	: ID ':' type ';'
-	| ID ':' ('[' LITENT ']')+ type ';'
-	;
+parameter
+    : ID ':' type
+    ;
+
+block
+    : '{' (variableDeclaration | statement)* '}'
+    ;
+
+statement
+    : 'print' expression ';'
+    | expression '=' expression ';'
+    | expression ';'
+    ;
+
+expression
+    : castExpression
+    | primary (expressionSuffix)*
+    | expression '*' | '/' | '%' expression
+    | expression '+' | '-' expression
+	| expression '<=' | '>=' | '<' | '>' | '!=' | '==' expression
+	| expression '&&' | '||' expression
+    ;
+
+expressionSuffix
+    : '.' ID
+    | '[' expression ']'
+    | functionCall
+    ;
+
+functionCall
+    : '(' argumentList? ')'
+    ;
+
+castExpression
+    : '<' type '>' '(' expression ')'
+    ;
+
+argumentList
+    : expression (',' expression)*
+    ;
+
+primary
+    : ID
+    | LITENT
+    | LITREAL
+    | CHAR_LITERAL
+    ;
+
+fieldDeclaration
+    : ID ':' type ';'
+    | ID ':' ('[' LITENT ']')+ type ';'
+    ;
 
 type
-	: primitive_type
-	| ID
-	;
+    : primitiveType
+    | ID
+    ;
 
-primitive_type
-	: 'int'
-	| 'float'
-	| 'char'
-	;
-
+primitiveType
+    : 'int'
+    | 'float'
+    | 'char'
+    ;

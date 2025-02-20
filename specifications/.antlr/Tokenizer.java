@@ -1,4 +1,4 @@
-// Generated from c:/Users/uo294193/Desktop/DLP UO294193/specifications/Tokenizer.g4 by ANTLR 4.13.1
+// Generated from c:/Users/guill/Desktop/DLP-2425-ANTLR/specifications/Tokenizer.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
