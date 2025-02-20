@@ -39,10 +39,14 @@ statement
 expression
     : castExpression
     | primary (expressionSuffix)*
-    | expression '*' | '/' | '%' expression
-    | expression '+' | '-' expression
-	| expression '<=' | '>=' | '<' | '>' | '!=' | '==' expression
-	| expression '&&' | '||' expression
+	| '(' expression ')'
+	| '!' expression
+    | expression ('*' | '/' | '%') expression
+    | expression ('+' | '-') expression
+	| expression ('<' | '>' | '<=' | '>=') expression
+    | expression ('==' | '!=') expression
+	| expression '&&' expression
+	| expression '||' expression
     ;
 
 expressionSuffix
