@@ -1,0 +1,16 @@
+
+f8(a:int, b:float, c:char):char { }
+
+var otraGlobal:int;
+
+struct OtraStruct { }
+
+// -----------------------------------------
+// Declaracion de variables locales
+
+main() {
+    var a:int;
+    var b:float;
+    var c:char;
+    var d:S1;
+}
