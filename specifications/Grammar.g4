@@ -3,7 +3,7 @@ grammar Grammar;
 import Tokenizer;
 
 program
-    : (structDeclaration | variableDeclaration | functionDeclaration)* EOF
+    : (structDeclaration | statement | variableDeclaration | functionDeclaration)* EOF
     ;
 
 structDeclaration
@@ -31,23 +31,29 @@ block
     ;
 
 statement
-    : 'print' expression ';'
-	| 'read' expression ';'
+    : 'print' (expressionList)? ';'
+    | 'printsp' (expressionList)? ';'
+    | 'println' (expressionList)? ';'
+    | 'read' expression ';'
     | expression '=' expression ';'
     | expression ';'
+    ;
+
+expressionList
+    : expression (',' expression)*
     ;
 
 expression
     : castExpression
     | primary (expressionSuffix)*
-	| '(' expression ')'
-	| '!' expression
+    | '(' expression ')'
+    | '!' expression
     | expression ('*' | '/' | '%') expression
     | expression ('+' | '-') expression
-	| expression ('<' | '>' | '<=' | '>=') expression
+    | expression ('<' | '>' | '<=' | '>=') expression
     | expression ('==' | '!=') expression
-	| expression '&&' expression
-	| expression '||' expression
+    | expression '&&' expression
+    | expression '||' expression
     ;
 
 expressionSuffix
