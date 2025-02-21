@@ -35,6 +35,9 @@ statement
     | 'printsp' (expressionList)? ';'
     | 'println' (expressionList)? ';'
     | 'read' expression ';'
+    | 'while' '(' expression ')' block
+    | 'if' '(' expression ')' block ('else' block)?
+    | 'return' expression? ';'
     | expression '=' expression ';'
     | expression ';'
     ;
