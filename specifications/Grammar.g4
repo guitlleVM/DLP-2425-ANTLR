@@ -19,11 +19,7 @@ functionDeclaration
     ;
 
 parameterList
-    : (parameter (',' parameter)*)?
-    ;
-
-parameter
-    : ID ':' type
+    : (ID ':' type (',' ID ':' type)*)?
     ;
 
 block
