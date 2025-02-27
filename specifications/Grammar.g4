@@ -7,11 +7,11 @@ program
     ;
 
 structDeclaration
-    : 'struct' ID '{' fieldDeclaration* '}'
+    : 'struct' ID '{' (ID ':' type) '}'
     ;
 
 variableDeclaration
-    : 'var' fieldDeclaration
+    : 'var' ID ':' type ';'
     ;
 
 functionDeclaration
@@ -31,9 +31,9 @@ block
     ;
 
 statement
-    : 'print' (expressionList)? ';'
-    | 'printsp' (expressionList)? ';'
-    | 'println' (expressionList)? ';'
+    : 'print' expressionList ';'
+    | 'printsp' expressionList ';'
+    | 'println' expressionList ';'
     | 'read' expression ';'
     | 'while' '(' expression ')' block
     | 'if' '(' expression ')' block ('else' block)?
@@ -43,13 +43,15 @@ statement
     ;
 
 expressionList
-    : expression (',' expression)*
+    : (expression (',' expression)*)?
     ;
 
 expression
-    : castExpression
-    | primary (expressionSuffix)*
-    | '(' expression ')'
+    : '<' type '>' '(' expression ')' //cast
+    | expression '.' ID   //struct access
+    | expression '[' expression ']' 
+    | ID '(' (expression (',' expression)*)? ')'    //function call
+    | '(' expression ')' //prioridad operadores
     | '!' expression
     | expression ('*' | '/' | '%') expression
     | expression ('+' | '-') expression
@@ -57,45 +59,16 @@ expression
     | expression ('==' | '!=') expression
     | expression '&&' expression
     | expression '||' expression
-    ;
-
-expressionSuffix
-    : '.' ID
-    | '[' expression ']'
-    | functionCall
-    ;
-
-functionCall
-    : '(' argumentList? ')'
-    ;
-
-castExpression
-    : '<' type '>' '(' expression ')'
-    ;
-
-argumentList
-    : expression (',' expression)*
-    ;
-
-primary
-    : ID
+    | ID
     | LITENT
     | LITREAL
     | CHAR_LITERAL
     ;
 
-fieldDeclaration
-    : ID ':' type ';'
-    | ID ':' ('[' LITENT ']')+ type ';'
-    ;
-
 type
-    : primitiveType
-    | ID
-    ;
-
-primitiveType
     : 'int'
     | 'float'
     | 'char'
+    | '[' LITENT ']' type //arrays
+    | ID
     ;
