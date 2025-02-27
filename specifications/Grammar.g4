@@ -3,7 +3,7 @@ grammar Grammar;
 import Tokenizer;
 
 program
-    : (structDeclaration | statement | variableDeclaration | functionDeclaration)* EOF
+    : (structDeclaration | variableDeclaration | functionDeclaration)* EOF
     ;
 
 structDeclaration
