@@ -1,0 +1,369 @@
+// Generated with VGen 2.0.0
+
+
+/*
+
+Este fichero es un esqueleto para facilitar la creación de una clase visitor. Para
+usarlo hay que realizar dos pasos:
+1. Ubicar este código.
+2. Completar cada método visit.
+
+## Paso 1. Ubicación de este Código
+
+Este esqueleto será SOBREESCRITO la próxima vez que se ejecuta VGen. Por ello, se debe
+copiar su contenido antes de hacer cualquier cambio.
+
+Hay dos opciones:
+
+1) Si ya se tiene hecha una clase para el visitor, basta con copiar a dicha clase los
+   métodos visit de este esqueleto (y los import) ignorando el resto.
+
+2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha ubicación.
+
+Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
+ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
+
+
+## Paso 2 Completar cada Método Visit
+
+El visit generado para cada nodo se limita a recorrer sus hijos. El código de recorrido
+se encuentra en la llamada a 'super.visit'. Los 'accept' comentados encima de cada
+'super.visit' son sólo un recordatorio de lo que hace dicho método (son una copia de su
+implementación, que se hereda de DefaultVisitor).
+
+Por tanto, hay tres opciones a la hora de implementar cada visit:
+
+1. Si en el visit de un nodo SÓLO SE NECESITA RECORRER sus hijos, se puede borrar
+   completamente dicho visit de esta clase. Al no estar el método, se heredará de
+   DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
+   clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
+
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos
+   los hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y
+   se pueden borrar los 'accept' comentados).
+
+3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
+   hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
+   los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
+   estructura donde se intecalará el código de las acciones adicionales.
+
+*/
+
+// TODO: write package name
+// package ...;
+
+import visitor.DefaultVisitor;
+import ast.*;
+import ast.declaration.*;
+import ast.statement.*;
+import ast.expression.*;
+import ast.type.*;
+
+
+public class SkeletonForNewVisitors extends DefaultVisitor {
+
+    public void process(AST ast) {
+        ast.accept(this, null);
+    }
+
+    // Visit Methods --------------------------------------------------------------
+
+	// class Program(List<Declaration> declarations)
+	@Override
+	public Object visit(Program program, Object param) {
+
+		// program.getDeclarations().forEach(declaration -> declaration.accept(this, param));
+		super.visit(program, param);
+
+		return null;
+	}
+
+	// class StructDeclaration(String ID, List<Variable> variables)
+	@Override
+	public Object visit(StructDeclaration structDeclaration, Object param) {
+
+		// structDeclaration.getVariables().forEach(variable -> variable.accept(this, param));
+		super.visit(structDeclaration, param);
+
+		return null;
+	}
+
+	// class Variable(String ID, Type type)
+	@Override
+	public Object visit(Variable variable, Object param) {
+
+		// variable.getType().accept(this, param);
+		super.visit(variable, param);
+
+		return null;
+	}
+
+	// class VariableDeclaration(String ID, Type type)
+	@Override
+	public Object visit(VariableDeclaration variableDeclaration, Object param) {
+
+		// variableDeclaration.getType().accept(this, param);
+		super.visit(variableDeclaration, param);
+
+		return null;
+	}
+
+	// class FunctionDeclaration(String ID, List<Parameter> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
+	@Override
+	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
+
+		// functionDeclaration.getParameters().forEach(parameter -> parameter.accept(this, param));
+		// functionDeclaration.getType().ifPresent(type -> type.accept(this, param));
+		// functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
+		// functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(functionDeclaration, param);
+
+		return null;
+	}
+
+	// class Parameter(String ID, Type type)
+	@Override
+	public Object visit(Parameter parameter, Object param) {
+
+		// parameter.getType().accept(this, param);
+		super.visit(parameter, param);
+
+		return null;
+	}
+
+	// class Print(List<Expression> expressions)
+	@Override
+	public Object visit(Print print, Object param) {
+
+		// print.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(print, param);
+
+		return null;
+	}
+
+	// class Printsp(List<Expression> expressions)
+	@Override
+	public Object visit(Printsp printsp, Object param) {
+
+		// printsp.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(printsp, param);
+
+		return null;
+	}
+
+	// class Println(List<Expression> expressions)
+	@Override
+	public Object visit(Println println, Object param) {
+
+		// println.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(println, param);
+
+		return null;
+	}
+
+	// class Read(List<Expression> expressions)
+	@Override
+	public Object visit(Read read, Object param) {
+
+		// read.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(read, param);
+
+		return null;
+	}
+
+	// class If(Expression expression, List<Statement> s1, List<Statement> s2)
+	@Override
+	public Object visit(If ifValue, Object param) {
+
+		// ifValue.getExpression().accept(this, param);
+		// ifValue.getS1().forEach(statement -> statement.accept(this, param));
+		// ifValue.getS2().forEach(statement -> statement.accept(this, param));
+		super.visit(ifValue, param);
+
+		return null;
+	}
+
+	// class While(Expression expression, List<Statement> statements)
+	@Override
+	public Object visit(While whileValue, Object param) {
+
+		// whileValue.getExpression().accept(this, param);
+		// whileValue.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(whileValue, param);
+
+		return null;
+	}
+
+	// class Return(Optional<Expression> expression)
+	@Override
+	public Object visit(Return returnValue, Object param) {
+
+		// returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
+		super.visit(returnValue, param);
+
+		return null;
+	}
+
+	// class Asignacion(Expression e1, Expression e2)
+	@Override
+	public Object visit(Asignacion asignacion, Object param) {
+
+		// asignacion.getE1().accept(this, param);
+		// asignacion.getE2().accept(this, param);
+		super.visit(asignacion, param);
+
+		return null;
+	}
+
+	// class FuncionLlamada(String ID, List<Expression> expressions)
+	@Override
+	public Object visit(FuncionLlamada funcionLlamada, Object param) {
+
+		// funcionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(funcionLlamada, param);
+
+		return null;
+	}
+
+	// class Cast(Type type, List<Expression> expressions)
+	@Override
+	public Object visit(Cast cast, Object param) {
+
+		// cast.getType().accept(this, param);
+		// cast.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(cast, param);
+
+		return null;
+	}
+
+	// class Struct(Expression expression, String ID)
+	@Override
+	public Object visit(Struct struct, Object param) {
+
+		// struct.getExpression().accept(this, param);
+		super.visit(struct, param);
+
+		return null;
+	}
+
+	// class Array(Expression e1, Expression e2)
+	@Override
+	public Object visit(Array array, Object param) {
+
+		// array.getE1().accept(this, param);
+		// array.getE2().accept(this, param);
+		super.visit(array, param);
+
+		return null;
+	}
+
+	// class ExpresionLlamada(String ID, List<Expression> expressions)
+	@Override
+	public Object visit(ExpresionLlamada expresionLlamada, Object param) {
+
+		// expresionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(expresionLlamada, param);
+
+		return null;
+	}
+
+	// class Not(Expression expression)
+	@Override
+	public Object visit(Not not, Object param) {
+
+		// not.getExpression().accept(this, param);
+		super.visit(not, param);
+
+		return null;
+	}
+
+	// class ExpresionAritmetica(Expression e1, String op, Expression e2)
+	@Override
+	public Object visit(ExpresionAritmetica expresionAritmetica, Object param) {
+
+		// expresionAritmetica.getE1().accept(this, param);
+		// expresionAritmetica.getE2().accept(this, param);
+		super.visit(expresionAritmetica, param);
+
+		return null;
+	}
+
+	// class ExpresionLogica(Expression e1, String op, Expression e2)
+	@Override
+	public Object visit(ExpresionLogica expresionLogica, Object param) {
+
+		// expresionLogica.getE1().accept(this, param);
+		// expresionLogica.getE2().accept(this, param);
+		super.visit(expresionLogica, param);
+
+		return null;
+	}
+
+	// class Id(String ID)
+	@Override
+	public Object visit(Id id, Object param) {
+
+		return null;
+	}
+
+	// class LitEnt(String LITENT)
+	@Override
+	public Object visit(LitEnt litEnt, Object param) {
+
+		return null;
+	}
+
+	// class LitReal(String LITREAL)
+	@Override
+	public Object visit(LitReal litReal, Object param) {
+
+		return null;
+	}
+
+	// class LitChar(String CHAR_LITERAL)
+	@Override
+	public Object visit(LitChar litChar, Object param) {
+
+		return null;
+	}
+
+	// class IntType()
+	@Override
+	public Object visit(IntType intType, Object param) {
+
+		return null;
+	}
+
+	// class RealType()
+	@Override
+	public Object visit(RealType realType, Object param) {
+
+		return null;
+	}
+
+	// class CharType()
+	@Override
+	public Object visit(CharType charType, Object param) {
+
+		return null;
+	}
+
+	// class ArrayType(String posicion, Type type)
+	@Override
+	public Object visit(ArrayType arrayType, Object param) {
+
+		// arrayType.getType().accept(this, param);
+		super.visit(arrayType, param);
+
+		return null;
+	}
+
+	// class StructType(String nombre)
+	@Override
+	public Object visit(StructType structType, Object param) {
+
+		return null;
+	}
+
+}

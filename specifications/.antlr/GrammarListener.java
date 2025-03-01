@@ -1,4 +1,4 @@
-// Generated from c:/Users/uo294193/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
+// Generated from c:/Users/guill/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -57,16 +57,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitParameterList(GrammarParser.ParameterListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameter(GrammarParser.ParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameter(GrammarParser.ParameterContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#block}.
 	 * @param ctx the parse tree
 	 */
@@ -107,66 +97,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitExpression(GrammarParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#expressionSuffix}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpressionSuffix(GrammarParser.ExpressionSuffixContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#expressionSuffix}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpressionSuffix(GrammarParser.ExpressionSuffixContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionCall(GrammarParser.FunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionCall(GrammarParser.FunctionCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#castExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterCastExpression(GrammarParser.CastExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#castExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitCastExpression(GrammarParser.CastExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentList(GrammarParser.ArgumentListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentList(GrammarParser.ArgumentListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#primary}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrimary(GrammarParser.PrimaryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#primary}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrimary(GrammarParser.PrimaryContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#fieldDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldDeclaration(GrammarParser.FieldDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#fieldDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldDeclaration(GrammarParser.FieldDeclarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#type}.
 	 * @param ctx the parse tree
 	 */
@@ -176,14 +106,4 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType(GrammarParser.TypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#primitiveType}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#primitiveType}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
 }

@@ -1,1 +1,3 @@
-print a, f, c, v[2], raul.edad, a + 2 && v[2];
+main(){
+    print a.edad;
+}

@@ -28,7 +28,7 @@ import codegeneration.*;
  */
 
 public class Main {
-    public static final String TEST_FILE = "practica/Hipoteca.txt"; // Used only in development
+    public static final String TEST_FILE = "test.txt"; // Used only in development
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
@@ -56,9 +56,11 @@ public class Main {
 
         AST ast = null;
         // IMPORTANT: When the AST has been generated, swap the following two lines of code.
-        parser.program();
-        // ast = parser.program().ast;
-
+        //parser.program();
+        ast = parser.program().ast;
+        /*
+         * 
+         
         if (parser.getNumberOfSyntaxErrors() > 0) { // Syntax error detected (ANTLR omits lexical errors)
             errorManager.notify("Compilaton finished due to syntax errors.");
             return null;
@@ -77,7 +79,7 @@ public class Main {
         var generator = new CodeGeneration();
         generator.generate(sourceFile.getName(), ast, out);
         out.close();
-
+        */
         return ast;
     }
 }

@@ -1,5 +1,45 @@
 CATEGORIES
+declaration;
+type;
+statement;
+expression;
 
 NODES
 
-program -> ;
+program -> declaration*;
+
+structDeclaration:declaration -> ID:string variable*;
+variable -> ID:string type;
+
+variableDeclaration:declaration -> ID:string type;
+
+functionDeclaration:declaration -> ID:string parameter* type? variableDeclaration* statement*;
+parameter -> ID:string type;
+
+print:statement -> expression*;
+printsp:statement -> expression*;
+println:statement -> expression*;
+read:statement -> expression*;
+if:statement -> expression s1:statement* s2:statement*;
+while:statement -> expression statement*;
+return:statement -> expression?;
+asignacion:statement -> e1:expression e2:expression;
+funcionLlamada:statement -> ID:string expression*;
+
+cast:expression -> type expression*;
+struct:expression -> expression ID:string;
+array:expression -> e1:expression e2:expression;
+expresionLlamada:expression -> ID:string expression*;
+Not:expression -> expression;
+expresionAritmetica:expression -> e1:expression op:string e2:expression;
+expresionLogica:expression -> e1:expression op:string e2:expression;
+id:expression -> ID:string;
+litEnt:expression -> LITENT:string;
+litReal:expression -> LITREAL:string;
+LitChar:expression -> CHAR_LITERAL:string;
+
+intType:type -> ;
+realType:type -> ;
+charType:type -> ;
+arrayType:type -> posicion:string type;
+structType:type -> nombre:string;

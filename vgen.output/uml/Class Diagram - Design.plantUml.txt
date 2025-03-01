@@ -1,0 +1,215 @@
+' Generated with VGen 2.0.0
+
+@startuml
+
+class Position {
+    +int getLine()
+    +int getColumn()
+    +boolean lessThan(Position other)
+    +boolean greaterThan(Position other)
+}
+
+interface AST {
+    +updatePositions(Object... children)
+    +updatePositions(Position start, Position end)
+    +Object accept(Visitor visitor, Object param)
+}
+
+AST *-[#404040,thickness=1]- Position : start >
+AST *-[#404040,thickness=1]- Position : end >
+
+
+interface Declaration {
+}
+AST <|-[#808080]- Declaration
+
+interface Type {
+}
+AST <|-[#808080]- Type
+
+interface Statement {
+}
+AST <|-[#808080]- Statement
+
+interface Expression {
+}
+AST <|-[#808080]- Expression
+
+interface AST {
+}
+
+class Program {
+}
+AST <|-[#808080]- Program
+Program o-[#404040,thickness=2]- "✱" Declaration : declarations >
+
+class StructDeclaration {
+	+String ID
+}
+Declaration <|-[#808080]- StructDeclaration
+StructDeclaration o-[#404040,thickness=2]- "✱" Variable : variables >
+
+class Variable {
+	+String ID
+}
+AST <|-[#808080]- Variable
+Variable o-[#404040,thickness=2]-  Type : type >
+
+class VariableDeclaration {
+	+String ID
+}
+Declaration <|-[#808080]- VariableDeclaration
+VariableDeclaration o-[#404040,thickness=2]-  Type : type >
+
+class FunctionDeclaration {
+	+String ID
+}
+Declaration <|-[#808080]- FunctionDeclaration
+FunctionDeclaration o-[#404040,thickness=2]- "✱" Parameter : parameters >
+FunctionDeclaration o-[#404040,thickness=2]- "0..1" Type : type >
+FunctionDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : variableDeclarations >
+FunctionDeclaration o-[#404040,thickness=2]- "✱" Statement : statements >
+
+class Parameter {
+	+String ID
+}
+AST <|-[#808080]- Parameter
+Parameter o-[#404040,thickness=2]-  Type : type >
+
+class Print {
+}
+Statement <|-[#808080]- Print
+Print o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Printsp {
+}
+Statement <|-[#808080]- Printsp
+Printsp o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Println {
+}
+Statement <|-[#808080]- Println
+Println o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Read {
+}
+Statement <|-[#808080]- Read
+Read o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class If {
+}
+Statement <|-[#808080]- If
+If o-[#404040,thickness=2]-  Expression : expression >
+If o-[#404040,thickness=2]- "✱" Statement : s1 >
+If o-[#404040,thickness=2]- "✱" Statement : s2 >
+
+class While {
+}
+Statement <|-[#808080]- While
+While o-[#404040,thickness=2]-  Expression : expression >
+While o-[#404040,thickness=2]- "✱" Statement : statements >
+
+class Return {
+}
+Statement <|-[#808080]- Return
+Return o-[#404040,thickness=2]- "0..1" Expression : expression >
+
+class Asignacion {
+}
+Statement <|-[#808080]- Asignacion
+Asignacion o-[#404040,thickness=2]-  Expression : e1 >
+Asignacion o-[#404040,thickness=2]-  Expression : e2 >
+
+class FuncionLlamada {
+	+String ID
+}
+Statement <|-[#808080]- FuncionLlamada
+FuncionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Cast {
+}
+Expression <|-[#808080]- Cast
+Cast o-[#404040,thickness=2]-  Type : type >
+Cast o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Struct {
+	+String ID
+}
+Expression <|-[#808080]- Struct
+Struct o-[#404040,thickness=2]-  Expression : expression >
+
+class Array {
+}
+Expression <|-[#808080]- Array
+Array o-[#404040,thickness=2]-  Expression : e1 >
+Array o-[#404040,thickness=2]-  Expression : e2 >
+
+class ExpresionLlamada {
+	+String ID
+}
+Expression <|-[#808080]- ExpresionLlamada
+ExpresionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class Not {
+}
+Expression <|-[#808080]- Not
+Not o-[#404040,thickness=2]-  Expression : expression >
+
+class ExpresionAritmetica {
+	+String op
+}
+Expression <|-[#808080]- ExpresionAritmetica
+ExpresionAritmetica o-[#404040,thickness=2]-  Expression : e1 >
+ExpresionAritmetica o-[#404040,thickness=2]-  Expression : e2 >
+
+class ExpresionLogica {
+	+String op
+}
+Expression <|-[#808080]- ExpresionLogica
+ExpresionLogica o-[#404040,thickness=2]-  Expression : e1 >
+ExpresionLogica o-[#404040,thickness=2]-  Expression : e2 >
+
+class Id {
+	+String ID
+}
+Expression <|-[#808080]- Id
+
+class LitEnt {
+	+String LITENT
+}
+Expression <|-[#808080]- LitEnt
+
+class LitReal {
+	+String LITREAL
+}
+Expression <|-[#808080]- LitReal
+
+class LitChar {
+	+String CHAR_LITERAL
+}
+Expression <|-[#808080]- LitChar
+
+class IntType {
+}
+Type <|-[#808080]- IntType
+
+class RealType {
+}
+Type <|-[#808080]- RealType
+
+class CharType {
+}
+Type <|-[#808080]- CharType
+
+class ArrayType {
+	+String posicion
+}
+Type <|-[#808080]- ArrayType
+ArrayType o-[#404040,thickness=2]-  Type : type >
+
+class StructType {
+	+String nombre
+}
+Type <|-[#808080]- StructType
+
+@enduml
