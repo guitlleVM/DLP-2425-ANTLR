@@ -15,7 +15,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	structDeclaration: declaration -> ID:string variables:variable*
 	declaration -> 
@@ -112,5 +111,4 @@ public class StructDeclaration extends AbstractDeclaration  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

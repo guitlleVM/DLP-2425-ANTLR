@@ -1,4 +1,4 @@
-// Generated from c:/Users/guill/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
+// Generated from c:/Users/uo294193/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
 
     import ast.*;
     import ast.type.*;
@@ -821,6 +821,7 @@ public class GrammarParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionContext extends ParserRuleContext {
 		public Expression ast;
+		public ExpressionContext e;
 		public ExpressionContext e1;
 		public Token CHAR_LITERAL;
 		public Token ID;
@@ -1086,6 +1087,7 @@ public class GrammarParser extends Parser {
 					case 7:
 						{
 						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx.e = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(258);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
@@ -1093,7 +1095,7 @@ public class GrammarParser extends Parser {
 						match(T__20);
 						setState(260);
 						((ExpressionContext)_localctx).ID = match(ID);
-						 ((ExpressionContext)_localctx).ast =  new Struct(((ExpressionContext)_localctx).expression.ast, ((ExpressionContext)_localctx).ID); 
+						 ((ExpressionContext)_localctx).ast =  new Struct(((ExpressionContext)_localctx).e.ast, ((ExpressionContext)_localctx).ID); 
 						}
 						break;
 					case 8:

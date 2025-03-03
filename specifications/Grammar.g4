@@ -65,7 +65,7 @@ expression returns[Expression ast]
     | LITENT { $ast = new LitEnt($LITENT); }
     | LITREAL { $ast = new LitReal($LITREAL); }
     |'<' type '>' '(' expression ')' { $ast = new Cast($type.ast, $expression.ast); }
-    | expression '.' ID   { $ast = new Struct($expression.ast, $ID); }
+    | e=expression '.' ID   { $ast = new Struct($e.ast, $ID); }
     | e1=expression '[' e2=expression ']' { $ast = new Array($e1.ast, $e2.ast); }
     | ID '(' expressionList ')'  { $ast = new ExpresionLlamada($ID, $expressionList.ast); }  
     | '(' expression ')' { $ast = $expression.ast; }

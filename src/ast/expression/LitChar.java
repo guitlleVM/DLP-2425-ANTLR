@@ -11,7 +11,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	LitChar: expression -> CHAR_LITERAL:string
 	expression -> 
@@ -84,5 +83,4 @@ public class LitChar extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }
