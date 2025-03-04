@@ -211,6 +211,7 @@ public class GrammarParser extends Parser {
 	public static class StructDeclarationContext extends ParserRuleContext {
 		public StructDeclaration ast;
 		public List<Variable> lista = new ArrayList<>();
+		public Token s;
 		public Token ID;
 		public TypeContext type;
 		public List<TerminalNode> ID() { return getTokens(GrammarParser.ID); }
@@ -239,7 +240,7 @@ public class GrammarParser extends Parser {
 			setState(39);
 			match(T__0);
 			setState(40);
-			((StructDeclarationContext)_localctx).ID = match(ID);
+			((StructDeclarationContext)_localctx).s = match(ID);
 			setState(41);
 			match(T__1);
 			setState(50);
@@ -256,7 +257,7 @@ public class GrammarParser extends Parser {
 				((StructDeclarationContext)_localctx).type = type();
 				setState(45);
 				match(T__3);
-				 _localctx.lista.add(new Variable((((StructDeclarationContext)_localctx).ID!=null?((StructDeclarationContext)_localctx).ID.getText():null), ((StructDeclarationContext)_localctx).type.ast)); 
+				 _localctx.lista.add(new Variable(((StructDeclarationContext)_localctx).ID, ((StructDeclarationContext)_localctx).type.ast)); 
 				}
 				}
 				setState(52);
@@ -265,7 +266,7 @@ public class GrammarParser extends Parser {
 			}
 			setState(53);
 			match(T__4);
-			 ((StructDeclarationContext)_localctx).ast =  new StructDeclaration((((StructDeclarationContext)_localctx).ID!=null?((StructDeclarationContext)_localctx).ID.getText():null), _localctx.lista); 
+			 ((StructDeclarationContext)_localctx).ast =  new StructDeclaration(((StructDeclarationContext)_localctx).s, _localctx.lista); 
 			}
 		}
 		catch (RecognitionException re) {
@@ -310,7 +311,7 @@ public class GrammarParser extends Parser {
 			((VariableDeclarationContext)_localctx).type = type();
 			setState(60);
 			match(T__3);
-			 ((VariableDeclarationContext)_localctx).ast =  new VariableDeclaration((((VariableDeclarationContext)_localctx).ID!=null?((VariableDeclarationContext)_localctx).ID.getText():null), ((VariableDeclarationContext)_localctx).type.ast); 
+			 ((VariableDeclarationContext)_localctx).ast =  new VariableDeclaration(((VariableDeclarationContext)_localctx).ID, ((VariableDeclarationContext)_localctx).type.ast); 
 			}
 		}
 		catch (RecognitionException re) {
@@ -509,7 +510,7 @@ public class GrammarParser extends Parser {
 				match(T__2);
 				setState(97);
 				((ParameterListContext)_localctx).type = type();
-				 _localctx.ast.add(new Parameter((((ParameterListContext)_localctx).ID!=null?((ParameterListContext)_localctx).ID.getText():null), ((ParameterListContext)_localctx).type.ast)); 
+				 _localctx.ast.add(new Parameter(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
 				setState(107);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -524,7 +525,7 @@ public class GrammarParser extends Parser {
 					match(T__2);
 					setState(102);
 					((ParameterListContext)_localctx).type = type();
-					 _localctx.ast.add(new Parameter((((ParameterListContext)_localctx).ID!=null?((ParameterListContext)_localctx).ID.getText():null), ((ParameterListContext)_localctx).type.ast)); 
+					 _localctx.ast.add(new Parameter(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
 					}
 					}
 					setState(109);
@@ -1258,7 +1259,7 @@ public class GrammarParser extends Parser {
 				match(T__22);
 				setState(295);
 				((TypeContext)_localctx).type = type();
-				 ((TypeContext)_localctx).ast =  new ArrayType((((TypeContext)_localctx).LITENT!=null?((TypeContext)_localctx).LITENT.getText():null), ((TypeContext)_localctx).type.ast); 
+				 ((TypeContext)_localctx).ast =  new ArrayType(((TypeContext)_localctx).LITENT, ((TypeContext)_localctx).type.ast); 
 				}
 				break;
 			case ID:
@@ -1266,7 +1267,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(298);
 				((TypeContext)_localctx).ID = match(ID);
-				 ((TypeContext)_localctx).ast =  new StructType((((TypeContext)_localctx).ID!=null?((TypeContext)_localctx).ID.getText():null)); 
+				 ((TypeContext)_localctx).ast =  new StructType(((TypeContext)_localctx).ID); 
 				}
 				break;
 			default:

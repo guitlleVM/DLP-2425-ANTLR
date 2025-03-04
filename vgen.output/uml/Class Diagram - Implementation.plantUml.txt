@@ -108,7 +108,7 @@ Println o-[#404040,thickness=2]- "✱" Expression : expressions >
 class Read {
 }
 AbstractStatement <|-[#808080]- Read
-Read o-[#404040,thickness=2]- "✱" Expression : expressions >
+Read o-[#404040,thickness=2]-  Expression : expression >
 
 class If {
 }
@@ -144,7 +144,7 @@ class Cast {
 }
 AbstractExpression <|-[#808080]- Cast
 Cast o-[#404040,thickness=2]-  Type : type >
-Cast o-[#404040,thickness=2]- "✱" Expression : expressions >
+Cast o-[#404040,thickness=2]-  Expression : expression >
 
 class Struct {
 	+String ID

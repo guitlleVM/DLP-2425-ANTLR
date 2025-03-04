@@ -12,6 +12,7 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
 	parameter -> ID:string type:type
 */
@@ -106,4 +107,5 @@ public class Parameter extends AbstractAST  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }

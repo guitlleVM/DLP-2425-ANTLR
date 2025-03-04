@@ -11,6 +11,7 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
 	expresionLogica: expression -> e1:expression op:string e2:expression
 	expression -> 
@@ -129,4 +130,5 @@ public class ExpresionLogica extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }

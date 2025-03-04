@@ -94,7 +94,7 @@ public class DefaultVisitor implements Visitor {
 	@Override
 	public Object visit(Read read, Object param) {
 
-		read.getExpressions().forEach(expression -> expression.accept(this, param));
+		read.getExpression().accept(this, param);
 		return null;
 	}
 
@@ -141,7 +141,7 @@ public class DefaultVisitor implements Visitor {
 	public Object visit(Cast cast, Object param) {
 
 		cast.getType().accept(this, param);
-		cast.getExpressions().forEach(expression -> expression.accept(this, param));
+		cast.getExpression().accept(this, param);
 		return null;
 	}
 

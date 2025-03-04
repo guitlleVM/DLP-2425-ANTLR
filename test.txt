@@ -1,3 +1,4 @@
-main(){
-    print a.edad;
+struct Direccion {
+	portal:int;
+	codigoPostal:int;
 }

@@ -44,7 +44,7 @@ statement returns[Statement ast]
     : expressions+=expression*            { $ast = new Print($expressions); }                    
     | expressions+=expression*            { $ast = new Printsp($expressions); }                  
     | expressions+=expression*            { $ast = new Println($expressions); }                  
-    | expressions+=expression*            { $ast = new Read($expressions); }                     
+    | expression                          { $ast = new Read($expression.ast); }                  
     | expression s1+=statement* s2+=statement* { $ast = new If($expression.ast, $s1, $s2); }          
     | expression statements+=statement*   { $ast = new While($expression.ast, $statements); }    
     | expression?                         { $ast = new Return(($expression.ctx == null) ? null : $expression.ast); }
@@ -53,7 +53,7 @@ statement returns[Statement ast]
 	;
 
 expression returns[Expression ast]
-    : type expressions+=expression*       { $ast = new Cast($type.ast, $expressions); }          
+    : type expression                     { $ast = new Cast($type.ast, $expression.ast); }       
     | expression ID=IDENT                 { $ast = new Struct($expression.ast, $ID); }           
     | e1=expression e2=expression         { $ast = new Array($e1.ast, $e2.ast); }                
     | ID=IDENT expressions+=expression*   { $ast = new ExpresionLlamada($ID, $expressions); }    

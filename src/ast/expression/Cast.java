@@ -3,9 +3,6 @@
 package ast.expression;
 
 import ast.type.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Stream;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,8 +11,9 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
-	cast: expression -> type:type expressions:expression*
+	cast: expression -> type:type expression:expression
 	expression -> 
 */
 public class Cast extends AbstractExpression  {
@@ -23,41 +21,44 @@ public class Cast extends AbstractExpression  {
     // ----------------------------------
     // Instance Variables
 
-	// cast: expression -> type expression*
+	// cast: expression -> type expression
 	private Type type;
-	private List<Expression> expressions;
+	private Expression expression;
 
     // ----------------------------------
     // Constructors
 
-	public Cast(Type type, List<Expression> expressions) {
+	public Cast(Type type, Expression expression) {
 		super();
 
 		if (type == null)
 			throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
 		this.type = type;
 
-		if (expressions == null)
-			expressions = new ArrayList<>();
-		this.expressions = expressions;
+		if (expression == null)
+			throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
+		this.expression = expression;
 
-		updatePositions(type, expressions);
+		updatePositions(type, expression);
 	}
 
-	public Cast(Object type, Object expressions) {
+	public Cast(Object type, Object expression) {
 		super();
 
         if (type == null)
             throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
 		this.type = (Type) type;
 
-        this.expressions = castList(expressions, unwrapIfContext.andThen(Expression.class::cast));
-		updatePositions(type, expressions);
+        if (expression == null)
+            throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
+		this.expression = (Expression) expression;
+
+		updatePositions(type, expression);
 	}
 
 
     // ----------------------------------
-    // cast: expression -> type expression*
+    // cast: expression -> type expression
 
 	// Child 'type' 
 
@@ -73,21 +74,17 @@ public class Cast extends AbstractExpression  {
     }
 
 
-	// Child 'expression*' 
+	// Child 'expression' 
 
-	public void setExpressions(List<Expression> expressions) {
-		if (expressions == null)
-			expressions = new ArrayList<>();
-		this.expressions = expressions;
+	public void setExpression(Expression expression) {
+		if (expression == null)
+			throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
+		this.expression = expression;
 
 	}
 
-    public List<Expression> getExpressions() {
-        return expressions;
-    }
-
-    public Stream<Expression> expressions() {
-        return expressions.stream();
+    public Expression getExpression() {
+        return expression;
     }
 
 
@@ -101,7 +98,7 @@ public class Cast extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "Cast{" + " type=" + this.getType() + " expressions=" + this.getExpressions() + "}";
+        return "Cast{" + " type=" + this.getType() + " expression=" + this.getExpression() + "}";
     }
 
 
@@ -110,4 +107,5 @@ public class Cast extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }

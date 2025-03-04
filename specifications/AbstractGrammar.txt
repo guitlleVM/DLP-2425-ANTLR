@@ -19,14 +19,14 @@ parameter -> ID:string type;
 print:statement -> expression*;
 printsp:statement -> expression*;
 println:statement -> expression*;
-read:statement -> expression*;
+read:statement -> expression;
 if:statement -> expression s1:statement* s2:statement*;
 while:statement -> expression statement*;
 return:statement -> expression?;
 asignacion:statement -> e1:expression e2:expression;
 funcionLlamada:statement -> ID:string expression*;
 
-cast:expression -> type expression*;
+cast:expression -> type expression;
 struct:expression -> expression ID:string;
 array:expression -> e1:expression e2:expression;
 expresionLlamada:expression -> ID:string expression*;

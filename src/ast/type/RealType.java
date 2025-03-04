@@ -10,6 +10,7 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
 	realType: type -> 
 	type -> 
@@ -37,4 +38,5 @@ public class RealType extends AbstractType  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }

@@ -1,4 +1,4 @@
-grammar Grammar;
+    grammar Grammar;
 
 import Tokenizer;
 
@@ -18,13 +18,13 @@ program returns [Program ast] locals [List<Declaration> declarations = new Array
     ;
 
 structDeclaration returns [StructDeclaration ast] locals [List<Variable> lista = new ArrayList<>()]
-    : 'struct' ID '{' (ID ':' type ';' { $lista.add(new Variable($ID.text, $type.ast)); })* '}' 
-      { $ast = new StructDeclaration($ID.text, $lista); }
+    : 'struct' s=ID '{' (ID ':' type ';' { $lista.add(new Variable($ID, $type.ast)); })* '}' 
+      { $ast = new StructDeclaration($s, $lista); }
     ;
 
 variableDeclaration returns [VariableDeclaration ast]
     : 'var' ID ':' type ';'
-      { $ast = new VariableDeclaration($ID.text, $type.ast); }
+      { $ast = new VariableDeclaration($ID, $type.ast); }
     ;
 
 variables returns[List<VariableDeclaration> ast = new ArrayList<VariableDeclaration>()]
@@ -37,8 +37,8 @@ functionDeclaration returns [FunctionDeclaration ast]
 	;
 
 parameterList returns [List<Parameter> ast = new ArrayList<>()]
-    : (ID ':' type { $ast.add(new Parameter($ID.text, $type.ast)); }
-       (',' ID ':' type { $ast.add(new Parameter($ID.text, $type.ast)); })*)?
+    : (ID ':' type { $ast.add(new Parameter($ID, $type.ast)); }
+       (',' ID ':' type { $ast.add(new Parameter($ID, $type.ast)); })*)?
     ;
 
 statement returns [Statement ast]
@@ -86,6 +86,6 @@ type returns [Type ast]
     : 'int'    { $ast = new IntType(); }
     | 'float'  { $ast = new RealType(); }
     | 'char'   { $ast = new CharType(); }
-    | '[' LITENT ']' type { $ast = new ArrayType($LITENT.text, $type.ast); }
-    | ID       { $ast = new StructType($ID.text); }
+    | '[' LITENT ']' type { $ast = new ArrayType($LITENT, $type.ast); }
+    | ID       { $ast = new StructType($ID); }
     ;

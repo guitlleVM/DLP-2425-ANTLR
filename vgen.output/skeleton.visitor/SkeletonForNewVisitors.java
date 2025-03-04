@@ -162,11 +162,11 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Read(List<Expression> expressions)
+	// class Read(Expression expression)
 	@Override
 	public Object visit(Read read, Object param) {
 
-		// read.getExpressions().forEach(expression -> expression.accept(this, param));
+		// read.getExpression().accept(this, param);
 		super.visit(read, param);
 
 		return null;
@@ -226,12 +226,12 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Cast(Type type, List<Expression> expressions)
+	// class Cast(Type type, Expression expression)
 	@Override
 	public Object visit(Cast cast, Object param) {
 
 		// cast.getType().accept(this, param);
-		// cast.getExpressions().forEach(expression -> expression.accept(this, param));
+		// cast.getExpression().accept(this, param);
 		super.visit(cast, param);
 
 		return null;

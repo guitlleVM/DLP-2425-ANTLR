@@ -14,6 +14,7 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
 	print: statement -> expressions:expression*
 	statement -> 
@@ -87,4 +88,5 @@ public class Print extends AbstractStatement  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }

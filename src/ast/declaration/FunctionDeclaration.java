@@ -18,6 +18,7 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
+
 /*
 	functionDeclaration: declaration -> ID:string parameters:parameter* type:type? variableDeclarations:variableDeclaration* statements:statement*
 	declaration -> 
@@ -182,4 +183,5 @@ public class FunctionDeclaration extends AbstractDeclaration  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
+
 }
