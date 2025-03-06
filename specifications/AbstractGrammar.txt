@@ -27,8 +27,8 @@ asignacion:statement -> e1:expression e2:expression;
 funcionLlamada:statement -> ID:string expression*;
 
 cast:expression -> type expression;
-struct:expression -> expression ID:string;
-array:expression -> e1:expression e2:expression;
+structAccess:expression -> expression ID:string;
+arrayAccess:expression -> e1:expression e2:expression;
 expresionLlamada:expression -> ID:string expression*;
 Not:expression -> expression;
 expresionAritmetica:expression -> e1:expression op:string e2:expression;

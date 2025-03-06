@@ -146,17 +146,17 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Struct struct, Object param) {
+	public Object visit(StructAccess structAccess, Object param) {
 
-		struct.getExpression().accept(this, param);
+		structAccess.getExpression().accept(this, param);
 		return null;
 	}
 
 	@Override
-	public Object visit(Array array, Object param) {
+	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		array.getE1().accept(this, param);
-		array.getE2().accept(this, param);
+		arrayAccess.getE1().accept(this, param);
+		arrayAccess.getE2().accept(this, param);
 		return null;
 	}
 

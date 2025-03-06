@@ -119,15 +119,15 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Struct struct, Object param) {
+	public Object visit(StructAccess structAccess, Object param) {
 
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Struct)' has been invoked but it has not been implemented.");
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(StructAccess)' has been invoked but it has not been implemented.");
 	}
 
 	@Override
-	public Object visit(Array array, Object param) {
+	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Array)' has been invoked but it has not been implemented.");
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(ArrayAccess)' has been invoked but it has not been implemented.");
 	}
 
 	@Override

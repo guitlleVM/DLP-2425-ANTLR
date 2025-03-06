@@ -13,22 +13,22 @@ import visitor.Visitor;
 
 
 /*
-	struct: expression -> expression:expression ID:string
+	structAccess: expression -> expression:expression ID:string
 	expression -> 
 */
-public class Struct extends AbstractExpression  {
+public class StructAccess extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// struct: expression -> expression ID:string
+	// structAccess: expression -> expression ID:string
 	private Expression expression;
 	private String ID;
 
     // ----------------------------------
     // Constructors
 
-	public Struct(Expression expression, String ID) {
+	public StructAccess(Expression expression, String ID) {
 		super();
 
 		if (expression == null)
@@ -42,7 +42,7 @@ public class Struct extends AbstractExpression  {
 		updatePositions(expression, ID);
 	}
 
-	public Struct(Object expression, Object ID) {
+	public StructAccess(Object expression, Object ID) {
 		super();
 
         if (expression == null)
@@ -58,7 +58,7 @@ public class Struct extends AbstractExpression  {
 
 
     // ----------------------------------
-    // struct: expression -> expression ID:string
+    // structAccess: expression -> expression ID:string
 
 	// Child 'expression' 
 
@@ -98,7 +98,7 @@ public class Struct extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "Struct{" + " expression=" + this.getExpression() + " ID=" + this.getID() + "}";
+        return "StructAccess{" + " expression=" + this.getExpression() + " ID=" + this.getID() + "}";
     }
 
 

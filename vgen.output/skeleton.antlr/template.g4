@@ -54,8 +54,8 @@ statement returns[Statement ast]
 
 expression returns[Expression ast]
     : type expression                     { $ast = new Cast($type.ast, $expression.ast); }       
-    | expression ID=IDENT                 { $ast = new Struct($expression.ast, $ID); }           
-    | e1=expression e2=expression         { $ast = new Array($e1.ast, $e2.ast); }                
+    | expression ID=IDENT                 { $ast = new StructAccess($expression.ast, $ID); }     
+    | e1=expression e2=expression         { $ast = new ArrayAccess($e1.ast, $e2.ast); }          
     | ID=IDENT expressions+=expression*   { $ast = new ExpresionLlamada($ID, $expressions); }    
     | expression                          { $ast = new Not($expression.ast); }                   
     | e1=expression op=IDENT e2=expression { $ast = new ExpresionAritmetica($e1.ast, $op, $e2.ast); }

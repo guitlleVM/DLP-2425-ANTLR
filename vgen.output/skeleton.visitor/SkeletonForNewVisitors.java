@@ -237,23 +237,23 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Struct(Expression expression, String ID)
+	// class StructAccess(Expression expression, String ID)
 	@Override
-	public Object visit(Struct struct, Object param) {
+	public Object visit(StructAccess structAccess, Object param) {
 
-		// struct.getExpression().accept(this, param);
-		super.visit(struct, param);
+		// structAccess.getExpression().accept(this, param);
+		super.visit(structAccess, param);
 
 		return null;
 	}
 
-	// class Array(Expression e1, Expression e2)
+	// class ArrayAccess(Expression e1, Expression e2)
 	@Override
-	public Object visit(Array array, Object param) {
+	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		// array.getE1().accept(this, param);
-		// array.getE2().accept(this, param);
-		super.visit(array, param);
+		// arrayAccess.getE1().accept(this, param);
+		// arrayAccess.getE2().accept(this, param);
+		super.visit(arrayAccess, param);
 
 		return null;
 	}

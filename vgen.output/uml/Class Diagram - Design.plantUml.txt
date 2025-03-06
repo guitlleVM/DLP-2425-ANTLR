@@ -132,17 +132,17 @@ Expression <|-[#808080]- Cast
 Cast o-[#404040,thickness=2]-  Type : type >
 Cast o-[#404040,thickness=2]-  Expression : expression >
 
-class Struct {
+class StructAccess {
 	+String ID
 }
-Expression <|-[#808080]- Struct
-Struct o-[#404040,thickness=2]-  Expression : expression >
+Expression <|-[#808080]- StructAccess
+StructAccess o-[#404040,thickness=2]-  Expression : expression >
 
-class Array {
+class ArrayAccess {
 }
-Expression <|-[#808080]- Array
-Array o-[#404040,thickness=2]-  Expression : e1 >
-Array o-[#404040,thickness=2]-  Expression : e2 >
+Expression <|-[#808080]- ArrayAccess
+ArrayAccess o-[#404040,thickness=2]-  Expression : e1 >
+ArrayAccess o-[#404040,thickness=2]-  Expression : e2 >
 
 class ExpresionLlamada {
 	+String ID

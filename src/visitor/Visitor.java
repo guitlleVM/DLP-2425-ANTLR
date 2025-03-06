@@ -48,9 +48,9 @@ public interface Visitor {
 
 	public Object visit(Cast cast, Object param);
 
-	public Object visit(Struct struct, Object param);
+	public Object visit(StructAccess structAccess, Object param);
 
-	public Object visit(Array array, Object param);
+	public Object visit(ArrayAccess arrayAccess, Object param);
 
 	public Object visit(ExpresionLlamada expresionLlamada, Object param);
 

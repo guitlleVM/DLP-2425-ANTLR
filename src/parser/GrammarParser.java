@@ -1097,7 +1097,7 @@ public class GrammarParser extends Parser {
 						match(T__20);
 						setState(260);
 						((ExpressionContext)_localctx).ID = match(ID);
-						 ((ExpressionContext)_localctx).ast =  new Struct(((ExpressionContext)_localctx).e.ast, ((ExpressionContext)_localctx).ID); 
+						 ((ExpressionContext)_localctx).ast =  new StructAccess(((ExpressionContext)_localctx).e.ast, ((ExpressionContext)_localctx).ID); 
 						}
 						break;
 					case 8:
@@ -1113,7 +1113,7 @@ public class GrammarParser extends Parser {
 						((ExpressionContext)_localctx).e2 = ((ExpressionContext)_localctx).expression = expression(0);
 						setState(265);
 						match(T__22);
-						 ((ExpressionContext)_localctx).ast =  new Array(((ExpressionContext)_localctx).e1.ast, ((ExpressionContext)_localctx).e2.ast); 
+						 ((ExpressionContext)_localctx).ast =  new ArrayAccess(((ExpressionContext)_localctx).e1.ast, ((ExpressionContext)_localctx).e2.ast); 
 						}
 						break;
 					}

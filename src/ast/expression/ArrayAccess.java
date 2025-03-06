@@ -12,22 +12,22 @@ import visitor.Visitor;
 
 
 /*
-	array: expression -> e1:expression e2:expression
+	arrayAccess: expression -> e1:expression e2:expression
 	expression -> 
 */
-public class Array extends AbstractExpression  {
+public class ArrayAccess extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// array: expression -> e1:expression e2:expression
+	// arrayAccess: expression -> e1:expression e2:expression
 	private Expression e1;
 	private Expression e2;
 
     // ----------------------------------
     // Constructors
 
-	public Array(Expression e1, Expression e2) {
+	public ArrayAccess(Expression e1, Expression e2) {
 		super();
 
 		if (e1 == null)
@@ -41,7 +41,7 @@ public class Array extends AbstractExpression  {
 		updatePositions(e1, e2);
 	}
 
-	public Array(Object e1, Object e2) {
+	public ArrayAccess(Object e1, Object e2) {
 		super();
 
         if (e1 == null)
@@ -57,7 +57,7 @@ public class Array extends AbstractExpression  {
 
 
     // ----------------------------------
-    // array: expression -> e1:expression e2:expression
+    // arrayAccess: expression -> e1:expression e2:expression
 
 	// Child 'e1:expression' 
 
@@ -97,7 +97,7 @@ public class Array extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "Array{" + " e1=" + this.getE1() + " e2=" + this.getE2() + "}";
+        return "ArrayAccess{" + " e1=" + this.getE1() + " e2=" + this.getE2() + "}";
     }
 
 
