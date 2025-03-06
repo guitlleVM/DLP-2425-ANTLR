@@ -183,7 +183,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 
 	// class Struct(Expression expression, String ID)
 	@Override
-	public Object visit(Struct struct, Object param) {
+	public Object visit(StructAccess struct, Object param) {
 
         System.out.println("Visiting Struct Node");
 		struct.getExpression().accept(this, param);
@@ -193,7 +193,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 
 	// class Array(Expression e1, Expression e2)
 	@Override
-	public Object visit(Array array, Object param) {
+	public Object visit(ArrayAccess array, Object param) {
 
         System.out.println("Visiting Array Node");
 		array.getE1().accept(this, param);
