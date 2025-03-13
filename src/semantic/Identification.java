@@ -1,6 +1,10 @@
 package semantic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ast.*;
+import ast.declaration.*;
 import main.ErrorManager;
 import visitor.DefaultVisitor;
 
@@ -9,6 +13,11 @@ import visitor.DefaultVisitor;
 public class Identification extends DefaultVisitor {
 
     private ErrorManager errorManager;
+
+    private ContextMap<VariableDeclaration> variables = new ContextMap<VariableDeclaration>();
+    private HashMap<String, FunctionDeclaration> functions = new HashMap<>();
+    private Map<String, StructDeclaration> structs = new HashMap<>();
+
 
     public Identification(ErrorManager errorManager) {
         this.errorManager = errorManager;
@@ -26,10 +35,7 @@ public class Identification extends DefaultVisitor {
     // public Object visit(Program prog, Object param) {
     //      ...
     // }
-
-    // ...
-    // ...
-    // ...
+    
 
     // # --------------------------------------------------------
     // Métodos auxiliares recomendados (opcionales) -------------
