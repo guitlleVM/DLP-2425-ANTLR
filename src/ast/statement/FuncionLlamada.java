@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.expression.*;
+import ast.declaration.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -15,10 +16,12 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	funcionLlamada: statement -> ID:string expressions:expression*
 	statement -> 
+	
+	PHASE Identification
+	funcionLlamada -> functionDeclaration:functionDeclaration
 */
 public class FuncionLlamada extends AbstractStatement  {
 
@@ -28,6 +31,9 @@ public class FuncionLlamada extends AbstractStatement  {
 	// funcionLlamada: statement -> ID:string expression*
 	private String ID;
 	private List<Expression> expressions;
+
+    // PHASE Identification
+	private FunctionDeclaration functionDeclaration;
 
     // ----------------------------------
     // Constructors
@@ -93,6 +99,24 @@ public class FuncionLlamada extends AbstractStatement  {
     }
 
 
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'functionDeclaration' 
+
+	public void setFunctionDeclaration(FunctionDeclaration functionDeclaration) {
+		if (functionDeclaration == null)
+			throw new IllegalArgumentException("Parameter 'functionDeclaration' can't be null. Pass a non-null value or use 'functionDeclaration?' in the abstract grammar");
+		this.functionDeclaration = functionDeclaration;
+
+	}
+
+    public FunctionDeclaration getFunctionDeclaration() {
+        return functionDeclaration;
+    }
+
+
     // ----------------------------------
     // Helper methods
 
@@ -112,5 +136,4 @@ public class FuncionLlamada extends AbstractStatement  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

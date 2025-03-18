@@ -20,13 +20,9 @@ public interface Visitor {
 
 	public Object visit(StructDeclaration structDeclaration, Object param);
 
-	public Object visit(Variable variable, Object param);
-
 	public Object visit(VariableDeclaration variableDeclaration, Object param);
 
 	public Object visit(FunctionDeclaration functionDeclaration, Object param);
-
-	public Object visit(Parameter parameter, Object param);
 
 	public Object visit(Print print, Object param);
 

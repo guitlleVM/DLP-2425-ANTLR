@@ -2,6 +2,7 @@
 
 package ast.type;
 
+import ast.declaration.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -11,10 +12,12 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	structType: type -> nombre:string
 	type -> 
+	
+	PHASE Identification
+	structType -> structDeclaration:structDeclaration
 */
 public class StructType extends AbstractType  {
 
@@ -23,6 +26,9 @@ public class StructType extends AbstractType  {
 
 	// structType: type -> nombre:string
 	private String nombre;
+
+    // PHASE Identification
+	private StructDeclaration structDeclaration;
 
     // ----------------------------------
     // Constructors
@@ -65,6 +71,24 @@ public class StructType extends AbstractType  {
     }
 
 
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'structDeclaration' 
+
+	public void setStructDeclaration(StructDeclaration structDeclaration) {
+		if (structDeclaration == null)
+			throw new IllegalArgumentException("Parameter 'structDeclaration' can't be null. Pass a non-null value or use 'structDeclaration?' in the abstract grammar");
+		this.structDeclaration = structDeclaration;
+
+	}
+
+    public StructDeclaration getStructDeclaration() {
+        return structDeclaration;
+    }
+
+
     // ----------------------------------
     // Helper methods
 
@@ -84,5 +108,4 @@ public class StructType extends AbstractType  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

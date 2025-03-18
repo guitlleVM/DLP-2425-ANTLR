@@ -47,13 +47,7 @@ class StructDeclaration {
 	+String ID
 }
 Declaration <|-[#808080]- StructDeclaration
-StructDeclaration o-[#404040,thickness=2]- "✱" Variable : variables >
-
-class Variable {
-	+String ID
-}
-AST <|-[#808080]- Variable
-Variable o-[#404040,thickness=2]-  Type : type >
+StructDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : variableDeclarations >
 
 class VariableDeclaration {
 	+String ID
@@ -65,16 +59,10 @@ class FunctionDeclaration {
 	+String ID
 }
 Declaration <|-[#808080]- FunctionDeclaration
-FunctionDeclaration o-[#404040,thickness=2]- "✱" Parameter : parameters >
+FunctionDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : parameters >
 FunctionDeclaration o-[#404040,thickness=2]- "0..1" Type : type >
 FunctionDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : variableDeclarations >
 FunctionDeclaration o-[#404040,thickness=2]- "✱" Statement : statements >
-
-class Parameter {
-	+String ID
-}
-AST <|-[#808080]- Parameter
-Parameter o-[#404040,thickness=2]-  Type : type >
 
 class Print {
 }
@@ -125,6 +113,7 @@ class FuncionLlamada {
 }
 Statement <|-[#808080]- FuncionLlamada
 FuncionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
+FuncionLlamada -[#ff6600,thickness=3]-  FunctionDeclaration #text:ff6600 : functionDeclaration >
 
 class Cast {
 }
@@ -149,6 +138,7 @@ class ExpresionLlamada {
 }
 Expression <|-[#808080]- ExpresionLlamada
 ExpresionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
+ExpresionLlamada -[#ff6600,thickness=3]-  FunctionDeclaration #text:ff6600 : functionDeclaration >
 
 class Not {
 }
@@ -173,6 +163,7 @@ class Id {
 	+String ID
 }
 Expression <|-[#808080]- Id
+Id -[#ff6600,thickness=3]-  VariableDeclaration #text:ff6600 : variableDeclaration >
 
 class LitEnt {
 	+String LITENT
@@ -211,5 +202,6 @@ class StructType {
 	+String nombre
 }
 Type <|-[#808080]- StructType
+StructType -[#ff6600,thickness=3]-  StructDeclaration #text:ff6600 : structDeclaration >
 
 @enduml

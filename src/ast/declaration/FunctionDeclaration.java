@@ -2,7 +2,6 @@
 
 package ast.declaration;
 
-import ast.*;
 import ast.type.*;
 import ast.statement.*;
 import java.util.List;
@@ -18,9 +17,8 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
-	functionDeclaration: declaration -> ID:string parameters:parameter* type:type? variableDeclarations:variableDeclaration* statements:statement*
+	functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type:type? variableDeclarations:variableDeclaration* statements:statement*
 	declaration -> 
 */
 public class FunctionDeclaration extends AbstractDeclaration  {
@@ -28,9 +26,9 @@ public class FunctionDeclaration extends AbstractDeclaration  {
     // ----------------------------------
     // Instance Variables
 
-	// functionDeclaration: declaration -> ID:string parameter* type? variableDeclaration* statement*
+	// functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*
 	private String ID;
-	private List<Parameter> parameters;
+	private List<VariableDeclaration> parameters;
 	private Optional<Type> type;
 	private List<VariableDeclaration> variableDeclarations;
 	private List<Statement> statements;
@@ -38,7 +36,7 @@ public class FunctionDeclaration extends AbstractDeclaration  {
     // ----------------------------------
     // Constructors
 
-	public FunctionDeclaration(String ID, List<Parameter> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements) {
+	public FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements) {
 		super();
 
 		if (ID == null)
@@ -71,7 +69,7 @@ public class FunctionDeclaration extends AbstractDeclaration  {
             throw new IllegalArgumentException("Parameter 'ID' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.ID = (ID instanceof Token) ? ((Token) ID).getText() : (String) ID;
 
-        this.parameters = castList(parameters, unwrapIfContext.andThen(Parameter.class::cast));
+        this.parameters = castList(parameters, unwrapIfContext.andThen(VariableDeclaration.class::cast));
         this.type = castOptional(type, Type.class);
         this.variableDeclarations = castList(variableDeclarations, unwrapIfContext.andThen(VariableDeclaration.class::cast));
         this.statements = castList(statements, unwrapIfContext.andThen(Statement.class::cast));
@@ -80,7 +78,7 @@ public class FunctionDeclaration extends AbstractDeclaration  {
 
 
     // ----------------------------------
-    // functionDeclaration: declaration -> ID:string parameter* type? variableDeclaration* statement*
+    // functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*
 
 	// Child 'ID:string' 
 
@@ -96,20 +94,20 @@ public class FunctionDeclaration extends AbstractDeclaration  {
     }
 
 
-	// Child 'parameter*' 
+	// Child 'parameters:variableDeclaration*' 
 
-	public void setParameters(List<Parameter> parameters) {
+	public void setParameters(List<VariableDeclaration> parameters) {
 		if (parameters == null)
 			parameters = new ArrayList<>();
 		this.parameters = parameters;
 
 	}
 
-    public List<Parameter> getParameters() {
+    public List<VariableDeclaration> getParameters() {
         return parameters;
     }
 
-    public Stream<Parameter> parameters() {
+    public Stream<VariableDeclaration> parameters() {
         return parameters.stream();
     }
 
@@ -183,5 +181,4 @@ public class FunctionDeclaration extends AbstractDeclaration  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

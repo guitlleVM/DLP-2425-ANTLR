@@ -17,8 +17,8 @@ program returns [Program ast] locals [List<Declaration> declarations = new Array
     EOF { $ast = new Program($declarations); }
     ;
 
-structDeclaration returns [StructDeclaration ast] locals [List<Variable> lista = new ArrayList<>()]
-    : 'struct' s=ID '{' (ID ':' type ';' { $lista.add(new Variable($ID, $type.ast)); })* '}' 
+structDeclaration returns [StructDeclaration ast] locals [List<VariableDeclaration> lista = new ArrayList<>()]
+    : 'struct' s=ID '{' (ID ':' type ';' { $lista.add(new VariableDeclaration($ID, $type.ast)); })* '}' 
       { $ast = new StructDeclaration($s, $lista); }
     ;
 
@@ -36,9 +36,9 @@ functionDeclaration returns [FunctionDeclaration ast]
 	| ID '(' parameterList ')' ':' type '{' variables statements '}' { $ast = new FunctionDeclaration($ID, $parameterList.ast, $type.ast, $variables.ast, $statements.ast); }
 	;
 
-parameterList returns [List<Parameter> ast = new ArrayList<>()]
-    : (ID ':' type { $ast.add(new Parameter($ID, $type.ast)); }
-       (',' ID ':' type { $ast.add(new Parameter($ID, $type.ast)); })*)?
+parameterList returns [List<VariableDeclaration> ast = new ArrayList<>()]
+    : (ID ':' type { $ast.add(new VariableDeclaration($ID, $type.ast)); }
+       (',' ID ':' type { $ast.add(new VariableDeclaration($ID, $type.ast)); })*)?
     ;
 
 statement returns [Statement ast]

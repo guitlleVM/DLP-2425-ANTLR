@@ -11,7 +11,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	litEnt: expression -> LITENT:string
 	expression -> 
@@ -84,5 +83,4 @@ public class LitEnt extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

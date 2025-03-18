@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.declaration.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -11,10 +12,12 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	id: expression -> ID:string
 	expression -> 
+	
+	PHASE Identification
+	id -> variableDeclaration:variableDeclaration
 */
 public class Id extends AbstractExpression  {
 
@@ -23,6 +26,9 @@ public class Id extends AbstractExpression  {
 
 	// id: expression -> ID:string
 	private String ID;
+
+    // PHASE Identification
+	private VariableDeclaration variableDeclaration;
 
     // ----------------------------------
     // Constructors
@@ -65,6 +71,24 @@ public class Id extends AbstractExpression  {
     }
 
 
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'variableDeclaration' 
+
+	public void setVariableDeclaration(VariableDeclaration variableDeclaration) {
+		if (variableDeclaration == null)
+			throw new IllegalArgumentException("Parameter 'variableDeclaration' can't be null. Pass a non-null value or use 'variableDeclaration?' in the abstract grammar");
+		this.variableDeclaration = variableDeclaration;
+
+	}
+
+    public VariableDeclaration getVariableDeclaration() {
+        return variableDeclaration;
+    }
+
+
     // ----------------------------------
     // Helper methods
 
@@ -84,5 +108,4 @@ public class Id extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

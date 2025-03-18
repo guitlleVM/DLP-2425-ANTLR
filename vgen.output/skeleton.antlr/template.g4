@@ -15,13 +15,13 @@ program returns[Program ast]
 	;
 
 declaration returns[Declaration ast]
-    : ID=IDENT variables+=variable*       { $ast = new StructDeclaration($ID, $variables); }     
+    : ID=IDENT variableDeclarations+=variableDeclaration* { $ast = new StructDeclaration($ID, $variableDeclarations); }
     | ID=IDENT type                       { $ast = new VariableDeclaration($ID, $type.ast); }    
-    | ID=IDENT parameters+=parameter* type? variableDeclarations+=variableDeclaration* statements+=statement* { $ast = new FunctionDeclaration($ID, $parameters, ($type.ctx == null) ? null : $type.ast, $variableDeclarations, $statements); }
+    | ID=IDENT parameters+=variableDeclaration* type? variableDeclarations+=variableDeclaration* statements+=statement* { $ast = new FunctionDeclaration($ID, $parameters, ($type.ctx == null) ? null : $type.ast, $variableDeclarations, $statements); }
 	;
 
-variable returns[Variable ast]
-    : ID=IDENT type                       { $ast = new Variable($ID, $type.ast); }               
+variableDeclaration returns[VariableDeclaration ast]
+    : ID=IDENT type                       { $ast = new VariableDeclaration($ID, $type.ast); }    
 	;
 
 type returns[Type ast]
@@ -30,14 +30,6 @@ type returns[Type ast]
     |                                     { $ast = new CharType(); }                             
     | posicion=IDENT type                 { $ast = new ArrayType($posicion, $type.ast); }        
     | nombre=IDENT                        { $ast = new StructType($nombre); }                    
-	;
-
-parameter returns[Parameter ast]
-    : ID=IDENT type                       { $ast = new Parameter($ID, $type.ast); }              
-	;
-
-variableDeclaration returns[VariableDeclaration ast]
-    : ID=IDENT type                       { $ast = new VariableDeclaration($ID, $type.ast); }    
 	;
 
 statement returns[Statement ast]

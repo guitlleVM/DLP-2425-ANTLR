@@ -8,13 +8,11 @@ NODES
 
 program -> declaration*;
 
-structDeclaration:declaration -> ID:string variable*;
-variable -> ID:string type;
+structDeclaration:declaration -> ID:string variableDeclaration*;
 
 variableDeclaration:declaration -> ID:string type;
 
-functionDeclaration:declaration -> ID:string parameter* type? variableDeclaration* statement*;
-parameter -> ID:string type;
+functionDeclaration:declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*;
 
 print:statement -> expression*;
 printsp:statement -> expression*;
@@ -43,3 +41,13 @@ realType:type -> ;
 charType:type -> ;
 arrayType:type -> posicion:string type;
 structType:type -> nombre:string;
+
+
+// -----------------------
+ATTRIBUTE GRAMMAR Identification
+
+id -> variableDeclaration;
+funcionLlamada -> functionDeclaration;
+expresionLlamada -> functionDeclaration;
+structType -> structDeclaration;
+ 

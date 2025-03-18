@@ -10,7 +10,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	arrayAccess: expression -> e1:expression e2:expression
 	expression -> 
@@ -106,5 +105,4 @@ public class ArrayAccess extends AbstractExpression  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

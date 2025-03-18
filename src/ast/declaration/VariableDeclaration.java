@@ -12,7 +12,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	variableDeclaration: declaration -> ID:string type:type
 	declaration -> 
@@ -108,5 +107,4 @@ public class VariableDeclaration extends AbstractDeclaration  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }

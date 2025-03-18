@@ -35,14 +35,7 @@ public class DefaultVisitor implements Visitor {
 	@Override
 	public Object visit(StructDeclaration structDeclaration, Object param) {
 
-		structDeclaration.getVariables().forEach(variable -> variable.accept(this, param));
-		return null;
-	}
-
-	@Override
-	public Object visit(Variable variable, Object param) {
-
-		variable.getType().accept(this, param);
+		structDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		return null;
 	}
 
@@ -56,17 +49,10 @@ public class DefaultVisitor implements Visitor {
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
 
-		functionDeclaration.getParameters().forEach(parameter -> parameter.accept(this, param));
+		functionDeclaration.getParameters().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		functionDeclaration.getType().ifPresent(type -> type.accept(this, param));
 		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
-		return null;
-	}
-
-	@Override
-	public Object visit(Parameter parameter, Object param) {
-
-		parameter.getType().accept(this, param);
 		return null;
 	}
 

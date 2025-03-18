@@ -1,6 +1,5 @@
 package visitor;
 
-import visitor.DefaultVisitor;
 import ast.*;
 import ast.declaration.*;
 import ast.statement.*;
@@ -31,16 +30,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 	public Object visit(StructDeclaration structDeclaration, Object param) {
 
         System.out.println("Visiting StructDeclaration Node: " + structDeclaration.getID());
-		structDeclaration.getVariables().forEach(variable -> variable.accept(this, param));		
-
-		return null;
-	}
-
-	// class Variable(String ID, Type type)
-	@Override
-	public Object visit(Variable variable, Object param) {
-        System.out.println("Visiting Variable Node: " + variable.getID());
-		variable.getType().accept(this, param);		
+		structDeclaration.getVariableDeclarations().forEach(variable -> variable.accept(this, param));		
 
 		return null;
 	}
@@ -64,16 +54,6 @@ public class MiAstClPrinter extends DefaultVisitor {
 		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 		
-		return null;
-	}
-
-	// class Parameter(String ID, Type type)
-	@Override
-	public Object visit(Parameter parameter, Object param) {
-
-        System.out.println("Visiting Parameter Node: " + parameter.getID());
-		parameter.getType().accept(this, param);
-
 		return null;
 	}
 

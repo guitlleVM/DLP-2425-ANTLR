@@ -28,7 +28,7 @@ import codegeneration.*;
  */
 
 public class Main {
-    public static final String TEST_FILE = "practica/ejemplo.txt"; // Used only in development
+    public static final String TEST_FILE = "practica\\prog1.txt"; // Used only in development
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
@@ -60,8 +60,7 @@ public class Main {
         // IMPORTANT: When the AST has been generated, swap the following two lines of code.
         //parser.program();
         ast = parser.program().ast;
-        /*
-         * 
+        
          
         if (parser.getNumberOfSyntaxErrors() > 0) { // Syntax error detected (ANTLR omits lexical errors)
             errorManager.notify("Compilaton finished due to syntax errors.");
@@ -74,6 +73,8 @@ public class Main {
         if (errorManager.errorsCount() > 0)
             return ast;
 
+        /*
+        *
         //$ 3. Code Generation -----------------------------------
         File sourceFile = new File(sourceName);
         Writer out = new FileWriter(new File(sourceFile.getParent(), OUTPUT_FILE));

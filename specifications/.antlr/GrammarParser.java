@@ -1,4 +1,4 @@
-// Generated from c:/Users/uo294193/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
+// Generated from c:/Users/guill/Desktop/DLP-2425-ANTLR-1/specifications/Grammar.g4 by ANTLR 4.13.1
 
     import ast.*;
     import ast.type.*;
@@ -209,7 +209,7 @@ public class GrammarParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclarationContext extends ParserRuleContext {
 		public StructDeclaration ast;
-		public List<Variable> lista = new ArrayList<>();
+		public List<VariableDeclaration> lista = new ArrayList<>();
 		public Token s;
 		public Token ID;
 		public TypeContext type;
@@ -256,7 +256,7 @@ public class GrammarParser extends Parser {
 				((StructDeclarationContext)_localctx).type = type();
 				setState(45);
 				match(T__3);
-				 _localctx.lista.add(new Variable(((StructDeclarationContext)_localctx).ID, ((StructDeclarationContext)_localctx).type.ast)); 
+				 _localctx.lista.add(new VariableDeclaration(((StructDeclarationContext)_localctx).ID, ((StructDeclarationContext)_localctx).type.ast)); 
 				}
 				}
 				setState(52);
@@ -472,7 +472,7 @@ public class GrammarParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterListContext extends ParserRuleContext {
-		public List<Parameter> ast = new ArrayList<>();
+		public List<VariableDeclaration> ast = new ArrayList<>();
 		public Token ID;
 		public TypeContext type;
 		public List<TerminalNode> ID() { return getTokens(GrammarParser.ID); }
@@ -509,7 +509,7 @@ public class GrammarParser extends Parser {
 				match(T__2);
 				setState(97);
 				((ParameterListContext)_localctx).type = type();
-				 _localctx.ast.add(new Parameter(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
+				 _localctx.ast.add(new VariableDeclaration(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
 				setState(107);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -524,7 +524,7 @@ public class GrammarParser extends Parser {
 					match(T__2);
 					setState(102);
 					((ParameterListContext)_localctx).type = type();
-					 _localctx.ast.add(new Parameter(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
+					 _localctx.ast.add(new VariableDeclaration(((ParameterListContext)_localctx).ID, ((ParameterListContext)_localctx).type.ast)); 
 					}
 					}
 					setState(109);

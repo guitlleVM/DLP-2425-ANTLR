@@ -35,12 +35,6 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Variable variable, Object param) {
-
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Variable)' has been invoked but it has not been implemented.");
-	}
-
-	@Override
 	public Object visit(VariableDeclaration variableDeclaration, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(VariableDeclaration)' has been invoked but it has not been implemented.");
@@ -50,12 +44,6 @@ public class ExceptionThrowerVisitor implements Visitor {
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(FunctionDeclaration)' has been invoked but it has not been implemented.");
-	}
-
-	@Override
-	public Object visit(Parameter parameter, Object param) {
-
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Parameter)' has been invoked but it has not been implemented.");
 	}
 
 	@Override

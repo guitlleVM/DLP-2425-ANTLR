@@ -2,7 +2,6 @@
 
 package ast.declaration;
 
-import ast.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -15,9 +14,8 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
-	structDeclaration: declaration -> ID:string variables:variable*
+	structDeclaration: declaration -> ID:string variableDeclarations:variableDeclaration*
 	declaration -> 
 */
 public class StructDeclaration extends AbstractDeclaration  {
@@ -25,41 +23,41 @@ public class StructDeclaration extends AbstractDeclaration  {
     // ----------------------------------
     // Instance Variables
 
-	// structDeclaration: declaration -> ID:string variable*
+	// structDeclaration: declaration -> ID:string variableDeclaration*
 	private String ID;
-	private List<Variable> variables;
+	private List<VariableDeclaration> variableDeclarations;
 
     // ----------------------------------
     // Constructors
 
-	public StructDeclaration(String ID, List<Variable> variables) {
+	public StructDeclaration(String ID, List<VariableDeclaration> variableDeclarations) {
 		super();
 
 		if (ID == null)
 			throw new IllegalArgumentException("Parameter 'ID' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.ID = ID;
 
-		if (variables == null)
-			variables = new ArrayList<>();
-		this.variables = variables;
+		if (variableDeclarations == null)
+			variableDeclarations = new ArrayList<>();
+		this.variableDeclarations = variableDeclarations;
 
-		updatePositions(ID, variables);
+		updatePositions(ID, variableDeclarations);
 	}
 
-	public StructDeclaration(Object ID, Object variables) {
+	public StructDeclaration(Object ID, Object variableDeclarations) {
 		super();
 
         if (ID == null)
             throw new IllegalArgumentException("Parameter 'ID' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.ID = (ID instanceof Token) ? ((Token) ID).getText() : (String) ID;
 
-        this.variables = castList(variables, unwrapIfContext.andThen(Variable.class::cast));
-		updatePositions(ID, variables);
+        this.variableDeclarations = castList(variableDeclarations, unwrapIfContext.andThen(VariableDeclaration.class::cast));
+		updatePositions(ID, variableDeclarations);
 	}
 
 
     // ----------------------------------
-    // structDeclaration: declaration -> ID:string variable*
+    // structDeclaration: declaration -> ID:string variableDeclaration*
 
 	// Child 'ID:string' 
 
@@ -75,21 +73,21 @@ public class StructDeclaration extends AbstractDeclaration  {
     }
 
 
-	// Child 'variable*' 
+	// Child 'variableDeclaration*' 
 
-	public void setVariables(List<Variable> variables) {
-		if (variables == null)
-			variables = new ArrayList<>();
-		this.variables = variables;
+	public void setVariableDeclarations(List<VariableDeclaration> variableDeclarations) {
+		if (variableDeclarations == null)
+			variableDeclarations = new ArrayList<>();
+		this.variableDeclarations = variableDeclarations;
 
 	}
 
-    public List<Variable> getVariables() {
-        return variables;
+    public List<VariableDeclaration> getVariableDeclarations() {
+        return variableDeclarations;
     }
 
-    public Stream<Variable> variables() {
-        return variables.stream();
+    public Stream<VariableDeclaration> variableDeclarations() {
+        return variableDeclarations.stream();
     }
 
 
@@ -103,7 +101,7 @@ public class StructDeclaration extends AbstractDeclaration  {
 
     @Override
     public String toString() {
-        return "StructDeclaration{" + " ID=" + this.getID() + " variables=" + this.getVariables() + "}";
+        return "StructDeclaration{" + " ID=" + this.getID() + " variableDeclarations=" + this.getVariableDeclarations() + "}";
     }
 
 
@@ -112,5 +110,4 @@ public class StructDeclaration extends AbstractDeclaration  {
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------
-
 }
