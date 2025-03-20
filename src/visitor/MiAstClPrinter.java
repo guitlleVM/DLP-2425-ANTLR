@@ -226,8 +226,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 
 	// class Id(String ID)
 	@Override
-	public Object visit(Id id, Object param) {
-
+	public Object visit(Variable variable, Object param) {
 		return null;
 	}
 

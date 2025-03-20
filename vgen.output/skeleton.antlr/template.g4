@@ -52,7 +52,7 @@ expression returns[Expression ast]
     | expression                          { $ast = new Not($expression.ast); }                   
     | e1=expression op=IDENT e2=expression { $ast = new ExpresionAritmetica($e1.ast, $op, $e2.ast); }
     | e1=expression op=IDENT e2=expression { $ast = new ExpresionLogica($e1.ast, $op, $e2.ast); } 
-    | ID=IDENT                            { $ast = new Id($ID); }                                
+    | ID=IDENT                            { $ast = new Variable($ID); }                          
     | LITENT=IDENT                        { $ast = new LitEnt($LITENT); }                        
     | LITREAL=IDENT                       { $ast = new LitReal($LITREAL); }                      
     | CHAR_LITERAL=IDENT                  { $ast = new LitChar($CHAR_LITERAL); }                 

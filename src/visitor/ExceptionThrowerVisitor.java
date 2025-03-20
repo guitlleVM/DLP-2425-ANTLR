@@ -143,9 +143,9 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(Id id, Object param) {
+	public Object visit(Variable variable, Object param) {
 
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Id)' has been invoked but it has not been implemented.");
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Variable)' has been invoked but it has not been implemented.");
 	}
 
 	@Override

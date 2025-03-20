@@ -2,6 +2,8 @@
 
 package ast.expression;
 
+import ast.type.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -11,15 +13,19 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	Not: expression -> expression:expression
+	not: expression -> expression:expression
 	expression -> 
+	
+	PHASE TypeChecking
+	expression -> type:type
+	expression -> lvalue:boolean
 */
 public class Not extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// Not: expression -> expression
+	// not: expression -> expression
 	private Expression expression;
 
     // ----------------------------------
@@ -47,7 +53,7 @@ public class Not extends AbstractExpression  {
 
 
     // ----------------------------------
-    // Not: expression -> expression
+    // not: expression -> expression
 
 	// Child 'expression' 
 

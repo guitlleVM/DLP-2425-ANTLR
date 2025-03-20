@@ -6,7 +6,7 @@ import java.util.Map;
 import ast.*;
 import ast.declaration.*;
 import ast.expression.ExpresionLlamada;
-import ast.expression.Id;
+import ast.expression.Variable;
 import ast.statement.FuncionLlamada;
 import ast.type.StructType;
 import main.ErrorManager;
@@ -80,14 +80,14 @@ public class Identification extends DefaultVisitor {
 	}
 
 	@Override
-	public Object visit(Id id, Object param) {
+	public Object visit(Variable variable, Object param) {
 
-        VariableDeclaration definicion = variables.getFromAny(id.getID());
+        VariableDeclaration definicion = variables.getFromAny(variable.getID());
 
         if(definicion == null)
-            notifyError("Variable no definida: " + id.getID(), id);
+            notifyError("Variable no definida: " + variable.getID(), variable);
 		else
-            id.setVariableDeclaration(definicion);
+            variable.setVariableDeclaration(definicion);
 
 		return null;
 	}

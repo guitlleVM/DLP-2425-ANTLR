@@ -3,6 +3,7 @@
 package ast.expression;
 
 import ast.type.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -12,64 +13,68 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	cast: expression -> type:type expression:expression
+	cast: expression -> targetType:type expression:expression
 	expression -> 
+	
+	PHASE TypeChecking
+	expression -> type:type
+	expression -> lvalue:boolean
 */
 public class Cast extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// cast: expression -> type expression
-	private Type type;
+	// cast: expression -> targetType:type expression
+	private Type targetType;
 	private Expression expression;
 
     // ----------------------------------
     // Constructors
 
-	public Cast(Type type, Expression expression) {
+	public Cast(Type targetType, Expression expression) {
 		super();
 
-		if (type == null)
-			throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
-		this.type = type;
+		if (targetType == null)
+			throw new IllegalArgumentException("Parameter 'targetType' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
+		this.targetType = targetType;
 
 		if (expression == null)
 			throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.expression = expression;
 
-		updatePositions(type, expression);
+		updatePositions(targetType, expression);
 	}
 
-	public Cast(Object type, Object expression) {
+	public Cast(Object targetType, Object expression) {
 		super();
 
-        if (type == null)
-            throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
-		this.type = (Type) type;
+        if (targetType == null)
+            throw new IllegalArgumentException("Parameter 'targetType' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
+		this.targetType = (Type) targetType;
 
         if (expression == null)
             throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.expression = (Expression) expression;
 
-		updatePositions(type, expression);
+		updatePositions(targetType, expression);
 	}
 
 
     // ----------------------------------
-    // cast: expression -> type expression
+    // cast: expression -> targetType:type expression
 
-	// Child 'type' 
+	// Child 'targetType:type' 
 
-	public void setType(Type type) {
-		if (type == null)
-			throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
-		this.type = type;
+	public void setTargetType(Type targetType) {
+		if (targetType == null)
+			throw new IllegalArgumentException("Parameter 'targetType' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
+		this.targetType = targetType;
 
 	}
 
-    public Type getType() {
-        return type;
+    public Type getTargetType() {
+        return targetType;
     }
 
 
@@ -97,7 +102,7 @@ public class Cast extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "Cast{" + " type=" + this.getType() + " expression=" + this.getExpression() + "}";
+        return "Cast{" + " targetType=" + this.getTargetType() + " expression=" + this.getExpression() + "}";
     }
 
 

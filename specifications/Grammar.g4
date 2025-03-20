@@ -61,7 +61,7 @@ statements returns[List<Statement> ast = new ArrayList<Statement>()]
 
 expression returns[Expression ast]
     : CHAR_LITERAL { $ast = new LitChar($CHAR_LITERAL); }
-    | ID {$ast = new Id($ID); }
+    | ID {$ast = new Variable($ID); }
     | LITENT { $ast = new LitEnt($LITENT); }
     | LITREAL { $ast = new LitReal($LITREAL); }
     |'<' type '>' '(' expression ')' { $ast = new Cast($type.ast, $expression.ast); }

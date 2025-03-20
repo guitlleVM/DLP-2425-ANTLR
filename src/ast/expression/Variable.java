@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.type.*;
 import ast.declaration.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
@@ -13,18 +14,22 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	id: expression -> ID:string
+	variable: expression -> ID:string
 	expression -> 
 	
 	PHASE Identification
-	id -> variableDeclaration:variableDeclaration
+	variable -> variableDeclaration:variableDeclaration
+	
+	PHASE TypeChecking
+	expression -> type:type
+	expression -> lvalue:boolean
 */
-public class Id extends AbstractExpression  {
+public class Variable extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// id: expression -> ID:string
+	// variable: expression -> ID:string
 	private String ID;
 
     // PHASE Identification
@@ -33,7 +38,7 @@ public class Id extends AbstractExpression  {
     // ----------------------------------
     // Constructors
 
-	public Id(String ID) {
+	public Variable(String ID) {
 		super();
 
 		if (ID == null)
@@ -43,7 +48,7 @@ public class Id extends AbstractExpression  {
 		updatePositions(ID);
 	}
 
-	public Id(Object ID) {
+	public Variable(Object ID) {
 		super();
 
         if (ID == null)
@@ -55,7 +60,7 @@ public class Id extends AbstractExpression  {
 
 
     // ----------------------------------
-    // id: expression -> ID:string
+    // variable: expression -> ID:string
 
 	// Child 'ID:string' 
 
@@ -99,7 +104,7 @@ public class Id extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "Id{" + " ID=" + this.getID() + "}";
+        return "Variable{" + " ID=" + this.getID() + "}";
     }
 
 

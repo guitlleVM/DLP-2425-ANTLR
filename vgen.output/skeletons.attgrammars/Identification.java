@@ -216,11 +216,11 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class Cast(Type type, Expression expression)
+	// class Cast(Type targetType, Expression expression)
 	@Override
 	public Object visit(Cast cast, Object param) {
 
-		// cast.getType().accept(this, param);
+		// cast.getTargetType().accept(this, param);
 		// cast.getExpression().accept(this, param);
 		super.visit(cast, param);
 
@@ -293,13 +293,13 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class Id(String ID)
+	// class Variable(String ID)
 	// phase Identification { VariableDeclaration variableDeclaration }
 	@Override
-	public Object visit(Id id, Object param) {
+	public Object visit(Variable variable, Object param) {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// id.setVariableDeclaration(?);
+		// variable.setVariableDeclaration(?);
 		return null;
 	}
 

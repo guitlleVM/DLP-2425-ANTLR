@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.type.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -12,15 +13,19 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	LitChar: expression -> CHAR_LITERAL:string
+	litChar: expression -> CHAR_LITERAL:string
 	expression -> 
+	
+	PHASE TypeChecking
+	expression -> type:type
+	expression -> lvalue:boolean
 */
 public class LitChar extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// LitChar: expression -> CHAR_LITERAL:string
+	// litChar: expression -> CHAR_LITERAL:string
 	private String CHAR_LITERAL;
 
     // ----------------------------------
@@ -48,7 +53,7 @@ public class LitChar extends AbstractExpression  {
 
 
     // ----------------------------------
-    // LitChar: expression -> CHAR_LITERAL:string
+    // litChar: expression -> CHAR_LITERAL:string
 
 	// Child 'CHAR_LITERAL:string' 
 

@@ -56,7 +56,7 @@ public interface Visitor {
 
 	public Object visit(ExpresionLogica expresionLogica, Object param);
 
-	public Object visit(Id id, Object param);
+	public Object visit(Variable variable, Object param);
 
 	public Object visit(LitEnt litEnt, Object param);
 
