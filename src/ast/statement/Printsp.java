@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.expression.*;
+import ast.declaration.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -17,6 +18,9 @@ import visitor.Visitor;
 /*
 	printsp: statement -> expressions:expression*
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> funcion:functionDeclaration
 */
 public class Printsp extends AbstractStatement  {
 

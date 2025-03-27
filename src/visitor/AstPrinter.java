@@ -155,7 +155,7 @@ public class AstPrinter implements Visitor {
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNonNodeChild(indent + 1, "ID", "String", functionDeclaration.getID());
         printListOfNodesChild(indent + 1, "parameters", "List<VariableDeclaration>", functionDeclaration.getParameters());
-        printNodeChild(indent + 1, "type", "Optional<Type>", functionDeclaration.getType().orElse(null));
+        printNodeChild(indent + 1, "type", "Type", functionDeclaration.getType());
         printListOfNodesChild(indent + 1, "variableDeclarations", "List<VariableDeclaration>", functionDeclaration.getVariableDeclarations());
         printListOfNodesChild(indent + 1, "statements", "List<Statement>", functionDeclaration.getStatements());
 
@@ -173,7 +173,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "expressions", "List<Expression>", print.getExpressions());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, print, "expressions");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", print.getFuncion());
+		printUnknownFields(indent + 1, print, "expressions", "funcion");
 		return null;
 	}
 
@@ -186,7 +187,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "expressions", "List<Expression>", printsp.getExpressions());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, printsp, "expressions");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", printsp.getFuncion());
+		printUnknownFields(indent + 1, printsp, "expressions", "funcion");
 		return null;
 	}
 
@@ -199,7 +201,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "expressions", "List<Expression>", println.getExpressions());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, println, "expressions");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", println.getFuncion());
+		printUnknownFields(indent + 1, println, "expressions", "funcion");
 		return null;
 	}
 
@@ -212,7 +215,8 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "expression", "Expression", read.getExpression());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, read, "expression");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", read.getFuncion());
+		printUnknownFields(indent + 1, read, "expression", "funcion");
 		return null;
 	}
 
@@ -227,7 +231,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "s2", "List<Statement>", ifValue.getS2());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, ifValue, "expression", "s1", "s2");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", ifValue.getFuncion());
+		printUnknownFields(indent + 1, ifValue, "expression", "s1", "s2", "funcion");
 		return null;
 	}
 
@@ -241,7 +246,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "statements", "List<Statement>", whileValue.getStatements());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, whileValue, "expression", "statements");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", whileValue.getFuncion());
+		printUnknownFields(indent + 1, whileValue, "expression", "statements", "funcion");
 		return null;
 	}
 
@@ -251,10 +257,11 @@ public class AstPrinter implements Visitor {
 		int indent = ((Integer)param);
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNodeChild(indent + 1, "expression", "Optional<Expression>", returnValue.getExpression().orElse(null));
+        printNodeChild(indent + 1, "expression", "Expression", returnValue.getExpression());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, returnValue, "expression");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", returnValue.getFuncion());
+		printUnknownFields(indent + 1, returnValue, "expression", "funcion");
 		return null;
 	}
 
@@ -268,7 +275,8 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "e2", "Expression", asignacion.getE2());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, asignacion, "e1", "e2");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", asignacion.getFuncion());
+		printUnknownFields(indent + 1, asignacion, "e1", "e2", "funcion");
 		return null;
 	}
 
@@ -283,7 +291,8 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-0", "functionDeclaration", "FunctionDeclaration", funcionLlamada.getFunctionDeclaration());
-		printUnknownFields(indent + 1, funcionLlamada, "ID", "expressions", "functionDeclaration");
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", funcionLlamada.getFuncion());
+		printUnknownFields(indent + 1, funcionLlamada, "ID", "expressions", "funcion", "functionDeclaration");
 		return null;
 	}
 
@@ -495,6 +504,18 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
 		printUnknownFields(indent + 1, charType, "");
+		return null;
+	}
+
+	@Override
+	public Object visit(VoidType voidType, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+		printUnknownFields(indent + 1, voidType, "");
 		return null;
 	}
 

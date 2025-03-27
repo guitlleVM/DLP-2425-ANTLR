@@ -32,7 +32,7 @@ variables returns[List<VariableDeclaration> ast = new ArrayList<VariableDeclarat
 	;
 
 functionDeclaration returns [FunctionDeclaration ast]
-    : ID '(' parameterList ')' '{' variables statements '}' { $ast = new FunctionDeclaration($ID, $parameterList.ast, null, $variables.ast, $statements.ast); }
+    : ID '(' parameterList ')' '{' variables statements '}' { $ast = new FunctionDeclaration($ID, $parameterList.ast, new VoidType(), $variables.ast, $statements.ast); }
 	| ID '(' parameterList ')' ':' type '{' variables statements '}' { $ast = new FunctionDeclaration($ID, $parameterList.ast, $type.ast, $variables.ast, $statements.ast); }
 	;
 
@@ -50,7 +50,7 @@ statement returns [Statement ast]
 	| 'if' '(' expression ')' '{' s1 = statements '}' 'else' '{' s2= statements '}' { $ast = new If($expression.ast, $s1.ast, $s2.ast); }
 	| 'while' '(' expression ')' '{' statements '}' { $ast = new While($expression.ast, $statements.ast); }
     | 'return' expression ';' { $ast = new Return($expression.ast); }
-    | 'return' ';' { $ast = new Return(null); }
+    | 'return' ';' { $ast = new Return(new VoidType()); }
     | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
     ;
@@ -86,6 +86,7 @@ type returns [Type ast]
     : 'int'    { $ast = new IntType(); }
     | 'float'  { $ast = new RealType(); }
     | 'char'   { $ast = new CharType(); }
+    | 'void'   { $ast = new VoidType(); }
     | '[' LITENT ']' type { $ast = new ArrayType($LITENT, $type.ast); }
     | ID       { $ast = new StructType($ID); }
     ;

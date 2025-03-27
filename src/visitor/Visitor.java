@@ -70,6 +70,8 @@ public interface Visitor {
 
 	public Object visit(CharType charType, Object param);
 
+	public Object visit(VoidType voidType, Object param);
+
 	public Object visit(ArrayType arrayType, Object param);
 
 	public Object visit(StructType structType, Object param);

@@ -3,7 +3,7 @@
 package ast.statement;
 
 import ast.expression.*;
-import java.util.Optional;
+import ast.declaration.*;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -13,25 +13,28 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	return: statement -> expression:expression?
+	return: statement -> expression:expression
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> funcion:functionDeclaration
 */
 public class Return extends AbstractStatement  {
 
     // ----------------------------------
     // Instance Variables
 
-	// return: statement -> expression?
-	private Optional<Expression> expression;
+	// return: statement -> expression
+	private Expression expression;
 
     // ----------------------------------
     // Constructors
 
-	public Return(Optional<Expression> expression) {
+	public Return(Expression expression) {
 		super();
 
 		if (expression == null)
-			expression = Optional.empty();
+			throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.expression = expression;
 
 		updatePositions(expression);
@@ -40,24 +43,27 @@ public class Return extends AbstractStatement  {
 	public Return(Object expression) {
 		super();
 
-        this.expression = castOptional(expression, Expression.class);
+        if (expression == null)
+            throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
+		this.expression = (Expression) expression;
+
 		updatePositions(expression);
 	}
 
 
     // ----------------------------------
-    // return: statement -> expression?
+    // return: statement -> expression
 
-	// Child 'expression?' 
+	// Child 'expression' 
 
-	public void setExpression(Optional<Expression> expression) {
+	public void setExpression(Expression expression) {
 		if (expression == null)
-			expression = Optional.empty();
+			throw new IllegalArgumentException("Parameter 'expression' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.expression = expression;
 
 	}
 
-    public Optional<Expression> getExpression() {
+    public Expression getExpression() {
         return expression;
     }
 

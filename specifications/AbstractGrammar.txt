@@ -12,7 +12,7 @@ structDeclaration:declaration -> ID:string variableDeclaration*;
 
 variableDeclaration:declaration -> ID:string type;
 
-functionDeclaration:declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*;
+functionDeclaration:declaration -> ID:string parameters:variableDeclaration* type variableDeclaration* statement*;
 
 print:statement -> expression*;
 printsp:statement -> expression*;
@@ -20,7 +20,7 @@ println:statement -> expression*;
 read:statement -> expression;
 if:statement -> expression s1:statement* s2:statement*;
 while:statement -> expression statement*;
-return:statement -> expression?;
+return:statement -> expression;
 asignacion:statement -> e1:expression e2:expression;
 funcionLlamada:statement -> ID:string expression*;
 
@@ -39,6 +39,7 @@ litChar:expression -> CHAR_LITERAL:string;
 intType:type -> ;
 realType:type -> ;
 charType:type -> ;
+voidType:type -> ;
 arrayType:type -> posicion:string type;
 structType:type -> nombre:string;
 

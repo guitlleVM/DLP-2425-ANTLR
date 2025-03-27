@@ -99,12 +99,12 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
+	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Type type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
 
 		// functionDeclaration.getParameters().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
-		// functionDeclaration.getType().ifPresent(type -> type.accept(this, param));
+		// functionDeclaration.getType().accept(this, param);
 		// functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		// functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 		super.visit(functionDeclaration, param);
@@ -113,6 +113,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Print(List<Expression> expressions)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Print print, Object param) {
 
@@ -123,6 +124,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Printsp(List<Expression> expressions)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Printsp printsp, Object param) {
 
@@ -133,6 +135,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Println(List<Expression> expressions)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Println println, Object param) {
 
@@ -143,6 +146,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Read(Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Read read, Object param) {
 
@@ -153,6 +157,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class If(Expression expression, List<Statement> s1, List<Statement> s2)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(If ifValue, Object param) {
 
@@ -165,6 +170,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class While(Expression expression, List<Statement> statements)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(While whileValue, Object param) {
 
@@ -175,17 +181,19 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Return(Optional<Expression> expression)
+	// class Return(Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Return returnValue, Object param) {
 
-		// returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
+		// returnValue.getExpression().accept(this, param);
 		super.visit(returnValue, param);
 
 		return null;
 	}
 
 	// class Asignacion(Expression e1, Expression e2)
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
 
@@ -198,6 +206,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class FuncionLlamada(String ID, List<Expression> expressions)
 	// phase Identification { FunctionDeclaration functionDeclaration }
+	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(FuncionLlamada funcionLlamada, Object param) {
 
@@ -339,6 +348,13 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// class CharType()
 	@Override
 	public Object visit(CharType charType, Object param) {
+
+		return null;
+	}
+
+	// class VoidType()
+	@Override
+	public Object visit(VoidType voidType, Object param) {
 
 		return null;
 	}

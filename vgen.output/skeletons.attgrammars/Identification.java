@@ -106,12 +106,12 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
+	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Type type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
 
 		// functionDeclaration.getParameters().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
-		// functionDeclaration.getType().ifPresent(type -> type.accept(this, param));
+		// functionDeclaration.getType().accept(this, param);
 		// functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		// functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 		super.visit(functionDeclaration, param);
@@ -182,11 +182,11 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class Return(Optional<Expression> expression)
+	// class Return(Expression expression)
 	@Override
 	public Object visit(Return returnValue, Object param) {
 
-		// returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
+		// returnValue.getExpression().accept(this, param);
 		super.visit(returnValue, param);
 
 		return null;
@@ -341,6 +341,13 @@ public class Identification extends DefaultVisitor {
 	// class CharType()
 	@Override
 	public Object visit(CharType charType, Object param) {
+
+		return null;
+	}
+
+	// class VoidType()
+	@Override
+	public Object visit(VoidType voidType, Object param) {
 
 		return null;
 	}

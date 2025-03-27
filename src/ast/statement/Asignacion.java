@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.expression.*;
+import ast.declaration.*;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	asignacion: statement -> e1:expression e2:expression
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> funcion:functionDeclaration
 */
 public class Asignacion extends AbstractStatement  {
 

@@ -50,7 +50,7 @@ public class MiAstClPrinter extends DefaultVisitor {
         System.out.println("Visiting FunctionDeclaration Node: " + functionDeclaration.getID());
 
 		functionDeclaration.getParameters().forEach(parameter -> parameter.accept(this, param));
-		functionDeclaration.getType().ifPresent(type -> type.accept(this, param));
+		functionDeclaration.getType().accept(this, param);
 		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 		
@@ -124,7 +124,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 	public Object visit(Return returnValue, Object param) {
 
         System.out.println("Visiting Return Node");
-		returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
+		returnValue.getExpression().accept(this, param);
 		
 		return null;
 	}

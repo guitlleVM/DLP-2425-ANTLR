@@ -17,7 +17,7 @@ program returns[Program ast]
 declaration returns[Declaration ast]
     : ID=IDENT variableDeclarations+=variableDeclaration* { $ast = new StructDeclaration($ID, $variableDeclarations); }
     | ID=IDENT type                       { $ast = new VariableDeclaration($ID, $type.ast); }    
-    | ID=IDENT parameters+=variableDeclaration* type? variableDeclarations+=variableDeclaration* statements+=statement* { $ast = new FunctionDeclaration($ID, $parameters, ($type.ctx == null) ? null : $type.ast, $variableDeclarations, $statements); }
+    | ID=IDENT parameters+=variableDeclaration* type variableDeclarations+=variableDeclaration* statements+=statement* { $ast = new FunctionDeclaration($ID, $parameters, $type.ast, $variableDeclarations, $statements); }
 	;
 
 variableDeclaration returns[VariableDeclaration ast]
@@ -28,6 +28,7 @@ type returns[Type ast]
     :                                     { $ast = new IntType(); }                              
     |                                     { $ast = new RealType(); }                             
     |                                     { $ast = new CharType(); }                             
+    |                                     { $ast = new VoidType(); }                             
     | posicion=IDENT type                 { $ast = new ArrayType($posicion, $type.ast); }        
     | nombre=IDENT                        { $ast = new StructType($nombre); }                    
 	;
@@ -39,7 +40,7 @@ statement returns[Statement ast]
     | expression                          { $ast = new Read($expression.ast); }                  
     | expression s1+=statement* s2+=statement* { $ast = new If($expression.ast, $s1, $s2); }          
     | expression statements+=statement*   { $ast = new While($expression.ast, $statements); }    
-    | expression?                         { $ast = new Return(($expression.ctx == null) ? null : $expression.ast); }
+    | expression                          { $ast = new Return($expression.ast); }                
     | e1=expression e2=expression         { $ast = new Asignacion($e1.ast, $e2.ast); }           
     | ID=IDENT expressions+=expression*   { $ast = new FuncionLlamada($ID, $expressions); }      
 	;

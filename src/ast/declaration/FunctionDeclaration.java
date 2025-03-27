@@ -7,7 +7,6 @@ import ast.statement.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-import java.util.Optional;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -18,7 +17,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type:type? variableDeclarations:variableDeclaration* statements:statement*
+	functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type:type variableDeclarations:variableDeclaration* statements:statement*
 	declaration -> 
 */
 public class FunctionDeclaration extends AbstractDeclaration  {
@@ -26,17 +25,17 @@ public class FunctionDeclaration extends AbstractDeclaration  {
     // ----------------------------------
     // Instance Variables
 
-	// functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*
+	// functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type variableDeclaration* statement*
 	private String ID;
 	private List<VariableDeclaration> parameters;
-	private Optional<Type> type;
+	private Type type;
 	private List<VariableDeclaration> variableDeclarations;
 	private List<Statement> statements;
 
     // ----------------------------------
     // Constructors
 
-	public FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements) {
+	public FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Type type, List<VariableDeclaration> variableDeclarations, List<Statement> statements) {
 		super();
 
 		if (ID == null)
@@ -48,7 +47,7 @@ public class FunctionDeclaration extends AbstractDeclaration  {
 		this.parameters = parameters;
 
 		if (type == null)
-			type = Optional.empty();
+			throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
 		this.type = type;
 
 		if (variableDeclarations == null)
@@ -70,7 +69,10 @@ public class FunctionDeclaration extends AbstractDeclaration  {
 		this.ID = (ID instanceof Token) ? ((Token) ID).getText() : (String) ID;
 
         this.parameters = castList(parameters, unwrapIfContext.andThen(VariableDeclaration.class::cast));
-        this.type = castOptional(type, Type.class);
+        if (type == null)
+            throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
+		this.type = (Type) type;
+
         this.variableDeclarations = castList(variableDeclarations, unwrapIfContext.andThen(VariableDeclaration.class::cast));
         this.statements = castList(statements, unwrapIfContext.andThen(Statement.class::cast));
 		updatePositions(ID, parameters, type, variableDeclarations, statements);
@@ -78,7 +80,7 @@ public class FunctionDeclaration extends AbstractDeclaration  {
 
 
     // ----------------------------------
-    // functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type? variableDeclaration* statement*
+    // functionDeclaration: declaration -> ID:string parameters:variableDeclaration* type variableDeclaration* statement*
 
 	// Child 'ID:string' 
 
@@ -112,16 +114,16 @@ public class FunctionDeclaration extends AbstractDeclaration  {
     }
 
 
-	// Child 'type?' 
+	// Child 'type' 
 
-	public void setType(Optional<Type> type) {
+	public void setType(Type type) {
 		if (type == null)
-			type = Optional.empty();
+			throw new IllegalArgumentException("Parameter 'type' can't be null. Pass a non-null value or use 'type?' in the abstract grammar");
 		this.type = type;
 
 	}
 
-    public Optional<Type> getType() {
+    public Type getType() {
         return type;
     }
 

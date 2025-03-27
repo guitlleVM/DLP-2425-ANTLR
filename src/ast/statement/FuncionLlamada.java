@@ -22,6 +22,9 @@ import visitor.Visitor;
 	
 	PHASE Identification
 	funcionLlamada -> functionDeclaration:functionDeclaration
+	
+	PHASE TypeChecking
+	statement -> funcion:functionDeclaration
 */
 public class FuncionLlamada extends AbstractStatement  {
 

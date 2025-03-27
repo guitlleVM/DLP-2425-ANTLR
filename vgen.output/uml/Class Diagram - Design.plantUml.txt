@@ -30,6 +30,7 @@ AST <|-[#808080]- Type
 interface Statement {
 }
 AST <|-[#808080]- Statement
+Statement -[#3366cc,thickness=3]-  FunctionDeclaration #text:3366cc : funcion >
 
 interface Expression {
 	..<color:#3366cc> TypeChecking </color>..
@@ -63,7 +64,7 @@ class FunctionDeclaration {
 }
 Declaration <|-[#808080]- FunctionDeclaration
 FunctionDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : parameters >
-FunctionDeclaration o-[#404040,thickness=2]- "0..1" Type : type >
+FunctionDeclaration o-[#404040,thickness=2]-  Type : type >
 FunctionDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : variableDeclarations >
 FunctionDeclaration o-[#404040,thickness=2]- "✱" Statement : statements >
 
@@ -103,7 +104,7 @@ While o-[#404040,thickness=2]- "✱" Statement : statements >
 class Return {
 }
 Statement <|-[#808080]- Return
-Return o-[#404040,thickness=2]- "0..1" Expression : expression >
+Return o-[#404040,thickness=2]-  Expression : expression >
 
 class Asignacion {
 }
@@ -194,6 +195,10 @@ Type <|-[#808080]- RealType
 class CharType {
 }
 Type <|-[#808080]- CharType
+
+class VoidType {
+}
+Type <|-[#808080]- VoidType
 
 class ArrayType {
 	+String posicion
