@@ -166,7 +166,7 @@ public class TypeChecking extends DefaultVisitor {
         for(int i = 0; i < funcionLlamada.getExpressions().size(); i++){
             predicate(sameType(funcionLlamada.getFuncion().getParameters().get(i).getType(), funcionLlamada.getExpressions().get(i).getType()), "Function call parameters must be the same as function declaration", funcionLlamada);
         }
-        
+
 		// funcionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
 		super.visit(funcionLlamada, param);
 
@@ -177,14 +177,16 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(Cast cast, Object param) {
+        // Predicados	
+        predicate(!cast.getTargetType().getClass().equals(cast.getExpression().getType().getClass()), "Cast expression must be different type", cast);
 
 		// cast.getTargetType().accept(this, param);
 		// cast.getExpression().accept(this, param);
 		super.visit(cast, param);
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// cast.setType(?);
-		// cast.setLvalue(?);
+		cast.setType(cast.getTargetType());
+		cast.setLvalue(false);
 		return null;
 	}
 
