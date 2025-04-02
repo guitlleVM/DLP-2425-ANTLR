@@ -6,10 +6,6 @@
 package semantic;
 
 import visitor.DefaultVisitor;
-
-import java.lang.annotation.Target;
-import java.lang.reflect.Parameter;
-
 import ast.*;
 import ast.declaration.*;
 import ast.statement.*;
