@@ -20,7 +20,7 @@ println:statement -> expression*;
 read:statement -> expression;
 if:statement -> expression s1:statement* s2:statement*;
 while:statement -> expression statement*;
-return:statement -> expression;
+return:statement -> expression?;
 asignacion:statement -> e1:expression e2:expression;
 funcionLlamada:statement -> ID:string expression*;
 

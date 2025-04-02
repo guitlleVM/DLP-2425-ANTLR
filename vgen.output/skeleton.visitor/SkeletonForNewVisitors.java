@@ -181,12 +181,12 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Return(Expression expression)
+	// class Return(Optional<Expression> expression)
 	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Return returnValue, Object param) {
 
-		// returnValue.getExpression().accept(this, param);
+		// returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
 		super.visit(returnValue, param);
 
 		return null;

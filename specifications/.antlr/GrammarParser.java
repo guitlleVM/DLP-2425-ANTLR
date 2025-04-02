@@ -1,4 +1,4 @@
-// Generated from c:/Users/uo294193/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
+// Generated from c:/Users/guill/Desktop/DLP-2425-ANTLR/specifications/Grammar.g4 by ANTLR 4.13.1
 
     import ast.*;
     import ast.type.*;
@@ -722,7 +722,7 @@ public class GrammarParser extends Parser {
 				match(T__16);
 				setState(169);
 				match(T__3);
-				 ((StatementContext)_localctx).ast =  new Return(new VoidType()); 
+				 ((StatementContext)_localctx).ast =  new Return(null); 
 				}
 				break;
 			case 10:

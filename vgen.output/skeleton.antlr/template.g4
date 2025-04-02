@@ -40,7 +40,7 @@ statement returns[Statement ast]
     | expression                          { $ast = new Read($expression.ast); }                  
     | expression s1+=statement* s2+=statement* { $ast = new If($expression.ast, $s1, $s2); }          
     | expression statements+=statement*   { $ast = new While($expression.ast, $statements); }    
-    | expression                          { $ast = new Return($expression.ast); }                
+    | expression?                         { $ast = new Return(($expression.ctx == null) ? null : $expression.ast); }
     | e1=expression e2=expression         { $ast = new Asignacion($e1.ast, $e2.ast); }           
     | ID=IDENT expressions+=expression*   { $ast = new FuncionLlamada($ID, $expressions); }      
 	;

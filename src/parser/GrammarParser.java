@@ -723,7 +723,7 @@ public class GrammarParser extends Parser {
 				match(T__16);
 				setState(169);
 				match(T__3);
-				 ((StatementContext)_localctx).ast =  new Return(new VoidType()); 
+				 ((StatementContext)_localctx).ast =  new Return(null); 
 				}
 				break;
 			case 10:

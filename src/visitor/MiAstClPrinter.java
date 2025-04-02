@@ -124,7 +124,7 @@ public class MiAstClPrinter extends DefaultVisitor {
 	public Object visit(Return returnValue, Object param) {
 
         System.out.println("Visiting Return Node");
-		returnValue.getExpression().accept(this, param);
+		returnValue.getExpression().ifPresent( p -> p.accept(this, param));
 		
 		return null;
 	}

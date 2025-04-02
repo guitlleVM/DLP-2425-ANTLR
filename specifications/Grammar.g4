@@ -50,7 +50,7 @@ statement returns [Statement ast]
 	| 'if' '(' expression ')' '{' s1 = statements '}' 'else' '{' s2= statements '}' { $ast = new If($expression.ast, $s1.ast, $s2.ast); }
 	| 'while' '(' expression ')' '{' statements '}' { $ast = new While($expression.ast, $statements.ast); }
     | 'return' expression ';' { $ast = new Return($expression.ast); }
-    | 'return' ';' { $ast = new Return(new VoidType()); }
+    | 'return' ';' { $ast = new Return(null); }
     | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
     ;

@@ -6,6 +6,10 @@
 package semantic;
 
 import visitor.DefaultVisitor;
+
+import java.lang.annotation.Target;
+import java.lang.reflect.Parameter;
+
 import ast.*;
 import ast.declaration.*;
 import ast.statement.*;
@@ -32,14 +36,24 @@ public class TypeChecking extends DefaultVisitor {
 	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Optional<Type> type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
-        // Predicados
-        functionDeclaration.getParameters().forEach( p -> predicate(isSimple(p.getType()), "Parameter type must be simple", p));
-        predicate(isSimpleOrVoid(functionDeclaration.getType()), "Function type must be simple or null", functionDeclaration.getType());
+		for(Statement st : functionDeclaration.getStatements()){
+			st.setFuncion(functionDeclaration);
+		}
 
-        // Semantic
-        functionDeclaration.getStatements().forEach( s -> s.setFuncion(functionDeclaration));
-		
-		super.visit(functionDeclaration, param);
+        if(functionDeclaration.getParameters() != null){
+			for(VariableDeclaration c : functionDeclaration.getParameters()){
+				c.accept(this, param);
+				predicate(isSimple(c.getType()), "Error: Los parametros deber ser de tipo simple", functionDeclaration);
+			}
+		}
+       
+		if(functionDeclaration.getType() != null){
+			functionDeclaration.getType().accept(this, param);
+			predicate(isSimpleOrVoid(functionDeclaration.getType()), "Function type must be simple or void", functionDeclaration);
+		}
+
+		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
+		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 
 		return null;
 	}
@@ -47,22 +61,24 @@ public class TypeChecking extends DefaultVisitor {
 	// class Print(List<Expression> expressions)
 	@Override
 	public Object visit(Print print, Object param) {
-        // Predicados
+		if(print.getExpressions() != null){
+			print.getExpressions().forEach( e -> e.accept(this, param));
+		}
+       
         print.getExpressions().forEach(e -> predicate(isSimple(e.getType()), "Print expression must be simple", e));
         
-		// print.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(print, param);
-
 		return null;
 	}
 
 	// class Printsp(List<Expression> expressions)
 	@Override
 	public Object visit(Printsp printsp, Object param) {
-        // Predicados
+		if(printsp.getExpressions() != null){
+			printsp.getExpressions().forEach( e -> e.accept(this, param));
+		}
+        
         printsp.getExpressions().forEach(e -> predicate(isSimple(e.getType()), "Printsp expression must be simple", e));
-		// printsp.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(printsp, param);
+	
 
 		return null;
 	}
@@ -70,23 +86,23 @@ public class TypeChecking extends DefaultVisitor {
 	// class Println(List<Expression> expressions)
 	@Override
 	public Object visit(Println println, Object param) {
-        // Predicados
+		if(println.getExpressions() != null){
+			println.getExpressions().forEach( e -> e.accept(this, param));
+		}
         println.getExpressions().forEach(e -> predicate(isSimple(e.getType()), "Println expression must be simple", e));
-		// println.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(println, param);
-
+		
 		return null;
 	}
 
 	// class Read(Expression expression)
 	@Override
 	public Object visit(Read read, Object param) {
-        // Predicados
-        predicate(isSimple(read.getExpression().getType()), "Read expression must be simple", read.getExpression());
-        predicate(read.getExpression().isLvalue(), "Read expression must be lvalue", read.getExpression());
+		if(read.getExpression() != null){
+			read.getExpression().accept(this, param);
+		}
 
-		// read.getExpression().accept(this, param);
-		super.visit(read, param);
+        predicate(isSimple(read.getExpression().getType()), "Read expression must be simple", read.getExpression());
+        predicate(read.getExpression().isLvalue(), "Read expression must be lvalue", read.getExpression());		
 
 		return null;
 	}
@@ -94,17 +110,25 @@ public class TypeChecking extends DefaultVisitor {
 	// class If(Expression expression, List<Statement> s1, List<Statement> s2)
 	@Override
 	public Object visit(If ifValue, Object param) {
-        // Predicados
+		if(ifValue.getExpression() != null){
+			ifValue.getExpression().accept(this, param);
+		}
+
         predicate(ifValue.getExpression().getType() instanceof IntType, "If expression must be intType", ifValue.getExpression());
 
-        // Semantic
-        ifValue.getS1().forEach( s -> s.setFuncion(ifValue.getFuncion()));
-        ifValue.getS2().forEach( s -> s.setFuncion(ifValue.getFuncion()));
+		if(ifValue.getS1() != null){
+       		ifValue.getS1().forEach( s ->{
+				s.setFuncion(ifValue.getFuncion());
+				s.accept(this, param);
+			});
+		}
 
-		// ifValue.getExpression().accept(this, param);
-		// ifValue.getS1().forEach(statement -> statement.accept(this, param));
-		// ifValue.getS2().forEach(statement -> statement.accept(this, param));
-		super.visit(ifValue, param);
+		if(ifValue.getS2() != null){
+	   		ifValue.getS2().forEach( s ->{
+				s.setFuncion(ifValue.getFuncion());
+				s.accept(this, param);
+			});
+        }
 
 		return null;
 	}
@@ -112,15 +136,18 @@ public class TypeChecking extends DefaultVisitor {
 	// class While(Expression expression, List<Statement> statements)
 	@Override
 	public Object visit(While whileValue, Object param) {
-        // Predicados
+		if(whileValue.getExpression() != null){
+			whileValue.getExpression().accept(this, param);
+		}
+        
         predicate(whileValue.getExpression().getType() instanceof IntType, "While expression must be intType", whileValue.getExpression());
 
-        //Semantic
-        whileValue.getStatements().forEach( s -> s.setFuncion(whileValue.getFuncion()));
-
-		// whileValue.getExpression().accept(this, param);
-		// whileValue.getStatements().forEach(statement -> statement.accept(this, param));
-		super.visit(whileValue, param);
+        if(whileValue.getStatements() != null){		
+        	whileValue.getStatements().forEach( s ->{ 
+				s.setFuncion(whileValue.getFuncion());
+				s.accept(this, param);
+			});
+		}
 
 		return null;
 	}
@@ -128,16 +155,17 @@ public class TypeChecking extends DefaultVisitor {
 	// class Return(Optional<Expression> expression)
 	@Override
 	public Object visit(Return returnValue, Object param) {
-        // Predicados
-        if(returnValue.getFuncion().getType() instanceof VoidType){
-            predicate(returnValue.getExpression().getType() instanceof VoidType, "Return expression must be void", returnValue);
-        }else{
-            predicate(returnValue.getExpression().getType().getClass().equals(returnValue.getFuncion().getType().getClass()),
-                                                "Return expression must be the same as function return type", returnValue);
-        }     
-
-		// returnValue.getExpression().ifPresent(expression -> expression.accept(this, param));
 		super.visit(returnValue, param);
+        
+        if(returnValue.getFuncion().getType() instanceof VoidType){
+            predicate(returnValue.getExpression().isEmpty(), "Return expression must be void", returnValue);
+        }else{		
+			if(returnValue.getExpression().isEmpty()){
+				predicate(false, "Error: el valor de retorno de la funcion no puede ser vacio", returnValue.getFuncion());
+			}else{
+				predicate(sameType(returnValue.getFuncion().getType(),returnValue.getExpression().get().getType()), "Return expression must be the same as function return type", returnValue);
+			}	
+		}     
 
 		return null;
 	}
@@ -145,15 +173,16 @@ public class TypeChecking extends DefaultVisitor {
 	// class Asignacion(Expression e1, Expression e2)
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
-        // Predicados
-        predicate(isSimple(asignacion.getE1().getType()), "Asignacion expression must be simpletype", asignacion.getE1());
+		if(asignacion.getE1() != null){
+			asignacion.getE1().accept(this, param);
+		}
+		if(asignacion.getE2() != null){
+			asignacion.getE2().accept(this, param);
+		}
         predicate(sameType(asignacion.getE1().getType(), asignacion.getE2().getType()), "Asignacion expressions must be the same type", asignacion);
-        predicate(asignacion.getE1().isLvalue(), "Asignacion expression must be lvalue", asignacion.getE1());
-
-		// asignacion.getE1().accept(this, param);
-		// asignacion.getE2().accept(this, param);
-		super.visit(asignacion, param);
-
+		predicate(asignacion.getE1().isLvalue(), "Asignacion expression must be lvalue", asignacion.getE1());
+        predicate(isSimple(asignacion.getE1().getType()), "Asignacion expression must be simpletype", asignacion.getE1());
+       
 		return null;
 	}
 
@@ -161,15 +190,17 @@ public class TypeChecking extends DefaultVisitor {
 	// phase Identification { FunctionDeclaration functionDeclaration }
 	@Override
 	public Object visit(FuncionLlamada funcionLlamada, Object param) {
-        // Predicados	
-        predicate(funcionLlamada.getFuncion().getParameters().size() == funcionLlamada.getExpressions().size(), "Function call parameters must be the same as function declaration", funcionLlamada);
-        for(int i = 0; i < funcionLlamada.getExpressions().size(); i++){
-            predicate(sameType(funcionLlamada.getFuncion().getParameters().get(i).getType(), funcionLlamada.getExpressions().get(i).getType()), "Function call parameters must be the same as function declaration", funcionLlamada);
-        }
-
-		// funcionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(funcionLlamada, param);
-
+		funcionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
+		
+        // Predicados
+		predicate(funcionLlamada.getFunctionDeclaration().getParameters().size() == funcionLlamada.getExpressions().size(), "Function call parameters must be the same as function declaration", funcionLlamada);
+		
+		if(funcionLlamada.getFunctionDeclaration().getParameters().size() == funcionLlamada.getExpressions().size()){
+			for(int i = 0; i < funcionLlamada.getExpressions().size(); i++){
+				predicate(sameType(funcionLlamada.getFunctionDeclaration().getParameters().get(i).getType(), funcionLlamada.getExpressions().get(i).getType()), "Function call parameters must be the same as function declaration", funcionLlamada);
+			}
+		}
+		
 		return null;
 	}
 
@@ -177,16 +208,15 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(Cast cast, Object param) {
-        // Predicados	
-        predicate(!cast.getTargetType().getClass().equals(cast.getExpression().getType().getClass()), "Cast expression must be different type", cast);
-
-		// cast.getTargetType().accept(this, param);
-		// cast.getExpression().accept(this, param);
 		super.visit(cast, param);
 
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		cast.setType(cast.getTargetType());
+        cast.setType(cast.getTargetType());
 		cast.setLvalue(false);
+
+        predicate(!sameType(cast.getTargetType(), cast.getExpression().getType()), "Cast expression must be different type", cast);
+		predicate(isSimple(cast.getType()), "No se puede hacer cast a tipos complejos (Expresion)", cast.start());
+		predicate(isSimple(cast.getExpression().getType()), "No se puede hacer cast de tipos complejos (Target)", cast.start());
+		
 		return null;
 	}
 
@@ -195,12 +225,26 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(StructAccess structAccess, Object param) {
 
-		// structAccess.getExpression().accept(this, param);
-		super.visit(structAccess, param);
+		if(structAccess.getExpression() != null){
+			structAccess.getExpression().accept(this, param);
+		}
 
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// structAccess.setType(?);
-		// structAccess.setLvalue(?);
+		predicate(structAccess.getExpression().getType() instanceof StructType, "Error: el structAcces no es de tipo struct", structAccess);
+
+		structAccess.setLvalue(true);
+
+		if(structAccess.getExpression().getType() instanceof StructType){
+			StructType structType = (StructType) structAccess.getExpression().getType();
+			StructDeclaration structDeclaration = structType.getStructDeclaration();
+			for(VariableDeclaration v : structDeclaration.getVariableDeclarations()){
+				if(v.getID().equals(structAccess.getID())){
+					structAccess.setType(v.getType());
+				}
+			}
+
+			predicate(structAccess.getType() != null, "Error: el structAccess no ha sido defindio", structAccess.start());
+		}
+		
 		return null;
 	}
 
@@ -209,13 +253,22 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		// arrayAccess.getE1().accept(this, param);
-		// arrayAccess.getE2().accept(this, param);
-		super.visit(arrayAccess, param);
+		if(arrayAccess.getE1() != null){
+			arrayAccess.getE1().accept(this, param);
+		}
 
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// arrayAccess.setType(?);
-		// arrayAccess.setLvalue(?);
+		if(arrayAccess.getE2() != null){
+			arrayAccess.getE2().accept(this, param);
+		}
+
+		predicate(arrayAccess.getE1().getType() instanceof ArrayType, "Error : el arrayAccess no es de tipo Array", arrayAccess);
+
+		if(arrayAccess.getE1().getType() instanceof ArrayType){
+			predicate(arrayAccess.getE2().getType() instanceof IntType, "Error : el arrayAccess no es de tipo Int", arrayAccess);
+			arrayAccess.setType(((ArrayType) arrayAccess.getE1().getType()).getType());
+		}
+		
+		arrayAccess.setLvalue(true);
 		return null;
 	}
 
@@ -224,13 +277,18 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(ExpresionLlamada expresionLlamada, Object param) {
+		expresionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
 
-		// expresionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(expresionLlamada, param);
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// expresionLlamada.setType(?);
-		// expresionLlamada.setLvalue(?);
+		predicate(!(expresionLlamada.getFunctionDeclaration().getType() instanceof VoidType), "Error: la funcion no devuelve nada", expresionLlamada);
+		predicate(expresionLlamada.getExpressions().size() == expresionLlamada.getFunctionDeclaration().getParameters().size(), "Error: Se esperaban " + expresionLlamada.getFunctionDeclaration().getParameters().size() + " argumentos", expresionLlamada);
+		
+		if(expresionLlamada.getExpressions().size() == expresionLlamada.getFunctionDeclaration().getParameters().size()){
+			for(int i = 0; i < expresionLlamada.getExpressions().size(); i++){
+				predicate(sameType(expresionLlamada.getFunctionDeclaration().getParameters().get(i).getType(), expresionLlamada.getExpressions().get(i).getType()), "Error: los tipos de los paremetros no coinciden", expresionLlamada);
+			}
+		}	
+		expresionLlamada.setType(expresionLlamada.getFunctionDeclaration().getType());
+		expresionLlamada.setLvalue(false);
 		return null;
 	}
 
@@ -238,13 +296,14 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(Not not, Object param) {
+		if(not.getExpression() != null){
+			not.getExpression().accept(this, param);
+		}
+		predicate(not.getExpression().getType() instanceof IntType, "Error: el not no es de tipo Int", not);
+		
+		not.setType(new IntType());
+		not.setLvalue(false);
 
-		// not.getExpression().accept(this, param);
-		super.visit(not, param);
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// not.setType(?);
-		// not.setLvalue(?);
 		return null;
 	}
 
@@ -252,14 +311,31 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(ExpresionAritmetica expresionAritmetica, Object param) {
+		if(expresionAritmetica.getE1() != null){
+			expresionAritmetica.getE1().accept(this, param);
+		}
+		if(expresionAritmetica.getE2() != null){
+			expresionAritmetica.getE2().accept(this, param);
+		}
+		
+		predicate(sameType(expresionAritmetica.getE1().getType(), expresionAritmetica.getE2().getType()), "Los tipos de ambos operadores tienen que ser el mismo", expresionAritmetica);
+		
+		switch (expresionAritmetica.getOp()) {
+			case "%":
+				predicate(expresionAritmetica.getE1().getType() instanceof IntType, "Para la expresion 1 solo se admite Int", expresionAritmetica);
+				predicate(expresionAritmetica.getE2().getType() instanceof IntType, "Para la expresion 2 solo se admite Int", expresionAritmetica);
+				break;
+			default:
+				predicate(expresionAritmetica.getE1().getType() instanceof IntType || expresionAritmetica.getE1().getType() instanceof RealType, 
+				"Para la expresion 1 solo se admite Int o Real", expresionAritmetica);
+				predicate(expresionAritmetica.getE2().getType() instanceof IntType || expresionAritmetica.getE2().getType() instanceof RealType, 
+				"Para la expresion2 solo se admite Int o Real", expresionAritmetica);
+				break;
+		}
 
-		// expresionAritmetica.getE1().accept(this, param);
-		// expresionAritmetica.getE2().accept(this, param);
-		super.visit(expresionAritmetica, param);
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// expresionAritmetica.setType(?);
-		// expresionAritmetica.setLvalue(?);
+		expresionAritmetica.setType(expresionAritmetica.getE1().getType());
+		expresionAritmetica.setLvalue(false);
+		
 		return null;
 	}
 
@@ -267,14 +343,47 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(ExpresionLogica expresionLogica, Object param) {
+		if(expresionLogica.getE1() != null){
+			expresionLogica.getE1().accept(this, param);
+		}
+		if(expresionLogica.getE2() != null){
+			expresionLogica.getE2().accept(this, param);
+		}
 
-		// expresionLogica.getE1().accept(this, param);
-		// expresionLogica.getE2().accept(this, param);
-		super.visit(expresionLogica, param);
+		predicate(sameType(expresionLogica.getE1().getType(), expresionLogica.getE2().getType()), "Los tipos de ambos operadores tienen que ser el mismo", expresionLogica);
 
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// expresionLogica.setType(?);
-		// expresionLogica.setLvalue(?);
+		// Check the operator
+		switch (expresionLogica.getOp()) {
+			case ">":
+			case ">=":
+			case "<":
+			case "<=":
+			case "==":
+			case "!=":
+				// Comparisons: applicable to IntType and RealType
+				predicate(expresionLogica.getE1().getType() instanceof IntType || 
+						  expresionLogica.getE1().getType() instanceof RealType,
+						  "La expresion 1 es incorrecta, solo se admite tipos Int o Real", expresionLogica);
+				predicate(expresionLogica.getE2().getType() instanceof IntType || 
+						  expresionLogica.getE2().getType() instanceof RealType,
+						  "La expresion 2 es incorrecta, solo se admite tipos Int o Real", expresionLogica);		  
+				break;
+	
+			case "&&":
+			case "||":
+				// Logical operators: applicable only to IntType
+				predicate(expresionLogica.getE1().getType() instanceof IntType, 
+						  "La expresion 1 es incorrecta, solo se admite Int ", expresionLogica);
+				predicate(expresionLogica.getE2().getType() instanceof IntType, 
+						  "La expresion 2 es incorrecta, solo se admite Int ", expresionLogica);
+				break;
+	
+			default:
+				notifyError("Operador lógico desconocido: " + expresionLogica.getOp(), expresionLogica.start());
+		}
+
+		expresionLogica.setType(new IntType());
+		expresionLogica.setLvalue(false);
 		return null;
 	}
 
@@ -283,10 +392,8 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(Variable variable, Object param) {
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// variable.setType(?);
-		// variable.setLvalue(?);
+		variable.setLvalue(true);
+		variable.setType(variable.getVariableDeclaration().getType());
 		return null;
 	}
 
@@ -294,10 +401,8 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(LitEnt litEnt, Object param) {
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// litEnt.setType(?);
-		// litEnt.setLvalue(?);
+		litEnt.setType(new IntType());
+		litEnt.setLvalue(false);
 		return null;
 	}
 
@@ -305,10 +410,8 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(LitReal litReal, Object param) {
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// litReal.setType(?);
-		// litReal.setLvalue(?);
+		litReal.setType(new RealType());
+		litReal.setLvalue(false);
 		return null;
 	}
 
@@ -316,10 +419,8 @@ public class TypeChecking extends DefaultVisitor {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(LitChar litChar, Object param) {
-
-		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		// litChar.setType(?);
-		// litChar.setLvalue(?);
+		litChar.setType(new CharType());
+		litChar.setLvalue(false);
 		return null;
 	}
 
@@ -335,6 +436,17 @@ public class TypeChecking extends DefaultVisitor {
     }
 
     private boolean sameType(Type type1, Type type2) {
+		if(type1 instanceof ArrayType && type2 instanceof ArrayType){			
+			do {
+				type1 = ((ArrayType) type1).getType();
+				type2 = ((ArrayType) type2).getType();
+			} while (type1 instanceof ArrayType && type2 instanceof ArrayType);
+		}	
+
+		if(type1 instanceof StructType && type2 instanceof StructType){
+			return ((StructType) type1).getNombre().equals(((StructType) type2).getNombre());
+		}
+
         return type1.getClass().equals(type2.getClass());
     }
 

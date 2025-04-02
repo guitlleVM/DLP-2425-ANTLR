@@ -104,7 +104,7 @@ While o-[#404040,thickness=2]- "✱" Statement : statements >
 class Return {
 }
 Statement <|-[#808080]- Return
-Return o-[#404040,thickness=2]-  Expression : expression >
+Return o-[#404040,thickness=2]- "0..1" Expression : expression >
 
 class Asignacion {
 }
