@@ -157,7 +157,7 @@ public class TypeChecking extends DefaultVisitor {
             predicate(returnValue.getExpression().isEmpty(), "Return expression must be void", returnValue);
         }else{		
 			if(returnValue.getExpression().isEmpty()){
-				predicate(false, "Error: el valor de retorno de la funcion no puede ser vacio", returnValue.getFuncion());
+				predicate(false, "Error: el valor de retorno de la funcion no puede ser vacio", returnValue);
 			}else{
 				predicate(sameType(returnValue.getFuncion().getType(),returnValue.getExpression().get().getType()), "Return expression must be the same as function return type", returnValue);
 			}	

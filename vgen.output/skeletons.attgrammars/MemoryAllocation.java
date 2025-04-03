@@ -1,10 +1,9 @@
 // Generated with VGen 2.0.0
 
-
 /*
 
-Este fichero es un esqueleto para facilitar la creación de una clase visitor. Para
-usarlo hay que realizar dos pasos:
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
 1. Ubicar este código.
 2. Completar cada método visit.
 
@@ -19,7 +18,8 @@ Hay dos opciones:
    métodos visit de este esqueleto (y los import) ignorando el resto.
 
 2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
-   carpeta deseada del proyecto y se le pone el package correspondiente a dicha ubicación.
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
 
 Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
 ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
@@ -39,14 +39,21 @@ Por tanto, hay tres opciones a la hora de implementar cada visit:
    DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
    clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
 
-2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos
-   los hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y
-   se pueden borrar los 'accept' comentados).
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
 
 3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
    hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
    los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
    estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
 
 */
 
@@ -61,7 +68,7 @@ import ast.expression.*;
 import ast.type.*;
 
 
-public class SkeletonForNewVisitors extends DefaultVisitor {
+public class MemoryAllocation extends DefaultVisitor {
 
     public void process(AST ast) {
         ast.accept(this, null);
@@ -73,6 +80,15 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(Program program, Object param) {
 
+        for (var variableDeclaration : program.declarations()
+                .filter(VariableDeclaration.class::isInstance)
+                .map(VariableDeclaration.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// variableDeclaration.setAddress(?);
+		}
+
 		// program.getDeclarations().forEach(declaration -> declaration.accept(this, param));
 		super.visit(program, param);
 
@@ -82,6 +98,11 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// class StructDeclaration(String ID, List<VariableDeclaration> variableDeclarations)
 	@Override
 	public Object visit(StructDeclaration structDeclaration, Object param) {
+
+		for (var variableDeclaration : structDeclaration.getVariableDeclarations()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// variableDeclaration.setAddress(?);
+		}
 
 		// structDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		super.visit(structDeclaration, param);
@@ -103,6 +124,16 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// class FunctionDeclaration(String ID, List<VariableDeclaration> parameters, Type type, List<VariableDeclaration> variableDeclarations, List<Statement> statements)
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
+
+		for (var variableDeclaration : functionDeclaration.getParameters()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// variableDeclaration.setAddress(?);
+		}
+
+		for (var variableDeclaration : functionDeclaration.getVariableDeclarations()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// variableDeclaration.setAddress(?);
+		}
 
 		// functionDeclaration.getParameters().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		// functionDeclaration.getType().accept(this, param);

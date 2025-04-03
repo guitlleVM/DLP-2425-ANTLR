@@ -106,6 +106,20 @@ public class StructType extends AbstractType  {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
+        @Override
+        public int getSize() {
+            if (structDeclaration == null) {
+                throw new IllegalStateException("StructType size cannot be calculated before the struct declaration is set.");
+            }
+            
+            var size = 0;
+
+            for(VariableDeclaration vD : structDeclaration.getVariableDeclarations()) {
+                size += vD.getType().getSize();
+            }
+
+            return size;
+        }
 
     // %% --------------------------------------
 }

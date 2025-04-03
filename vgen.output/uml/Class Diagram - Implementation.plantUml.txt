@@ -69,6 +69,8 @@ StructDeclaration o-[#404040,thickness=2]- "✱" VariableDeclaration : variableD
 
 class VariableDeclaration {
 	+String ID
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AbstractDeclaration <|-[#808080]- VariableDeclaration
 VariableDeclaration o-[#404040,thickness=2]-  Type : type >

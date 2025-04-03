@@ -35,6 +35,9 @@ public class RealType extends AbstractType  {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
-
+        @Override
+        public int getSize() {
+            return 4; 
+        }
     // %% --------------------------------------
 }

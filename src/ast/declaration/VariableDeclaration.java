@@ -15,6 +15,9 @@ import visitor.Visitor;
 /*
 	variableDeclaration: declaration -> ID:string type:type
 	declaration -> 
+	
+	PHASE MemoryAllocation
+	variableDeclaration -> address:int
 */
 public class VariableDeclaration extends AbstractDeclaration  {
 
@@ -24,6 +27,9 @@ public class VariableDeclaration extends AbstractDeclaration  {
 	// variableDeclaration: declaration -> ID:string type
 	private String ID;
 	private Type type;
+
+    // PHASE MemoryAllocation
+	private int address;
 
     // ----------------------------------
     // Constructors
@@ -85,6 +91,22 @@ public class VariableDeclaration extends AbstractDeclaration  {
 
     public Type getType() {
         return type;
+    }
+
+
+
+    // --------------------------------
+    // PHASE MemoryAllocation
+
+	// Attribute 'address:int' 
+
+	public void setAddress(int address) {
+		this.address = address;
+
+	}
+
+    public int getAddress() {
+        return address;
     }
 
 

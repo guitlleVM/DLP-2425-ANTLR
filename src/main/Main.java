@@ -28,7 +28,7 @@ import codegeneration.*;
  */
 
 public class Main {
-    public static final String TEST_FILE = "tests\\Tipos\\Test resumido.txt"; // Used only in development
+    public static final String TEST_FILE = "tests\\Test Gestion de Memoria.txt"; // Used only in development
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
@@ -73,8 +73,6 @@ public class Main {
         if (errorManager.errorsCount() > 0)
             return ast;
 
-        /*
-        *
         //$ 3. Code Generation -----------------------------------
         File sourceFile = new File(sourceName);
         Writer out = new FileWriter(new File(sourceFile.getParent(), OUTPUT_FILE));
@@ -82,7 +80,7 @@ public class Main {
         var generator = new CodeGeneration();
         generator.generate(sourceFile.getName(), ast, out);
         out.close();
-        */
+
         return ast;
     }
 }

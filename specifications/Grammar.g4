@@ -50,7 +50,7 @@ statement returns [Statement ast]
 	| 'if' '(' expression ')' '{' s1 = statements '}' 'else' '{' s2= statements '}' { $ast = new If($expression.ast, $s1.ast, $s2.ast); }
 	| 'while' '(' expression ')' '{' statements '}' { $ast = new While($expression.ast, $statements.ast); }
     | 'return' expression ';' { $ast = new Return($expression.ast); }
-    | 'return' ';' { $ast = new Return(null); }
+    | 'return' ';' { $ast = new Return(null); $ast.updatePositions($ctx.start);}
     | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
     ;
@@ -83,10 +83,9 @@ expressionList returns[List<Expression> ast = new ArrayList<Expression>()]
 	;
 
 type returns [Type ast]
-    : 'int'    { $ast = new IntType(); }
-    | 'float'  { $ast = new RealType(); }
-    | 'char'   { $ast = new CharType(); }
-    | 'void'   { $ast = new VoidType(); }
+    : 'int'    { $ast = new IntType(); $ast.updatePositions($ctx.start);}
+    | 'float'  { $ast = new RealType(); $ast.updatePositions($ctx.start);}
+    | 'char'   { $ast = new CharType(); $ast.updatePositions($ctx.start);}
     | '[' LITENT ']' type { $ast = new ArrayType($LITENT, $type.ast); }
     | ID       { $ast = new StructType($ID); }
     ;
