@@ -10,7 +10,6 @@ import visitor.Visitor;
 
 // %% -------------------------------
 
-
 /*
 	voidType: type -> 
 	type -> 
@@ -42,5 +41,4 @@ public class VoidType extends AbstractType  {
         }
 
     // %% --------------------------------------
-
 }

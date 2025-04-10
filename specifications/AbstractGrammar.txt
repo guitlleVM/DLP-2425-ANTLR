@@ -60,3 +60,11 @@ statement -> [inh] funcion:functionDeclaration;
 // -----------------------
 ATTRIBUTE GRAMMAR MemoryAllocation
 variableDeclaration -> [inh] address:int;    // Inherited attribute
+
+// -----------------------
+CODE SPECIFICATION Mapl
+run[program]
+define[declaration]
+execute[statement]
+value[expression]
+address[expression]
