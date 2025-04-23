@@ -36,9 +36,14 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(Printsp printsp, Object param) {
 
-		// value(printsp.expressions());
+		line(printsp);
 
-		out("<instruction>");
+		for(Expression expression : printsp.getExpressions()) {
+			value(expression);
+			out("out", expression.getType());
+			out("pushb 32");// espacio
+			out("outb");
+		}		
 
 		return null;
 	}
@@ -48,10 +53,15 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(Println println, Object param) {
 
-		// value(println.expressions());
+		line(println);
 
-		out("<instruction>");
-
+		for(Expression expression : println.getExpressions()) {
+			value(expression);
+			out("out", expression.getType());
+			out("pushb 10");//salto de línea
+			out("outb");		
+		}
+		
 		return null;
 	}
 

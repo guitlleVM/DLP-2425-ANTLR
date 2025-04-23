@@ -52,6 +52,10 @@ public abstract class AbstractCodeFunction extends ExceptionThrowerVisitor {
         out(instruction + suffixFor(type));
     }
 
+    protected void out(String instruction, Type type, String valor) {
+        out(instruction + suffixFor(type) + valor);
+    }
+
     protected String suffixFor(Type type) {
         if (type instanceof IntType)
             return "i";

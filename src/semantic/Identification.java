@@ -104,8 +104,14 @@ public class Identification extends DefaultVisitor {
 
         variables.set();
         
-        functionDeclaration.getParameters().forEach(parameter -> parameter.accept(this, param));
-		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
+        functionDeclaration.getParameters().forEach(parameter ->{
+            parameter.setAmbitoParametro();
+            parameter.accept(this, param);
+        });
+		functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> {
+            variableDeclaration.setAmbitoLocal();
+            variableDeclaration.accept(this, param);
+        });
 		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
 		
         variables.reset();

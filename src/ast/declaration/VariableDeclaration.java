@@ -126,7 +126,24 @@ public class VariableDeclaration extends AbstractDeclaration  {
 
     // %% User Members -------------------------
 
-        // Methods/attributes in this section will be preserved. Delete if not needed
+		// Methods/attributes in this section will be preserved. Delete if not needed
 
+		private String ambito = "global";
+
+		public String getAmbito() {
+			return ambito;
+		}
+
+		public void setAmbitoParametro() {
+			this.ambito = "parametro";
+		}
+
+		public void setAmbitoLocal() {
+			this.ambito = "local";
+		}
+        
+		public void setAmbitoGlobal() {
+			this.ambito = "global";
+		}
     // %% --------------------------------------
 }

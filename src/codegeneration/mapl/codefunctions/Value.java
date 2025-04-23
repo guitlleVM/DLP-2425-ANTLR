@@ -18,9 +18,8 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(Cast cast, Object param) {
 
-		// value(cast.getExpression());
-
-		out("<instruction>");
+		value(cast.getExpression());
+		out(suffixFor(cast.getExpression().getType())+"2"+suffixFor(cast.getTargetType()));
 
 		return null;
 	}
@@ -30,9 +29,8 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(StructAccess structAccess, Object param) {
 
-		// value(structAccess.getExpression());
-
-		out("<instruction>");
+		address(structAccess);
+		out("load" + suffixFor(structAccess.getType()));
 
 		return null;
 	}
@@ -42,11 +40,9 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		// value(arrayAccess.getE1());
+		address(arrayAccess);
 
-		// value(arrayAccess.getE2());
-
-		out("<instruction>");
+		out("load" + suffixFor(arrayAccess.getType()));
 
 		return null;
 	}
@@ -69,9 +65,8 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(Not not, Object param) {
 
-		// value(not.getExpression());
-
-		out("<instruction>");
+		value(not.getExpression());
+		out("not");
 
 		return null;
 	}
@@ -81,12 +76,28 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(ExpresionAritmetica expresionAritmetica, Object param) {
 
-		// value(expresionAritmetica.getE1());
-
-		// value(expresionAritmetica.getE2());
-
-		out("<instruction>");
-
+		value(expresionAritmetica.getE1());
+		value(expresionAritmetica.getE2());
+		switch (expresionAritmetica.getOp()) {
+			case "+":
+				out("add" + suffixFor(expresionAritmetica.getE1().getType()));
+				break;
+			case "-":
+				out("sub" + suffixFor(expresionAritmetica.getE1().getType()));
+				break;
+			case "*":
+				out("mul" + suffixFor(expresionAritmetica.getE1().getType()));
+				break;
+			case "/":
+				out("div" + suffixFor(expresionAritmetica.getE1().getType()));
+				break;
+			case "%":
+				out("mod" + suffixFor(expresionAritmetica.getE1().getType()));
+				break;
+			default:
+				break;
+		}
+		
 		return null;
 	}
 
@@ -95,11 +106,36 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(ExpresionLogica expresionLogica, Object param) {
 
-		// value(expresionLogica.getE1());
-
-		// value(expresionLogica.getE2());
-
-		out("<instruction>");
+		value(expresionLogica.getE1());		
+		value(expresionLogica.getE2());
+		switch (expresionLogica.getOp()) {
+			case "&&":
+				out("and" );
+				break;
+			case "||":
+				out("or" );
+				break;
+			case "<":
+				out("lt" + suffixFor(expresionLogica.getE1().getType()));
+				break;
+			case "<=":
+				out("le" + suffixFor(expresionLogica.getE1().getType()));
+				break;
+			case ">":
+				out("gt" + suffixFor(expresionLogica.getE1().getType()));
+				break;
+			case ">=":
+				out("ge" + suffixFor(expresionLogica.getE1().getType()));
+				break;
+			case "==":	
+				out("eq" + suffixFor(expresionLogica.getE1().getType()));
+				break;
+			case "!=":
+				out("ne" + suffixFor(expresionLogica.getE1().getType()));
+				break;		
+			default:
+				break;
+		}
 
 		return null;
 	}
@@ -110,7 +146,9 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(Variable variable, Object param) {
 
-		out("<instruction>");
+		address(variable);
+
+		out("load", variable.getVariableDeclaration().getType());	
 
 		return null;
 	}
@@ -120,7 +158,7 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(LitEnt litEnt, Object param) {
 
-		out("<instruction>");
+		out("pushi " + litEnt.getLITENT());
 
 		return null;
 	}
@@ -130,7 +168,7 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(LitReal litReal, Object param) {
 
-		out("<instruction>");
+		out("pushf " + litReal.getLITREAL());
 
 		return null;
 	}
@@ -140,7 +178,10 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(LitChar litChar, Object param) {
 
-		out("<instruction>");
+		char var = litChar.getCHAR_LITERAL().charAt(1);
+		int asciiValue = (int) var;
+
+		out("pushb" + asciiValue);
 
 		return null;
 	}

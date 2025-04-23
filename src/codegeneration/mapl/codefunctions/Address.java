@@ -2,7 +2,11 @@
 
 package codegeneration.mapl.codefunctions;
 
+import java.util.List;
+
+import ast.declaration.VariableDeclaration;
 import ast.expression.*;
+import ast.type.StructType;
 import codegeneration.mapl.*;
 
 
@@ -17,27 +21,31 @@ public class Address extends AbstractCodeFunction {
 	@Override
 	public Object visit(StructAccess structAccess, Object param) {
 
-		// value(structAccess.getExpression());
-		// address(structAccess.getExpression());
-
-		out("<instruction>");
+		address(structAccess.getExpression());	
+		StructType structType = (StructType)structAccess.getExpression().getType();
+        List<VariableDeclaration> lista = structType.getStructDeclaration().getVariableDeclarations();
+        for(VariableDeclaration variableDeclaration : lista) {
+            if(variableDeclaration.getID().equals(structAccess.getID())) {
+                out("pushi " + variableDeclaration.getAddress());
+                break;
+            }
+        }
+        out("addi"); // address + offset
 
 		return null;
 	}
 
 	// class ArrayAccess(Expression e1, Expression e2)
-	// phase TypeChecking { Type type, boolean lvalue }
+	// phase TypeChecking { Type type, boolean lvalue } v[20] 
 	@Override
 	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		// value(arrayAccess.getE1());
-		// address(arrayAccess.getE1());
-
-		// value(arrayAccess.getE2());
-		// address(arrayAccess.getE2());
-
-		out("<instruction>");
-
+		address(arrayAccess.getE1());
+		out("pushi " + arrayAccess.getType().getSize());		
+		value(arrayAccess.getE2());
+		out("muli"); 
+		out("addi");
+		
 		return null;
 	}
 
@@ -47,8 +55,22 @@ public class Address extends AbstractCodeFunction {
 	@Override
 	public Object visit(Variable variable, Object param) {
 
-		out("pusha " + variable.getVariableDeclaration().getAddress());
-
+		switch (variable.getVariableDeclaration().getAmbito()) {			
+			case "parametro":
+				out("pusha BP");
+				out("pushi " + variable.getVariableDeclaration().getAddress());
+				out("add");
+				break;
+			case "local":
+				out("pusha BP");
+				out("pushi " + variable.getVariableDeclaration().getAddress());
+				out("add");
+				break;
+			default:
+				out("pusha " + variable.getVariableDeclaration().getAddress());
+				break;
+		}
+		
 		return null;
 	}
 

@@ -1,4 +1,0 @@
-struct Direccion {
-	portal:int;
-	codigoPostal:int;
-}
