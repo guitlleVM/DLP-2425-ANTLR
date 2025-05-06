@@ -2,6 +2,7 @@
 
 package codegeneration.mapl.codefunctions;
 
+import ast.statement.*;
 import ast.declaration.*;
 import ast.type.VoidType;
 import codegeneration.mapl.*;
@@ -64,7 +65,9 @@ public class Define extends AbstractCodeFunction {
 
 		execute(functionDeclaration.statements());
 
-		if(functionDeclaration.getType().getClass().equals(VoidType.class)) {
+		Statement lastStatement = functionDeclaration.getStatements().get(functionDeclaration.getStatements().size() - 1);
+
+		if(functionDeclaration.getType().getClass().equals(VoidType.class) && !(lastStatement instanceof Return)) {
 			out("ret 0, " + sizeLocales + ", " + sizeParameters);
 		}
 		

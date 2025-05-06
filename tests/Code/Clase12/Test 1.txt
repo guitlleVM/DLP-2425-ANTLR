@@ -36,4 +36,5 @@ main() {
 	}
 
 	print doble(2);
+	return;
 }
