@@ -1,0 +1,10 @@
+busca(i:int) {
+	if (i > 4) {
+		return;
+	}
+	printsp 1;
+}
+
+main(){
+    busca(6);
+}

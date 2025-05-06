@@ -92,16 +92,21 @@ public class Execute extends AbstractCodeFunction {
 
 		value(ifValue.getExpression());
 
-		if(ifValue.getS2() != null) {
+		if(ifValue.getS2().size() > 0) { // YA QUE EN EL CONSTRUCTUR SI LLEGA NULL CREA UNA LISTA VACIA
 			out("jz else" + ifID);
 		} else {
 			out("jz finIf" + ifID);
 		}
 
-		execute(ifValue.s1());
-		out("jmp finIf" + ifID);
+		for(int i = 0; i < ifValue.getS1().size(); i++) {			
+			Statement statement = ifValue.getS1().get(i);
+			execute(statement);
+			if(i == ifValue.getS1().size() - 1 && !(statement instanceof Return)) {
+				out("jmp finIf" + ifID);
+			}
+		}
 
-		if(ifValue.getS2() != null) {
+		if(ifValue.getS2().size() > 0) {
 			out("else" + ifID + ":");
 			execute(ifValue.s2());
 		}
