@@ -3,6 +3,7 @@
 package codegeneration.mapl.codefunctions;
 
 import ast.declaration.*;
+import ast.type.VoidType;
 import codegeneration.mapl.*;
 
 
@@ -17,9 +18,13 @@ public class Define extends AbstractCodeFunction {
 	@Override
 	public Object visit(StructDeclaration structDeclaration, Object param) {
 
-		// define(structDeclaration.variableDeclarations());
+		out("#TYPE " + structDeclaration.getID() + ":{");
 
-		//out("<instruction>");
+		for (VariableDeclaration variableDeclaration : structDeclaration.getVariableDeclarations()) {
+			out(variableDeclaration.getID() + ":" + variableDeclaration.getType().getClass().getSimpleName());
+		}
+
+		out("}");
 
 		return null;
 	}
@@ -29,7 +34,7 @@ public class Define extends AbstractCodeFunction {
 	@Override
 	public Object visit(VariableDeclaration variableDeclaration, Object param) {
 
-		//out("<instruction>");
+		out("#GLOBAL " + variableDeclaration.getID() + " " + variableDeclaration.getType().getClass().getSimpleName());
 
 		return null;
 	}
@@ -38,14 +43,31 @@ public class Define extends AbstractCodeFunction {
 	@Override
 	public Object visit(FunctionDeclaration functionDeclaration, Object param) {
 
-		// define(functionDeclaration.parameters());
+		out("#line " + functionDeclaration.start().getLine());
+		int sizeLocales = 0;
+		int sizeParameters = 0;
+		out(functionDeclaration.getID()+ ":");
 
-		// define(functionDeclaration.variableDeclarations());
+		if(functionDeclaration.getParameters() != null) {
+			for (VariableDeclaration parameter : functionDeclaration.getParameters()) {
+				sizeParameters += parameter.getType().getSize();
+			}
+		}
+
+		if(functionDeclaration.getVariableDeclarations() != null) {
+			for (VariableDeclaration variableDeclaration : functionDeclaration.getVariableDeclarations()) {
+				sizeLocales += variableDeclaration.getType().getSize();
+			}
+		}
+
+		out("enter " +  sizeLocales);
 
 		execute(functionDeclaration.statements());
 
-		//out("<instruction>");
-
+		if(functionDeclaration.getType().getClass().equals(VoidType.class)) {
+			out("ret 0, " + sizeLocales + ", " + sizeParameters);
+		}
+		
 		return null;
 	}
 

@@ -4,7 +4,9 @@ package codegeneration.mapl.codefunctions;
 
 
 import ast.*;
+import ast.declaration.VariableDeclaration;
 import ast.statement.*;
+import ast.type.VoidType;
 import ast.expression.*;
 import codegeneration.mapl.*;
 
@@ -70,9 +72,12 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(Read read, Object param) {
 
-		// value(read.getExpression());
+		line(read);
+		
+		address(read.getExpression());
 
-		out("<instruction>");
+		out("in" + suffixFor(read.getExpression().getType()));
+		out("store" + suffixFor(read.getExpression().getType()));
 
 		return null;
 	}
@@ -82,14 +87,26 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(If ifValue, Object param) {
 
-		// value(ifValue.getExpression());
+		line(ifValue);
+		int ifID = labelCounter();
 
-		// execute(ifValue.s1());
+		value(ifValue.getExpression());
 
-		// execute(ifValue.s2());
+		if(ifValue.getS2() != null) {
+			out("jz else" + ifID);
+		} else {
+			out("jz finIf" + ifID);
+		}
 
-		out("<instruction>");
+		execute(ifValue.s1());
+		out("jmp finIf" + ifID);
 
+		if(ifValue.getS2() != null) {
+			out("else" + ifID + ":");
+			execute(ifValue.s2());
+		}
+
+		out("finIf" + ifID + ":");
 		return null;
 	}
 
@@ -98,11 +115,18 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(While whileValue, Object param) {
 
-		// value(whileValue.getExpression());
+		line(whileValue);
+		int whileID = labelCounter();
 
-		// execute(whileValue.statements());
+		out("while" + whileID + ":");
+		value(whileValue.getExpression());
 
-		out("<instruction>");
+		out("jz finWhile" + whileID);
+
+		execute(whileValue.statements());
+		out("jmp while" + whileID);
+
+		out("finWhile" + whileID + ":");
 
 		return null;
 	}
@@ -111,10 +135,23 @@ public class Execute extends AbstractCodeFunction {
 	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Return returnValue, Object param) {
+		int sizeLocales = 0;
+		int sizeParameters = 0;
 
-		// value(returnValue.getExpression());
+		for (VariableDeclaration parameter : returnValue.getFuncion().getParameters()) {
+			sizeParameters += parameter.getType().getSize();
+		}
 
-		out("<instruction>");
+		for (VariableDeclaration variableDeclaration : returnValue.getFuncion().getVariableDeclarations()) {
+			sizeLocales += variableDeclaration.getType().getSize();
+		}
+
+		if(returnValue.getExpression() == null) {
+			out("ret 0, " + sizeParameters + ", " + sizeLocales);
+		} else {
+			value(returnValue.getExpression());
+			out("ret " + returnValue.getFuncion().getType().getSize() + ", " + sizeLocales + ", " + sizeParameters);
+		}
 
 		return null;
 	}
@@ -139,9 +176,17 @@ public class Execute extends AbstractCodeFunction {
 	@Override
 	public Object visit(FuncionLlamada funcionLlamada, Object param) {
 
-		// value(funcionLlamada.expressions());
+		line(funcionLlamada);
 
-		out("<instruction>");
+		if(funcionLlamada.getExpressions() != null) {
+			value(funcionLlamada.expressions());
+		}
+
+		out("call " + funcionLlamada.getID());
+		
+		if(!(funcionLlamada.getFunctionDeclaration().getType().getClass().equals(VoidType.class))){
+			out("pop");
+		}
 
 		return null;
 	}
@@ -159,4 +204,16 @@ public class Execute extends AbstractCodeFunction {
         else
             System.out.println("#line no generado. Se ha pasado una Position null. Falta información en el AST");
     }
+
+	// Campo estático que mantiene el estado entre llamadas
+    private static int contador = 0;
+
+    /**
+     * Devuelve 1 la primera vez, 2 la segunda, 3 la tercera, etc.
+     * @return el siguiente valor del contador
+     */
+    public static int labelCounter() {
+        return ++contador;
+    }
+
 }

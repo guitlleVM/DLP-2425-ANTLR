@@ -52,10 +52,12 @@ public class Value extends AbstractCodeFunction {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(ExpresionLlamada expresionLlamada, Object param) {
-
-		// value(expresionLlamada.expressions());
-
-		out("<instruction>");
+		
+		if(expresionLlamada.getExpressions() != null) {
+			value(expresionLlamada.expressions());
+		}
+		
+		out("call " + expresionLlamada.getID());
 
 		return null;
 	}

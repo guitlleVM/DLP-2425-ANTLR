@@ -18,9 +18,10 @@ public class Run extends AbstractCodeFunction {
 	public Object visit(Program program, Object param) {
 
 		out("#source \"" + getSpecification().getSourceFile() + "\"");		
-		define(program.declarations());
+		out("call main");
 		out("halt");
-
+		define(program.declarations());
+		
 		return null;
 	}
 
