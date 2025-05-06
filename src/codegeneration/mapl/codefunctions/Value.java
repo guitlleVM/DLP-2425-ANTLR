@@ -183,7 +183,7 @@ public class Value extends AbstractCodeFunction {
 		char var = litChar.getCHAR_LITERAL().charAt(1);
 		int asciiValue = (int) var;
 
-		out("pushb" + asciiValue);
+		out("pushb " + asciiValue);
 
 		return null;
 	}

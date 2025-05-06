@@ -109,5 +109,9 @@ public class ArrayType extends AbstractType  {
 			return type.getSize() * Integer.parseInt(posicion);
 		}
 
+		@Override
+        public String nameForMAPL() {
+            return posicion + "*" + getType().nameForMAPL(); 
+        }
     // %% --------------------------------------
 }

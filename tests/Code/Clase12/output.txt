@@ -1,0 +1,15 @@
+#source "prueba.txt"
+call main
+halt
+#line 1
+r:
+enter 0
+ret 0, 0, 0
+ret 0, 0, 0
+#line 5
+main:
+enter 0
+
+#line 6
+call r
+ret 0, 0, 0

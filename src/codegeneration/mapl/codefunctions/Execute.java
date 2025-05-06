@@ -146,8 +146,8 @@ public class Execute extends AbstractCodeFunction {
 			sizeLocales += variableDeclaration.getType().getSize();
 		}
 
-		if(returnValue.getExpression() == null) {
-			out("ret 0, " + sizeParameters + ", " + sizeLocales);
+		if(!(returnValue.getExpression().isPresent())) {
+			out("ret 0, " + sizeLocales + ", " + sizeParameters);
 		} else {
 			value(returnValue.getExpression());
 			out("ret " + returnValue.getFuncion().getType().getSize() + ", " + sizeLocales + ", " + sizeParameters);

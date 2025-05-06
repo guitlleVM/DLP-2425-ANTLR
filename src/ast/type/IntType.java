@@ -40,5 +40,10 @@ public class IntType extends AbstractType  {
             return 2; 
         }
 
+        @Override
+        public String nameForMAPL() {
+            return "int"; 
+        }
+
     // %% --------------------------------------
 }

@@ -21,7 +21,7 @@ public class Define extends AbstractCodeFunction {
 		out("#TYPE " + structDeclaration.getID() + ":{");
 
 		for (VariableDeclaration variableDeclaration : structDeclaration.getVariableDeclarations()) {
-			out(variableDeclaration.getID() + ":" + variableDeclaration.getType().getClass().getSimpleName());
+			out(variableDeclaration.getID() + ":" + variableDeclaration.getType().nameForMAPL());
 		}
 
 		out("}");
@@ -34,7 +34,7 @@ public class Define extends AbstractCodeFunction {
 	@Override
 	public Object visit(VariableDeclaration variableDeclaration, Object param) {
 
-		out("#GLOBAL " + variableDeclaration.getID() + " " + variableDeclaration.getType().getClass().getSimpleName());
+		out("#GLOBAL " + variableDeclaration.getID() + ":" + variableDeclaration.getType().nameForMAPL());
 
 		return null;
 	}

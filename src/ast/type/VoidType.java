@@ -40,5 +40,10 @@ public class VoidType extends AbstractType  {
             throw new IllegalStateException("Void type can't be used in expressions");
         }
 
+        @Override
+        public String nameForMAPL() {
+            throw new IllegalStateException("Void no name for MAPL");
+        }
+
     // %% --------------------------------------
 }

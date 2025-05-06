@@ -40,5 +40,10 @@ public class CharType extends AbstractType  {
             return 1; 
         }
 
+        @Override
+        public String nameForMAPL() {
+            return "byte"; 
+        }
+
     // %% --------------------------------------
 }
