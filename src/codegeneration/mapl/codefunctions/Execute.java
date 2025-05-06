@@ -40,6 +40,11 @@ public class Execute extends AbstractCodeFunction {
 
 		line(printsp);
 
+		if(printsp.getExpressions().size() == 0) {
+			out("pushb 32");// espacio
+			out("outb");
+		}
+
 		for(Expression expression : printsp.getExpressions()) {
 			value(expression);
 			out("out", expression.getType());
@@ -56,6 +61,11 @@ public class Execute extends AbstractCodeFunction {
 	public Object visit(Println println, Object param) {
 
 		line(println);
+
+		if(println.getExpressions().size() == 0) {
+			out("pushb 10");//salto de línea
+			out("outb");
+		}
 
 		for(Expression expression : println.getExpressions()) {
 			value(expression);
@@ -190,7 +200,7 @@ public class Execute extends AbstractCodeFunction {
 		out("call " + funcionLlamada.getID());
 		
 		if(!(funcionLlamada.getFunctionDeclaration().getType().getClass().equals(VoidType.class))){
-			out("pop");
+			out("pop" + suffixFor(funcionLlamada.getFunctionDeclaration().getType()));
 		}
 
 		return null;

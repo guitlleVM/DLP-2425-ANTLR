@@ -65,9 +65,13 @@ public class Define extends AbstractCodeFunction {
 
 		execute(functionDeclaration.statements());
 
-		Statement lastStatement = functionDeclaration.getStatements().get(functionDeclaration.getStatements().size() - 1);
+		if(functionDeclaration.getStatements().size() > 0) {
+			Statement lastStatement = functionDeclaration.getStatements().get(functionDeclaration.getStatements().size() - 1);
 
-		if(functionDeclaration.getType().getClass().equals(VoidType.class) && !(lastStatement instanceof Return)) {
+			if(functionDeclaration.getType().getClass().equals(VoidType.class) && !(lastStatement instanceof Return)) {
+				out("ret 0, " + sizeLocales + ", " + sizeParameters);
+			}
+		}else{
 			out("ret 0, " + sizeLocales + ", " + sizeParameters);
 		}
 		

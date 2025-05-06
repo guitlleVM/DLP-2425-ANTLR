@@ -18,8 +18,25 @@ public class Value extends AbstractCodeFunction {
 	@Override
 	public Object visit(Cast cast, Object param) {
 
+		String Suffexpresion = suffixFor(cast.getExpression().getType());
+		String SuffTarget = suffixFor(cast.getTargetType());
+
 		value(cast.getExpression());
-		out(suffixFor(cast.getExpression().getType())+"2"+suffixFor(cast.getTargetType()));
+
+		if(Suffexpresion == "f" && SuffTarget == "b" ){
+			out("f2i");
+			out("i2b");
+			
+		}else{
+			if(Suffexpresion == "b" && SuffTarget == "f" ){
+				out("b2i");
+				out("i2f");
+			}else{
+				out(Suffexpresion+"2"+SuffTarget);
+			}
+		}
+		
+		
 
 		return null;
 	}
@@ -179,12 +196,32 @@ public class Value extends AbstractCodeFunction {
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override
 	public Object visit(LitChar litChar, Object param) {
+		String raw = litChar.getCHAR_LITERAL();
+		String content = raw.substring(1, raw.length() - 1);  // p.ej. "\\n" o "a"
 
-		char var = litChar.getCHAR_LITERAL().charAt(1);
-		int asciiValue = (int) var;
+		char c;
+		if (content.length() == 1) {
+			// caso simple: 'a', 'Z', etc.
+			c = content.charAt(0);
+		} else if (content.charAt(0) == '\\' && content.length() >= 2) {
+			// escape estándar de Java
+			switch (content.charAt(1)) {
+				case 'n':  c = '\n'; break;
+				case 't':  c = '\t'; break;
+				case 'r':  c = '\r'; break;
+				case 'b':  c = '\b'; break;
+				case 'f':  c = '\f'; break;
+				case '\'': c = '\''; break;
+				case '\"': c = '\"'; break;
+				case '\\': c = '\\'; break;
+				default:
+					throw new IllegalArgumentException("Escape no soportado: \\" + content.charAt(1));
+			}
+		} else {
+			throw new IllegalArgumentException("Literal inválida: " + raw);
+		}
 
-		out("pushb " + asciiValue);
-
+		out("pushb " + (int)c);
 		return null;
 	}
 

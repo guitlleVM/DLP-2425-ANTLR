@@ -1,304 +1,185 @@
-#source "Test 3.txt"
+#source "Test 6.txt"
 call main
 halt
-#TYPE Piloto:{
-inicial:byte
-crono:3*float
-}
-#GLOBAL F1:3*Piloto
-#line 27
-inicia:
-enter 0
+#line 35
+main:
+enter 7
 
-#line 28
-pusha 0
-pushi 13
+#line 40
 pusha BP
-pushi 17
+pushi -7
 add
-loadi
-muli
-addi
-pushi 0
-addi
-pusha BP
-pushi 16
-add
-loadb
+inb
 storeb
 
-#line 29
-pusha 0
-pushi 13
+#line 41
 pusha BP
-pushi 17
+pushi -6
 add
-loadi
-muli
-addi
-pushi 1
-addi
-pushi 4
-pushi 0
-muli
-addi
-pusha BP
-pushi 12
-add
-loadf
+inf
 storef
-
-#line 30
-pusha 0
-pushi 13
-pusha BP
-pushi 17
-add
-loadi
-muli
-addi
-pushi 1
-addi
-pushi 4
-pushi 1
-muli
-addi
-pusha BP
-pushi 8
-add
-loadf
-storef
-
-#line 31
-pusha 0
-pushi 13
-pusha BP
-pushi 17
-add
-loadi
-muli
-addi
-pushi 1
-addi
-pushi 4
-pushi 2
-muli
-addi
-pusha BP
-pushi 4
-add
-loadf
-storef
-pusha 0
-pushi 13
-pusha BP
-pushi 17
-add
-loadi
-muli
-addi
-pushi 0
-addi
-loadb
-ret 1, 0, 15
-#line 36
-imprimeElMejor:
-enter 12
 
 #line 42
 pusha BP
-pushi -6
+pushi -2
 add
-pushf 1000.0
-storef
-
-#line 43
-pusha BP
-pushi -12
-add
-pushi 0
+ini
 storei
-
-#line 50
-while1:
-pusha BP
-pushi -12
-add
-loadi
-pushi 3
-lti
-jz finWhile1
 
 #line 45
 pusha BP
-pushi -10
+pushi -7
 add
-pusha 0
-pushi 13
-pusha BP
-pushi -12
-add
-loadi
-muli
-addi
-pushi 1
-addi
-pushi 4
-pushi 2
-muli
-addi
-loadf
-storef
-
-#line 48
-pusha BP
-pushi -10
-add
-loadf
-pusha BP
-pushi -6
-add
-loadf
-ltf
-jz finIf2
-
-#line 47
-pusha BP
-pushi -6
-add
-pusha BP
-pushi -10
-add
-loadf
-storef
-
-#line 48
-pusha BP
-pushi -2
-add
-pusha BP
-pushi -12
-add
-loadi
-storei
-jmp finIf2
-finIf2:
-
-#line 50
-pusha BP
-pushi -12
-add
-pusha BP
-pushi -12
-add
-loadi
-pushi 1
-addi
-storei
-jmp while1
-finWhile1:
-
-#line 53
-pusha 0
-pushi 13
-pusha BP
-pushi -2
-add
-loadi
-muli
-addi
-pushi 0
-addi
 loadb
 outb
 pushb 10
 outb
 
-#line 54
+#line 46
 pusha BP
-pushi -12
+pushi -7
 add
-pushi 0
-storei
-
-#line 57
-while3:
 pusha BP
-pushi -12
+pushi -6
 add
-loadi
-pushi 3
-lti
-jz finWhile3
+loadf
+f2i
+i2b
+storeb
 
-#line 56
-pusha 0
-pushi 13
+#line 47
+pusha BP
+pushi -7
+add
+loadb
+outb
+pushb 10
+outb
+
+#line 48
+pusha BP
+pushi -7
+add
 pusha BP
 pushi -2
 add
 loadi
-muli
-addi
-pushi 1
-addi
-pushi 4
+i2b
+storeb
+
+#line 49
 pusha BP
-pushi -12
+pushi -7
+add
+loadb
+outb
+pushb 10
+outb
+
+#line 50
+pushb 10
+outb
+
+#line 52
+pusha BP
+pushi -6
+add
+loadf
+outf
+pushb 10
+outb
+
+#line 53
+pusha BP
+pushi -6
+add
+pusha BP
+pushi -2
 add
 loadi
-muli
-addi
+i2f
+storef
+
+#line 54
+pusha BP
+pushi -6
+add
+loadf
+outf
+pushb 10
+outb
+
+#line 55
+pusha BP
+pushi -6
+add
+pusha BP
+pushi -7
+add
+loadb
+b2i
+i2f
+storef
+
+#line 56
+pusha BP
+pushi -6
+add
 loadf
 outf
 pushb 10
 outb
 
 #line 57
+pushb 10
+outb
+
+#line 59
 pusha BP
-pushi -12
-add
-pusha BP
-pushi -12
+pushi -2
 add
 loadi
-pushi 1
-addi
+outi
+pushb 10
+outb
+
+#line 60
+pusha BP
+pushi -2
+add
+pusha BP
+pushi -6
+add
+loadf
+f2i
 storei
-jmp while3
-finWhile3:
-ret 0, 12, 0
+
 #line 61
-main:
-enter 0
+pusha BP
+pushi -2
+add
+loadi
+outi
+pushb 10
+outb
 
 #line 62
-pushi 0
-pushb 65
-pushf 1.50
-pushf 1.49
-pushf 1.48
-call inicia
-pop
+pusha BP
+pushi -2
+add
+pusha BP
+pushi -7
+add
+loadb
+b2i
+storei
 
 #line 63
-pushi 1
-pushb 72
-pushf 1.52
-pushf 1.51
-pushf 1.50
-call inicia
-pop
-
-#line 64
-pushi 2
-pushb 86
-pushf 1.54
-pushf 1.52
-pushf 1.51
-call inicia
-pop
-
-#line 66
-call imprimeElMejor
-ret 0, 0, 0
+pusha BP
+pushi -2
+add
+loadi
+outi
+pushb 10
+outb
+ret 0, 7, 0

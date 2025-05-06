@@ -42,9 +42,9 @@ parameterList returns [List<VariableDeclaration> ast = new ArrayList<>()]
     ;
 
 statement returns [Statement ast]
-    : 'print' expressionList ';' { $ast = new Print($expressionList.ast); }
-    | 'printsp' expressionList ';' { $ast = new Printsp($expressionList.ast); }
-    | 'println' expressionList ';' { $ast = new Println($expressionList.ast); }
+    : 'print' expressionList ';' { $ast = new Print($expressionList.ast); $ast.updatePositions($ctx.start);}
+    | 'printsp' expressionList ';' { $ast = new Printsp($expressionList.ast); $ast.updatePositions($ctx.start);}
+    | 'println' expressionList ';' { $ast = new Println($expressionList.ast); $ast.updatePositions($ctx.start);}
     | 'read' expression ';' { $ast = new Read($expression.ast); }
     | 'if' '(' expression ')' '{' statements '}' { $ast = new If($expression.ast, $statements.ast, null); }
 	| 'if' '(' expression ')' '{' s1 = statements '}' 'else' '{' s2= statements '}' { $ast = new If($expression.ast, $s1.ast, $s2.ast); }

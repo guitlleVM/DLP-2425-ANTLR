@@ -596,7 +596,7 @@ public class GrammarParser extends Parser {
 				((StatementContext)_localctx).expressionList = expressionList();
 				setState(114);
 				match(T__3);
-				 ((StatementContext)_localctx).ast =  new Print(((StatementContext)_localctx).expressionList.ast); 
+				 ((StatementContext)_localctx).ast =  new Print(((StatementContext)_localctx).expressionList.ast); _localctx.ast.updatePositions(_localctx.start);
 				}
 				break;
 			case 2:
@@ -608,7 +608,7 @@ public class GrammarParser extends Parser {
 				((StatementContext)_localctx).expressionList = expressionList();
 				setState(119);
 				match(T__3);
-				 ((StatementContext)_localctx).ast =  new Printsp(((StatementContext)_localctx).expressionList.ast); 
+				 ((StatementContext)_localctx).ast =  new Printsp(((StatementContext)_localctx).expressionList.ast); _localctx.ast.updatePositions(_localctx.start);
 				}
 				break;
 			case 3:
@@ -620,7 +620,7 @@ public class GrammarParser extends Parser {
 				((StatementContext)_localctx).expressionList = expressionList();
 				setState(124);
 				match(T__3);
-				 ((StatementContext)_localctx).ast =  new Println(((StatementContext)_localctx).expressionList.ast); 
+				 ((StatementContext)_localctx).ast =  new Println(((StatementContext)_localctx).expressionList.ast); _localctx.ast.updatePositions(_localctx.start);
 				}
 				break;
 			case 4:
