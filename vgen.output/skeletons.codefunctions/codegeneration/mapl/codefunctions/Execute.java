@@ -110,7 +110,7 @@ public class Execute extends AbstractCodeFunction {
 		return null;
 	}
 
-	// class Asignacion(Expression e1, Expression e2)
+	// class Asignacion(Expression e1, List<Expression> a)
 	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
@@ -118,8 +118,8 @@ public class Execute extends AbstractCodeFunction {
 		// value(asignacion.getE1());
 		// address(asignacion.getE1());
 
-		// value(asignacion.getE2());
-		// address(asignacion.getE2());
+		// value(asignacion.a());
+		// address(asignacion.a());
 
 		out("<instruction>");
 

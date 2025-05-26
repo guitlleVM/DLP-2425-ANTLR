@@ -21,7 +21,7 @@ read:statement -> expression;
 if:statement -> expression s1:statement* s2:statement*;
 while:statement -> expression statement*;
 return:statement -> expression?;
-asignacion:statement -> e1:expression e2:expression;
+asignacion:statement -> e1:expression a:expression*;
 funcionLlamada:statement -> ID:string expression*;
 
 cast:expression -> targetType:type expression;

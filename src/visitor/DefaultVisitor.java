@@ -112,7 +112,7 @@ public class DefaultVisitor implements Visitor {
 	public Object visit(Asignacion asignacion, Object param) {
 
 		asignacion.getE1().accept(this, param);
-		asignacion.getE2().accept(this, param);
+		asignacion.getA().forEach(expression -> expression.accept(this, param));
 		return null;
 	}
 

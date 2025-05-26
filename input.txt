@@ -1,19 +1,22 @@
-var i:int;
-var j:int;
-var n:int;
+struct Persona {
+    edad:int;
+}
 
-p() {}
+var a:int;
+var b:int;
+var c:int;
+var v:[10]int;
+var raul:Persona;
 
-var c:char;
+main(){
 
-f(n:int, r:double ):int {
- var real:double;
- var c1:char;
- var c2:char;
- c1 = <char>(n);
- real = <double>(c1) + <double>(n) + r;
+    read raul.edad;
 
- p();
+    a = b = raul.edad;
+    
+    v[2] = a;
 
- return <int>(c1);
+    v[8] = 1; 
+
+    c = v[5] = v[7] = v[8];
 }

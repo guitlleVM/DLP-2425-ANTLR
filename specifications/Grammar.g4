@@ -51,8 +51,12 @@ statement returns [Statement ast]
 	| 'while' '(' expression ')' '{' statements '}' { $ast = new While($expression.ast, $statements.ast); }
     | 'return' expression ';' { $ast = new Return($expression.ast); }
     | 'return' ';' { $ast = new Return(null); $ast.updatePositions($ctx.start);}
-    | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
+    | e1=expression a=asignaciones ';' { $ast = new Asignacion($e1.ast, $a.ast); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
+    ;
+
+asignaciones returns[List<Expression> ast = new ArrayList<Expression>()]
+    : ('=' expression { $ast.add($expression.ast) } )+
     ;
 
 statements returns[List<Statement> ast = new ArrayList<Statement>()]

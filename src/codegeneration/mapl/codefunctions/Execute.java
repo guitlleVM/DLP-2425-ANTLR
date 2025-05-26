@@ -178,8 +178,17 @@ public class Execute extends AbstractCodeFunction {
 
 		line(asignacion);
 
-        address(asignacion.getE1());
-        value(asignacion.getE2());
+		address(asignacion.getE1());
+		for (int tamExpresiones = 0 ; tamExpresiones < asignacion.getA().size(); tamExpresiones++) {
+			if(tamExpresiones < asignacion.getA().size() - 1) {
+				address(asignacion.getA().get(tamExpresiones));
+				value(asignacion.getA().get(asignacion.getA().size() - 1));
+				out("store", asignacion.getA().get(tamExpresiones).getType());
+			}else{
+				value(asignacion.getA().get(asignacion.getA().size() - 1));
+			}
+		}
+
         out("store", asignacion.getE1().getType());
 		
 		return null;

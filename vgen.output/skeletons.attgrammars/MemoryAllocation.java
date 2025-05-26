@@ -224,13 +224,13 @@ public class MemoryAllocation extends DefaultVisitor {
 		return null;
 	}
 
-	// class Asignacion(Expression e1, Expression e2)
+	// class Asignacion(Expression e1, List<Expression> a)
 	// phase TypeChecking { FunctionDeclaration funcion }
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
 
 		// asignacion.getE1().accept(this, param);
-		// asignacion.getE2().accept(this, param);
+		// asignacion.getA().forEach(expression -> expression.accept(this, param));
 		super.visit(asignacion, param);
 
 		return null;

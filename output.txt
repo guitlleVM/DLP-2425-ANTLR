@@ -1,0 +1,89 @@
+#source "input.txt"
+call main
+halt
+#TYPE Persona:{
+edad:int
+}
+#GLOBAL a:int
+#GLOBAL b:int
+#GLOBAL c:int
+#GLOBAL v:10*int
+#GLOBAL raul:Persona
+#line 11
+main:
+enter 0
+
+#line 13
+pusha 26
+pushi 0
+addi
+ini
+storei
+
+#line 15
+pusha 0
+pusha 2
+pusha 26
+pushi 0
+addi
+loadi
+storei
+pusha 26
+pushi 0
+addi
+loadi
+storei
+
+#line 17
+pusha 6
+pushi 2
+pushi 2
+muli
+addi
+pusha 0
+loadi
+storei
+
+#line 19
+pusha 6
+pushi 2
+pushi 8
+muli
+addi
+pushi 1
+storei
+
+#line 21
+pusha 4
+pusha 6
+pushi 2
+pushi 5
+muli
+addi
+pusha 6
+pushi 2
+pushi 8
+muli
+addi
+loadi
+storei
+pusha 6
+pushi 2
+pushi 7
+muli
+addi
+pusha 6
+pushi 2
+pushi 8
+muli
+addi
+loadi
+storei
+pusha 6
+pushi 2
+pushi 8
+muli
+addi
+loadi
+storei
+ret 0, 0, 0

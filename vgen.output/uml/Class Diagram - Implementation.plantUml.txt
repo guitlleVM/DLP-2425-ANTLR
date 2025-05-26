@@ -126,7 +126,7 @@ class Asignacion {
 }
 AbstractStatement <|-[#808080]- Asignacion
 Asignacion o-[#404040,thickness=2]-  Expression : e1 >
-Asignacion o-[#404040,thickness=2]-  Expression : e2 >
+Asignacion o-[#404040,thickness=2]- "✱" Expression : a >
 
 class FuncionLlamada {
 	+String ID

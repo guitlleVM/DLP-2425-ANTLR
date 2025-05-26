@@ -273,11 +273,11 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNodeChild(indent + 1, "e1", "Expression", asignacion.getE1());
-        printNodeChild(indent + 1, "e2", "Expression", asignacion.getE2());
+        printListOfNodesChild(indent + 1, "a", "List<Expression>", asignacion.getA());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", asignacion.getFuncion());
-		printUnknownFields(indent + 1, asignacion, "e1", "e2", "funcion");
+		printUnknownFields(indent + 1, asignacion, "e1", "a", "funcion");
 		return null;
 	}
 

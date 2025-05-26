@@ -4,6 +4,9 @@ package ast.statement;
 
 import ast.expression.*;
 import ast.declaration.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -13,7 +16,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	asignacion: statement -> e1:expression e2:expression
+	asignacion: statement -> e1:expression a:expression*
 	statement -> 
 	
 	PHASE TypeChecking
@@ -24,44 +27,41 @@ public class Asignacion extends AbstractStatement  {
     // ----------------------------------
     // Instance Variables
 
-	// asignacion: statement -> e1:expression e2:expression
+	// asignacion: statement -> e1:expression a:expression*
 	private Expression e1;
-	private Expression e2;
+	private List<Expression> a;
 
     // ----------------------------------
     // Constructors
 
-	public Asignacion(Expression e1, Expression e2) {
+	public Asignacion(Expression e1, List<Expression> a) {
 		super();
 
 		if (e1 == null)
 			throw new IllegalArgumentException("Parameter 'e1' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.e1 = e1;
 
-		if (e2 == null)
-			throw new IllegalArgumentException("Parameter 'e2' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
-		this.e2 = e2;
+		if (a == null)
+			a = new ArrayList<>();
+		this.a = a;
 
-		updatePositions(e1, e2);
+		updatePositions(e1, a);
 	}
 
-	public Asignacion(Object e1, Object e2) {
+	public Asignacion(Object e1, Object a) {
 		super();
 
         if (e1 == null)
             throw new IllegalArgumentException("Parameter 'e1' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
 		this.e1 = (Expression) e1;
 
-        if (e2 == null)
-            throw new IllegalArgumentException("Parameter 'e2' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
-		this.e2 = (Expression) e2;
-
-		updatePositions(e1, e2);
+        this.a = castList(a, unwrapIfContext.andThen(Expression.class::cast));
+		updatePositions(e1, a);
 	}
 
 
     // ----------------------------------
-    // asignacion: statement -> e1:expression e2:expression
+    // asignacion: statement -> e1:expression a:expression*
 
 	// Child 'e1:expression' 
 
@@ -77,17 +77,21 @@ public class Asignacion extends AbstractStatement  {
     }
 
 
-	// Child 'e2:expression' 
+	// Child 'a:expression*' 
 
-	public void setE2(Expression e2) {
-		if (e2 == null)
-			throw new IllegalArgumentException("Parameter 'e2' can't be null. Pass a non-null value or use 'expression?' in the abstract grammar");
-		this.e2 = e2;
+	public void setA(List<Expression> a) {
+		if (a == null)
+			a = new ArrayList<>();
+		this.a = a;
 
 	}
 
-    public Expression getE2() {
-        return e2;
+    public List<Expression> getA() {
+        return a;
+    }
+
+    public Stream<Expression> a() {
+        return a.stream();
     }
 
 
@@ -101,7 +105,7 @@ public class Asignacion extends AbstractStatement  {
 
     @Override
     public String toString() {
-        return "Asignacion{" + " e1=" + this.getE1() + " e2=" + this.getE2() + "}";
+        return "Asignacion{" + " e1=" + this.getE1() + " a=" + this.getA() + "}";
     }
 
 

@@ -166,17 +166,28 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
-	// class Asignacion(Expression e1, Expression e2)
+	// class Asignacion(Expression e1, List<Expression> a)
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
 		if(asignacion.getE1() != null){
 			asignacion.getE1().accept(this, param);
 		}
-		if(asignacion.getE2() != null){
-			asignacion.getE2().accept(this, param);
+		if(asignacion.getA() != null){
+			asignacion.getA().forEach(expression -> expression.accept(this, param));
 		}
-        predicate(sameType(asignacion.getE1().getType(), asignacion.getE2().getType()), "Asignacion expressions must be the same type", asignacion);
+
+		asignacion.getA().forEach(expression -> predicate(sameType(asignacion.getE1().getType(), expression.getType()), "Asignacion expressions must be the same type", asignacion));
+        //predicate(sameType(asignacion.getE1().getType(), asignacion.getE2().getType()), "Asignacion expressions must be the same type", asignacion);
+		
+		// El primer operando debe ser lvalue
 		predicate(asignacion.getE1().isLvalue(), "Asignacion expression must be lvalue", asignacion.getE1());
+
+		for(int i = 0; i < asignacion.getA().size(); i++){
+			if(i < asignacion.getA().size() - 1){				
+				predicate(asignacion.getA().get(i).isLvalue(), "Asignacion expression must be lvalue", asignacion.getA().get(i));
+			}
+		}
+		
         predicate(isSimple(asignacion.getE1().getType()), "Asignacion expression must be simpletype", asignacion.getE1());
        
 		return null;
