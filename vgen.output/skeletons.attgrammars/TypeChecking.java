@@ -243,6 +243,54 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
+	// class Incremento(Expression var, String op)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		// incremento.getVar().accept(this, param);
+		super.visit(incremento, param);
+
+		return null;
+	}
+
+	// class ForC(Statement inicializacion, Expression expression, Statement incremento, List<Statement> statements)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// forC.getInicializacion().setFuncion(forC.getFuncion());
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// forC.getIncremento().setFuncion(forC.getFuncion());
+
+		for (var statement : forC.getStatements()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// statement.setFuncion(forC.getFuncion());
+		}
+
+		// forC.getInicializacion().accept(this, param);
+		// forC.getExpression().accept(this, param);
+		// forC.getIncremento().accept(this, param);
+		// forC.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(forC, param);
+
+		return null;
+	}
+
+	// class Inicializacion(VariableDeclaration variableDeclaration, Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		// inicializacion.getVariableDeclaration().accept(this, param);
+		// inicializacion.getExpression().accept(this, param);
+		super.visit(inicializacion, param);
+
+		return null;
+	}
+
 	// class Cast(Type targetType, Expression expression)
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override

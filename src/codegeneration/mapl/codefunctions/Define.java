@@ -61,6 +61,17 @@ public class Define extends AbstractCodeFunction {
 			}
 		}
 
+		for(Statement statement : functionDeclaration.getStatements()) {
+			if(statement instanceof ForC){
+				ForC forC = (ForC) statement;
+				Inicializacion inicializacion = (Inicializacion) forC.getInicializacion();
+				VariableDeclaration variableDeclaration = inicializacion.getVariableDeclaration();
+				if(variableDeclaration != null) {
+					sizeLocales += variableDeclaration.getType().getSize();					
+				}
+			}
+		}
+
 		out("enter " +  sizeLocales);
 
 		execute(functionDeclaration.statements());

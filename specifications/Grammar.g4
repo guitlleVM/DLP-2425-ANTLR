@@ -52,7 +52,14 @@ statement returns [Statement ast]
     | 'return' expression ';' { $ast = new Return($expression.ast); }
     | 'return' ';' { $ast = new Return(null); $ast.updatePositions($ctx.start);}
     | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
+    | e1=expression op=('++' | '--') { $ast = new Incremento($e1.ast, $op); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
+    | 'for' '(' inicializacion ';' comparacion=expression ';' incremento=statement ')' '{' statements '}' 
+        { $ast = new ForC($inicializacion.ast, $comparacion.ast, $incremento.ast, $statements.ast); }
+    ;
+
+inicializacion returns[Statement ast]
+    : 'var' ID ':' type '=' expression { $ast = new Inicializacion(new VariableDeclaration($ID, $type.ast), $expression.ast); }
     ;
 
 statements returns[List<Statement> ast = new ArrayList<Statement>()]

@@ -298,6 +298,53 @@ public class AstPrinter implements Visitor {
 	}
 
 	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printNodeChild(indent + 1, "var", "Expression", incremento.getVar());
+        printNonNodeChild(indent + 1, "op", "String", incremento.getOp());
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", incremento.getFuncion());
+		printUnknownFields(indent + 1, incremento, "var", "op", "funcion");
+		return null;
+	}
+
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printNodeChild(indent + 1, "inicializacion", "Statement", forC.getInicializacion());
+        printNodeChild(indent + 1, "expression", "Expression", forC.getExpression());
+        printNodeChild(indent + 1, "incremento", "Statement", forC.getIncremento());
+        printListOfNodesChild(indent + 1, "statements", "List<Statement>", forC.getStatements());
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", forC.getFuncion());
+		printUnknownFields(indent + 1, forC, "inicializacion", "expression", "incremento", "statements", "funcion");
+		return null;
+	}
+
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printNodeChild(indent + 1, "variableDeclaration", "VariableDeclaration", inicializacion.getVariableDeclaration());
+        printNodeChild(indent + 1, "expression", "Expression", inicializacion.getExpression());
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", inicializacion.getFuncion());
+		printUnknownFields(indent + 1, inicializacion, "variableDeclaration", "expression", "funcion");
+		return null;
+	}
+
+	@Override
 	public Object visit(Cast cast, Object param) {
 
 		int indent = ((Integer)param);

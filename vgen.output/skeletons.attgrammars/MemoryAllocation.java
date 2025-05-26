@@ -248,6 +248,46 @@ public class MemoryAllocation extends DefaultVisitor {
 		return null;
 	}
 
+	// class Incremento(Expression var, String op)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		// incremento.getVar().accept(this, param);
+		super.visit(incremento, param);
+
+		return null;
+	}
+
+	// class ForC(Statement inicializacion, Expression expression, Statement incremento, List<Statement> statements)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		// forC.getInicializacion().accept(this, param);
+		// forC.getExpression().accept(this, param);
+		// forC.getIncremento().accept(this, param);
+		// forC.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(forC, param);
+
+		return null;
+	}
+
+	// class Inicializacion(VariableDeclaration variableDeclaration, Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// inicializacion.getVariableDeclaration().setAddress(?);
+
+		// inicializacion.getVariableDeclaration().accept(this, param);
+		// inicializacion.getExpression().accept(this, param);
+		super.visit(inicializacion, param);
+
+		return null;
+	}
+
 	// class Cast(Type targetType, Expression expression)
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override

@@ -121,6 +121,26 @@ Statement <|-[#808080]- FuncionLlamada
 FuncionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
 FuncionLlamada -[#ff6600,thickness=3]-  FunctionDeclaration #text:ff6600 : functionDeclaration >
 
+class Incremento {
+	+String op
+}
+Statement <|-[#808080]- Incremento
+Incremento o-[#404040,thickness=2]-  Expression : var >
+
+class ForC {
+}
+Statement <|-[#808080]- ForC
+ForC o-[#404040,thickness=2]-  Statement : inicializacion >
+ForC o-[#404040,thickness=2]-  Expression : expression >
+ForC o-[#404040,thickness=2]-  Statement : incremento >
+ForC o-[#404040,thickness=2]- "✱" Statement : statements >
+
+class Inicializacion {
+}
+Statement <|-[#808080]- Inicializacion
+Inicializacion o-[#404040,thickness=2]-  VariableDeclaration : variableDeclaration >
+Inicializacion o-[#404040,thickness=2]-  Expression : expression >
+
 class Cast {
 }
 Expression <|-[#808080]- Cast

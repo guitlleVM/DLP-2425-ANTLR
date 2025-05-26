@@ -1,0 +1,77 @@
+#source "input.txt"
+call main
+halt
+#GLOBAL a:int
+#line 3
+sumarHasta:
+enter 4
+
+#line 5
+pusha BP
+pushi -2
+add
+pushi 0
+storei
+
+#line 8
+
+#line 7
+pusha BP
+pushi -4
+add
+pushi 1
+storei
+for1:
+pusha BP
+pushi -4
+add
+loadi
+pusha BP
+pushi 4
+add
+loadi
+lei
+jz finFor2
+
+#line 8
+pusha BP
+pushi -2
+add
+pusha BP
+pushi -2
+add
+loadi
+pusha BP
+pushi -4
+add
+loadi
+addi
+storei
+pusha BP
+pushi -4
+add
+pusha BP
+pushi -4
+add
+loadi
+push 1
+add
+storei
+jmp for1
+finFor2:
+pusha BP
+pushi -2
+add
+loadi
+ret 2, 4, 2
+#line 14
+main:
+enter 0
+
+#line 15
+pushi 5
+call sumarHasta
+outi
+pushb 10
+outb
+ret 0, 0, 0

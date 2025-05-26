@@ -24,6 +24,10 @@ return:statement -> expression?;
 asignacion:statement -> e1:expression e2:expression;
 funcionLlamada:statement -> ID:string expression*;
 
+incremento:statement -> var:expression op:string;
+forC:statement -> inicializacion:statement expression incremento:statement statement*;
+inicializacion:statement -> variableDeclaration expression;
+
 cast:expression -> targetType:type expression;
 structAccess:expression -> expression ID:string;
 arrayAccess:expression -> e1:expression e2:expression;

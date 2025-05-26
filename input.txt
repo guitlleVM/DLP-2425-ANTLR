@@ -1,19 +1,16 @@
-var i:int;
-var j:int;
-var n:int;
+var a:int;
 
-p() {}
+sumarHasta(n:int): int {
+    var suma: int;
+    suma = 0;
 
-var c:char;
+    for(var i:int = 1; i <= n; i++) {
+        suma = suma + i;
+    }
 
-f(n:int, r:double ):int {
- var real:double;
- var c1:char;
- var c2:char;
- c1 = <char>(n);
- real = <double>(c1) + <double>(n) + r;
+    return suma;
+}
 
- p();
-
- return <int>(c1);
+main() {
+    println sumarHasta(5);
 }

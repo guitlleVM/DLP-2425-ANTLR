@@ -140,4 +140,51 @@ public class Execute extends AbstractCodeFunction {
 		return null;
 	}
 
+	// class Incremento(Expression var, String op)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		// value(incremento.getVar());
+		// address(incremento.getVar());
+
+		out("<instruction>");
+
+		return null;
+	}
+
+	// class ForC(Statement inicializacion, Expression expression, Statement incremento, List<Statement> statements)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		// execute(forC.getInicializacion());
+
+		// value(forC.getExpression());
+		// address(forC.getExpression());
+
+		// execute(forC.getIncremento());
+
+		// execute(forC.statements());
+
+		out("<instruction>");
+
+		return null;
+	}
+
+	// class Inicializacion(VariableDeclaration variableDeclaration, Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		// define(inicializacion.getVariableDeclaration());
+
+		// value(inicializacion.getExpression());
+		// address(inicializacion.getExpression());
+
+		out("<instruction>");
+
+		return null;
+	}
+
 }

@@ -124,6 +124,31 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		incremento.getVar().accept(this, param);
+		return null;
+	}
+
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		forC.getInicializacion().accept(this, param);
+		forC.getExpression().accept(this, param);
+		forC.getIncremento().accept(this, param);
+		forC.getStatements().forEach(statement -> statement.accept(this, param));
+		return null;
+	}
+
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		inicializacion.getVariableDeclaration().accept(this, param);
+		inicializacion.getExpression().accept(this, param);
+		return null;
+	}
+
+	@Override
 	public Object visit(Cast cast, Object param) {
 
 		cast.getTargetType().accept(this, param);

@@ -42,6 +42,12 @@ public interface Visitor {
 
 	public Object visit(FuncionLlamada funcionLlamada, Object param);
 
+	public Object visit(Incremento incremento, Object param);
+
+	public Object visit(ForC forC, Object param);
+
+	public Object visit(Inicializacion inicializacion, Object param);
+
 	public Object visit(Cast cast, Object param);
 
 	public Object visit(StructAccess structAccess, Object param);

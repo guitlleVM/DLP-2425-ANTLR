@@ -5,6 +5,8 @@ import ast.declaration.Declaration;
 import ast.declaration.FunctionDeclaration;
 import ast.declaration.StructDeclaration;
 import ast.declaration.VariableDeclaration;
+import ast.statement.ForC;
+import ast.statement.Inicializacion;
 import visitor.DefaultVisitor;
 
 // This class will be implemented in memory allocation phase
@@ -66,6 +68,8 @@ public class MemoryAllocation extends DefaultVisitor {
 		if (functionDeclaration.getType() != null)
 			functionDeclaration.getType().accept(this, param);
 
+		int addressFinalVariablesLocales = 0;
+
 		if(functionDeclaration.getVariableDeclarations() != null) {
 			int address = 0;
 
@@ -74,10 +78,21 @@ public class MemoryAllocation extends DefaultVisitor {
 				variableDeclaration.setAddress(address);
 				variableDeclaration.accept(this, param);
 			}
+
+			addressFinalVariablesLocales = address;
 		}
 
 		if(functionDeclaration.getStatements() != null) {
 			for (var statement : functionDeclaration.getStatements()) {
+				if(statement instanceof ForC){
+					Inicializacion inicializacion = (Inicializacion) ((ForC) statement).getInicializacion();
+					VariableDeclaration variableDeclaration = inicializacion.getVariableDeclaration();
+					if(variableDeclaration != null) {
+						addressFinalVariablesLocales -= variableDeclaration.getType().getSize();
+						variableDeclaration.setAddress(addressFinalVariablesLocales);
+						variableDeclaration.setAmbitoLocal();
+					}
+				}
 				statement.accept(this, param);
 			}
 		}

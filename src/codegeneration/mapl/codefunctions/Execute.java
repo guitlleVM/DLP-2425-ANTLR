@@ -161,6 +161,17 @@ public class Execute extends AbstractCodeFunction {
 			sizeLocales += variableDeclaration.getType().getSize();
 		}
 
+		for(Statement statement : returnValue.getFuncion().getStatements()) {
+			if(statement instanceof ForC){
+				ForC forC = (ForC) statement;
+				Inicializacion inicializacion = (Inicializacion) forC.getInicializacion();
+				VariableDeclaration variableDeclaration = inicializacion.getVariableDeclaration();
+				if(variableDeclaration != null) {
+					sizeLocales += variableDeclaration.getType().getSize();					
+				}
+			}
+		}
+
 		if(!(returnValue.getExpression().isPresent())) {
 			out("ret 0, " + sizeLocales + ", " + sizeParameters);
 		} else {
@@ -202,6 +213,66 @@ public class Execute extends AbstractCodeFunction {
 		if(!(funcionLlamada.getFunctionDeclaration().getType().getClass().equals(VoidType.class))){
 			out("pop" + suffixFor(funcionLlamada.getFunctionDeclaration().getType()));
 		}
+
+		return null;
+	}
+
+	// class ForC(Statement inicializacion, Expression expression, Statement incremento, List<Statement> statements)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+		line(forC);
+		String labelCond = "for" + labelCounter();
+		String labelFin = "finFor" + labelCounter();
+
+		execute(forC.getInicializacion());
+
+		out(labelCond + ":");
+		value(forC.getExpression());
+		out("jz " + labelFin);
+		for(Statement statement : forC.getStatements()) {
+			execute(statement);
+		}
+		execute(forC.getIncremento());
+		out("jmp " + labelCond);
+		out(labelFin + ":");
+		return null;
+	}
+
+	// class Incremento(Expression var, String op)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+		address(incremento.getVar());
+		value(incremento.getVar());
+		out("push 1");
+		if(incremento.getOp().equals("++")) {
+			out("add");
+		} else if(incremento.getOp().equals("--")) {
+			out("sub");
+		} else {
+			out("error: Incremento no soportado: " + incremento.getOp());
+		}
+		out("store", incremento.getVar().getType());
+
+		return null;
+	}
+
+	// class Inicializacion(VariableDeclaration variableDeclaration, Expression expression)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+		line(inicializacion);
+
+		out("pusha BP");
+		out("pushi " + inicializacion.getVariableDeclaration().getAddress());
+		out("add");
+
+		value(inicializacion.getExpression());
+		out("store", inicializacion.getExpression().getType());
 
 		return null;
 	}

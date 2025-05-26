@@ -43,6 +43,9 @@ statement returns[Statement ast]
     | expression?                         { $ast = new Return(($expression.ctx == null) ? null : $expression.ast); }
     | e1=expression e2=expression         { $ast = new Asignacion($e1.ast, $e2.ast); }           
     | ID=IDENT expressions+=expression*   { $ast = new FuncionLlamada($ID, $expressions); }      
+    | expression op=IDENT                 { $ast = new Incremento($expression.ast, $op); }       
+    | inicializacion=statement expression incremento=statement statements+=statement* { $ast = new ForC($inicializacion.ast, $expression.ast, $incremento.ast, $statements); }
+    | variableDeclaration expression      { $ast = new Inicializacion($variableDeclaration.ast, $expression.ast); }
 	;
 
 expression returns[Expression ast]

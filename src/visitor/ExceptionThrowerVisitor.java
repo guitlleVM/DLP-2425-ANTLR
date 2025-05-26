@@ -101,6 +101,24 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(Incremento incremento, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Incremento)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
+	public Object visit(ForC forC, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(ForC)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
+	public Object visit(Inicializacion inicializacion, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Inicializacion)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
 	public Object visit(Cast cast, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Cast)' has been invoked but it has not been implemented.");
