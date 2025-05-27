@@ -155,4 +155,23 @@ public class Address extends AbstractCodeFunction {
 		return null;
 	}
 
+	// class Ternary(Expression eva, Expression verd, Expression menti)
+	// phase TypeChecking { Type type, boolean lvalue }
+	@Override
+	public Object visit(Ternary ternary, Object param) {
+
+		// value(ternary.getEva());
+		// address(ternary.getEva());
+
+		// value(ternary.getVerd());
+		// address(ternary.getVerd());
+
+		// value(ternary.getMenti());
+		// address(ternary.getMenti());
+
+		out("<instruction>");
+
+		return null;
+	}
+
 }

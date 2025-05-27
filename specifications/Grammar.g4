@@ -76,6 +76,7 @@ expression returns[Expression ast]
     | e1=expression op=('==' | '!=') e2=expression { $ast = new ExpresionLogica($e1.ast, $op, $e2.ast); }
     | e1=expression op='&&' e2=expression { $ast = new ExpresionLogica($e1.ast, $op, $e2.ast); }
     | e1=expression op='||' e2=expression { $ast = new ExpresionLogica($e1.ast, $op, $e2.ast); }
+    | eva=expression '?' verd=expression ':' menti=expression { $ast = new Ternary($eva.ast, $verd.ast, $menti.ast); }
     ;
 
 expressionList returns[List<Expression> ast = new ArrayList<Expression>()]

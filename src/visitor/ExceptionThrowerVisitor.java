@@ -167,6 +167,12 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(Ternary ternary, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Ternary)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
 	public Object visit(IntType intType, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(IntType)' has been invoked but it has not been implemented.");

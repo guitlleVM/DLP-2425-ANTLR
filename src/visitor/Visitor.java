@@ -64,6 +64,8 @@ public interface Visitor {
 
 	public Object visit(LitChar litChar, Object param);
 
+	public Object visit(Ternary ternary, Object param);
+
 	public Object visit(IntType intType, Object param);
 
 	public Object visit(RealType realType, Object param);

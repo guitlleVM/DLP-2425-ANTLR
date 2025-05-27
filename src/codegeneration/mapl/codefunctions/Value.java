@@ -225,4 +225,24 @@ public class Value extends AbstractCodeFunction {
 		return null;
 	}
 
+	// class Ternary(Expression eva, Expression verd, Expression menti)
+	// phase TypeChecking { Type type, boolean lvalue }
+	@Override
+	public Object visit(Ternary ternary, Object param) {
+
+		value(ternary.getEva());
+		out("jz falso" );
+		
+		value(ternary.getVerd());
+		out("jmp fin");
+
+		out("falso:");
+		
+		value(ternary.getMenti());
+
+		out("fin:");
+		
+		return null;
+	}
+
 }

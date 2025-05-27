@@ -35,6 +35,7 @@ variable:expression -> ID:string;
 litEnt:expression -> LITENT:string;
 litReal:expression -> LITREAL:string;
 litChar:expression -> CHAR_LITERAL:string;
+ternary:expression -> eva:expression verd:expression menti:expression;
 
 intType:type -> ;
 realType:type -> ;

@@ -200,6 +200,13 @@ class LitChar {
 }
 AbstractExpression <|-[#808080]- LitChar
 
+class Ternary {
+}
+AbstractExpression <|-[#808080]- Ternary
+Ternary o-[#404040,thickness=2]-  Expression : eva >
+Ternary o-[#404040,thickness=2]-  Expression : verd >
+Ternary o-[#404040,thickness=2]-  Expression : menti >
+
 class IntType {
 }
 AbstractType <|-[#808080]- IntType

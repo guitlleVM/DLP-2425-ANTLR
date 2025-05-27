@@ -186,6 +186,13 @@ class LitChar {
 }
 Expression <|-[#808080]- LitChar
 
+class Ternary {
+}
+Expression <|-[#808080]- Ternary
+Ternary o-[#404040,thickness=2]-  Expression : eva >
+Ternary o-[#404040,thickness=2]-  Expression : verd >
+Ternary o-[#404040,thickness=2]-  Expression : menti >
+
 class IntType {
 }
 Type <|-[#808080]- IntType

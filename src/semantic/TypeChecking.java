@@ -383,6 +383,20 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
+	// class Ternary(Expression eva, Expression verd, Expression menti)
+	// phase TypeChecking { Type type, boolean lvalue }
+	@Override
+	public Object visit(Ternary ternary, Object param) {
+
+		ternary.getEva().accept(this, param);
+		ternary.getVerd().accept(this, param);
+		ternary.getMenti().accept(this, param);
+
+		ternary.setType(new IntType());
+		ternary.setLvalue(false);
+		return null;
+	}
+
 	// class Variable(String ID)
 	// phase Identification { VariableDeclaration variableDeclaration }
 	// phase TypeChecking { Type type, boolean lvalue }

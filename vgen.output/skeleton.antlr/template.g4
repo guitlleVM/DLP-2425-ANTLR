@@ -57,6 +57,7 @@ expression returns[Expression ast]
     | LITENT=IDENT                        { $ast = new LitEnt($LITENT); }                        
     | LITREAL=IDENT                       { $ast = new LitReal($LITREAL); }                      
     | CHAR_LITERAL=IDENT                  { $ast = new LitChar($CHAR_LITERAL); }                 
+    | eva=expression verd=expression menti=expression { $ast = new Ternary($eva.ast, $verd.ast, $menti.ast); }
 	;
 
 

@@ -1,0 +1,44 @@
+#source "input.txt"
+call main
+halt
+#line 1
+main:
+enter 4
+
+#line 5
+pusha BP
+pushi -2
+add
+pushi 1
+storei
+
+#line 6
+pusha BP
+pushi -4
+add
+pushi 2
+storei
+
+#line 8
+pusha BP
+pushi -4
+add
+loadi
+pushi 2
+eqi
+jz falso
+pusha BP
+pushi -2
+add
+loadi
+jmp fin
+falso:
+pusha BP
+pushi -4
+add
+loadi
+fin:
+outi
+pushb 10
+outb
+ret 0, 4, 0
