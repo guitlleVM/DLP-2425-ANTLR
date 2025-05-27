@@ -1,21 +1,21 @@
 #source "input.txt"
 call main
 halt
-#GLOBAL a:int
-#line 3
-sumarHasta:
+#GLOBAL resultado:int
+#line 5
+sumarCuadrados:
 enter 4
 
-#line 5
+#line 7
 pusha BP
 pushi -2
 add
 pushi 0
 storei
 
-#line 8
+#line 10
 
-#line 7
+#line 9
 pusha BP
 pushi -4
 add
@@ -33,7 +33,7 @@ loadi
 lei
 jz finFor2
 
-#line 8
+#line 10
 pusha BP
 pushi -2
 add
@@ -45,6 +45,11 @@ pusha BP
 pushi -4
 add
 loadi
+pusha BP
+pushi -4
+add
+loadi
+muli
 addi
 storei
 pusha BP
@@ -64,14 +69,68 @@ pushi -2
 add
 loadi
 ret 2, 4, 2
-#line 14
-main:
-enter 0
+#line 17
+promedioCuadrados:
+enter 4
 
-#line 15
+#line 21
+pusha BP
+pushi -2
+add
+pusha BP
+pushi 4
+add
+loadi
+call sumarCuadrados
+storei
+
+#line 22
+pusha BP
+pushi -4
+add
+pusha BP
+pushi -2
+add
+loadi
+pusha BP
+pushi 4
+add
+loadi
+divi
+storei
+pusha BP
+pushi -4
+add
+loadi
+ret 2, 4, 2
+#line 28
+main:
+enter 4
+
+#line 32
+pusha BP
+pushi -2
+add
 pushi 5
-call sumarHasta
+storei
+
+#line 33
+pusha BP
+pushi -4
+add
+pusha BP
+pushi -2
+add
+loadi
+call promedioCuadrados
+storei
+
+#line 34
+pusha BP
+pushi -4
+add
+loadi
 outi
 pushb 10
 outb
-ret 0, 0, 0
+ret 0, 4, 0

@@ -89,8 +89,7 @@ public class MemoryAllocation extends DefaultVisitor {
 					VariableDeclaration variableDeclaration = inicializacion.getVariableDeclaration();
 					if(variableDeclaration != null) {
 						addressFinalVariablesLocales -= variableDeclaration.getType().getSize();
-						variableDeclaration.setAddress(addressFinalVariablesLocales);
-						variableDeclaration.setAmbitoLocal();
+						variableDeclaration.setAddress(addressFinalVariablesLocales);						
 					}
 				}
 				statement.accept(this, param);

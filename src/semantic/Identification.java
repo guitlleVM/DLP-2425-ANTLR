@@ -7,7 +7,9 @@ import ast.*;
 import ast.declaration.*;
 import ast.expression.ExpresionLlamada;
 import ast.expression.Variable;
+import ast.statement.ForC;
 import ast.statement.FuncionLlamada;
+import ast.statement.Inicializacion;
 import ast.type.StructType;
 import main.ErrorManager;
 import visitor.DefaultVisitor;
@@ -112,7 +114,17 @@ public class Identification extends DefaultVisitor {
             variableDeclaration.setAmbitoLocal();
             variableDeclaration.accept(this, param);
         });
-		functionDeclaration.getStatements().forEach(statement -> statement.accept(this, param));
+       
+		functionDeclaration.getStatements().forEach(statement -> {
+            if(statement instanceof ForC) {
+                Inicializacion inicializacion = (Inicializacion) ((ForC) statement).getInicializacion();
+                VariableDeclaration variableDeclaration = inicializacion.getVariableDeclaration();
+                if(variableDeclaration != null) {
+                    variableDeclaration.setAmbitoLocal();                    
+                }
+            }
+            statement.accept(this, param);
+        });
 		
         variables.reset();
 		return null;

@@ -1,16 +1,35 @@
-var a:int;
+// Variable global opcional
+var resultado: int;
 
-sumarHasta(n:int): int {
+// Función para calcular la suma de los cuadrados de 1 a n
+sumarCuadrados(n:int): int {
     var suma: int;
     suma = 0;
 
-    for(var i:int = 1; i <= n; i++) {
-        suma = suma + i;
+    for(var i: int = 1; i <= n; i++) {
+        suma = suma + (i * i);
     }
 
     return suma;
 }
 
+// Función para calcular el promedio
+promedioCuadrados(n:int): int {
+    var suma: int;
+    var promedio: int;
+
+    suma = sumarCuadrados(n);
+    promedio = suma / n;
+
+    return promedio;
+}
+
+// Función principal
 main() {
-    println sumarHasta(5);
+    var n: int;
+    var promedio: int;
+
+    n = 5;
+    promedio = promedioCuadrados(n);
+    println promedio; // Debería imprimir 11, porque (1+4+9+16+25)/5 = 55/5 = 11
 }
