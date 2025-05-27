@@ -115,6 +115,24 @@ public class TypeChecking extends DefaultVisitor {
 			// statement.setFuncion(?);
 		}
 
+        for (var switchCase : functionDeclaration.statements()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setSwitchNode(?);
+		}
+
+        for (var defaultCase : functionDeclaration.statements()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setSwitchNode(?);
+		}
+
 		// functionDeclaration.getParameters().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
 		// functionDeclaration.getType().accept(this, param);
 		// functionDeclaration.getVariableDeclarations().forEach(variableDeclaration -> variableDeclaration.accept(this, param));
@@ -178,9 +196,45 @@ public class TypeChecking extends DefaultVisitor {
 			// statement.setFuncion(ifValue.getFuncion());
 		}
 
+        for (var switchCase : ifValue.s1()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setSwitchNode(?);
+		}
+
+        for (var defaultCase : ifValue.s1()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setSwitchNode(?);
+		}
+
 		for (var statement : ifValue.getS2()) {
 			// TODO: Remember to initialize INHERITED attributes <----
 			// statement.setFuncion(ifValue.getFuncion());
+		}
+
+        for (var switchCase : ifValue.s2()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setSwitchNode(?);
+		}
+
+        for (var defaultCase : ifValue.s2()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setSwitchNode(?);
 		}
 
 		// ifValue.getExpression().accept(this, param);
@@ -199,6 +253,24 @@ public class TypeChecking extends DefaultVisitor {
 		for (var statement : whileValue.getStatements()) {
 			// TODO: Remember to initialize INHERITED attributes <----
 			// statement.setFuncion(whileValue.getFuncion());
+		}
+
+        for (var switchCase : whileValue.statements()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setSwitchNode(?);
+		}
+
+        for (var defaultCase : whileValue.statements()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setSwitchNode(?);
 		}
 
 		// whileValue.getExpression().accept(this, param);
@@ -239,6 +311,100 @@ public class TypeChecking extends DefaultVisitor {
 
 		// funcionLlamada.getExpressions().forEach(expression -> expression.accept(this, param));
 		super.visit(funcionLlamada, param);
+
+		return null;
+	}
+
+	// class Switch(Expression e1, List<SwitchCase> switchCases, Optional<DefaultCase> defaultCase)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		for (var switchCase : switchValue.getSwitchCases()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setFuncion(switchValue.getFuncion());
+			// switchCase.setSwitchNode(?);
+		}
+
+		switchValue.getDefaultCase().ifPresent(defaultCase -> {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setFuncion(switchValue.getFuncion());
+			// defaultCase.setSwitchNode(?);
+		});
+
+		// switchValue.getE1().accept(this, param);
+		// switchValue.getSwitchCases().forEach(switchCase -> switchCase.accept(this, param));
+		// switchValue.getDefaultCase().ifPresent(defaultCase -> defaultCase.accept(this, param));
+		super.visit(switchValue, param);
+
+		return null;
+	}
+
+	// class SwitchCase(Expression e1, List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		for (var statement : switchCase.getStatements()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// statement.setFuncion(switchCase.getFuncion());
+		}
+
+        for (var switchCase_ : switchCase.statements()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase_.setSwitchNode(switchCase.getSwitchNode());
+		}
+
+        for (var defaultCase : switchCase.statements()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase.setSwitchNode(switchCase.getSwitchNode());
+		}
+
+		// switchCase.getE1().accept(this, param);
+		// switchCase.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(switchCase, param);
+
+		return null;
+	}
+
+	// class DefaultCase(List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		for (var statement : defaultCase.getStatements()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// statement.setFuncion(defaultCase.getFuncion());
+		}
+
+        for (var switchCase : defaultCase.statements()
+                .filter(SwitchCase.class::isInstance)
+                .map(SwitchCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// switchCase.setSwitchNode(defaultCase.getSwitchNode());
+		}
+
+        for (var defaultCase_ : defaultCase.statements()
+                .filter(DefaultCase.class::isInstance)
+                .map(DefaultCase.class::cast)
+                .toList()) {
+
+			// TODO: Remember to initialize INHERITED attributes <----
+			// defaultCase_.setSwitchNode(defaultCase.getSwitchNode());
+		}
+
+		// defaultCase.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(defaultCase, param);
 
 		return null;
 	}

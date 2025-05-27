@@ -124,6 +124,30 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		switchValue.getE1().accept(this, param);
+		switchValue.getSwitchCases().forEach(switchCase -> switchCase.accept(this, param));
+		switchValue.getDefaultCase().ifPresent(defaultCase -> defaultCase.accept(this, param));
+		return null;
+	}
+
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		switchCase.getE1().accept(this, param);
+		switchCase.getStatements().forEach(statement -> statement.accept(this, param));
+		return null;
+	}
+
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		defaultCase.getStatements().forEach(statement -> statement.accept(this, param));
+		return null;
+	}
+
+	@Override
 	public Object visit(Cast cast, Object param) {
 
 		cast.getTargetType().accept(this, param);

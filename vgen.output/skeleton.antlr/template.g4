@@ -43,6 +43,9 @@ statement returns[Statement ast]
     | expression?                         { $ast = new Return(($expression.ctx == null) ? null : $expression.ast); }
     | e1=expression e2=expression         { $ast = new Asignacion($e1.ast, $e2.ast); }           
     | ID=IDENT expressions+=expression*   { $ast = new FuncionLlamada($ID, $expressions); }      
+    | expression switchCases+=switchCase* defaultCase? { $ast = new Switch($expression.ast, $switchCases, ($defaultCase.ctx == null) ? null : $defaultCase.ast); }
+    | expression statements+=statement* BOOLEAN_LITERAL { $ast = new SwitchCase($expression.ast, $statements, $BOOLEAN_LITERAL); }
+    | statements+=statement* BOOLEAN_LITERAL { $ast = new DefaultCase($statements, $BOOLEAN_LITERAL); }
 	;
 
 expression returns[Expression ast]
@@ -59,8 +62,17 @@ expression returns[Expression ast]
     | CHAR_LITERAL=IDENT                  { $ast = new LitChar($CHAR_LITERAL); }                 
 	;
 
+switchCase returns[SwitchCase ast]
+    : expression statements+=statement* BOOLEAN_LITERAL { $ast = new SwitchCase($expression.ast, $statements, $BOOLEAN_LITERAL); }
+	;
+
+defaultCase returns[DefaultCase ast]
+    : statements+=statement* BOOLEAN_LITERAL { $ast = new DefaultCase($statements, $BOOLEAN_LITERAL); }
+	;
+
 
 // ---------------------------------------------------------------
 // Tokens
 
 IDENT: [a-zA-Z_][a-zA-Z0-9_]*;
+BOOLEAN_LITERAL: 'true' | 'false';

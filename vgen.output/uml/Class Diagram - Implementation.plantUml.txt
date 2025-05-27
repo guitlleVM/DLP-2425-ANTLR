@@ -135,6 +135,28 @@ AbstractStatement <|-[#808080]- FuncionLlamada
 FuncionLlamada o-[#404040,thickness=2]- "✱" Expression : expressions >
 FuncionLlamada -[#ff6600,thickness=3]-  FunctionDeclaration #text:ff6600 : functionDeclaration >
 
+class Switch {
+}
+AbstractStatement <|-[#808080]- Switch
+Switch o-[#404040,thickness=2]-  Expression : e1 >
+Switch o-[#404040,thickness=2]- "✱" SwitchCase : switchCases >
+Switch o-[#404040,thickness=2]- "0..1" DefaultCase : defaultCase >
+
+class SwitchCase {
+	+boolean brk
+}
+AbstractStatement <|-[#808080]- SwitchCase
+SwitchCase o-[#404040,thickness=2]-  Expression : e1 >
+SwitchCase o-[#404040,thickness=2]- "✱" Statement : statements >
+SwitchCase -[#3366cc,thickness=3]-  Switch #text:3366cc : switchNode >
+
+class DefaultCase {
+	+boolean brk
+}
+AbstractStatement <|-[#808080]- DefaultCase
+DefaultCase o-[#404040,thickness=2]- "✱" Statement : statements >
+DefaultCase -[#3366cc,thickness=3]-  Switch #text:3366cc : switchNode >
+
 class Cast {
 }
 AbstractExpression <|-[#808080]- Cast

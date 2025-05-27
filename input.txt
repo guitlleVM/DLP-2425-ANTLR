@@ -1,19 +1,28 @@
-var i:int;
-var j:int;
-var n:int;
+main(){
+    var i:int;
+    var a:char;
+    var b:char;
+    var c:char;
+    var d:char;
 
-p() {}
+    i = 2;    
+    a = 'a'; 
+    b = 'b';
+    c = 'c';
+    d = 'd';
 
-var c:char;
-
-f(n:int, r:double ):int {
- var real:double;
- var c1:char;
- var c2:char;
- c1 = <char>(n);
- real = <double>(c1) + <double>(n) + r;
-
- p();
-
- return <int>(c1);
+    switch (i){
+        case 1:
+            print a;  
+            break;                                  
+        case 2: 
+            print b;                                                        
+        case 3:
+            print b;  
+        case 4:
+            print c;              
+        case 5: 
+            print c;            
+    }
+    
 }

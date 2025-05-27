@@ -3,6 +3,8 @@
 package codegeneration.mapl.codefunctions;
 
 
+import java.lang.Thread.State;
+
 import ast.*;
 import ast.declaration.VariableDeclaration;
 import ast.statement.*;
@@ -206,6 +208,89 @@ public class Execute extends AbstractCodeFunction {
 		return null;
 	}
 
+	// class Switch(Expression e1, List<SwitchCase> switchCases, Optional<DefaultCase> defaultCase)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		line(switchValue);
+
+		String switchfinal = "finSwitch" + labelCounter();
+
+		for(int i = 0; i < switchValue.getSwitchCases().size(); i++) {			
+			String labelEvitarComprabación = "evitarComprobacion" + labelCounter();
+			
+			if( i <= switchValue.getSwitchCases().size() - 2) {
+				if(!(switchValue.getSwitchCases().get(i).isBrk())){
+					switchValue.getSwitchCases().get(i).setLabelEvitarComprobacionSiguiente(labelEvitarComprabación);
+					switchValue.getSwitchCases().get(i + 1).setLabelEvitarComprobacion(labelEvitarComprabación);
+				}											
+			}
+			
+		}
+
+		for(SwitchCase sc : switchValue.getSwitchCases()) {
+			sc.setLabelExitSwitch(switchfinal);
+			execute(sc);
+		}
+
+		if(switchValue.getDefaultCase().isPresent()) {		
+			DefaultCase defaultCase = switchValue.getDefaultCase().get();
+			execute(defaultCase);			
+		}
+		out("jmp " + switchfinal);
+		out(switchfinal + ":");
+		return null;
+	}
+
+	// class SwitchCase(Expression e1, List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+		line(switchCase);
+
+		String labelExitCase = "exitCase" + labelCounter();
+
+		value(switchCase.getSwitchNode().getE1());
+		value(switchCase.getE1());
+		out("eq"); 	
+		out("jz " + labelExitCase);
+
+		if(switchCase.getLabelEvitarComprobacion() != null)
+			out(switchCase.getLabelEvitarComprobacion() + ":");
+
+		switchCase.getStatements().forEach(statement -> {
+			execute(statement);
+		});
+
+		
+		if(switchCase.isBrk()) {
+			out("jmp " + switchCase.getLabelExitSwitch());
+		}else{
+			if(switchCase.getLabelEvitarComprobacionSiguiente() != null)
+				out("jmp " + switchCase.getLabelEvitarComprobacionSiguiente());
+		}
+		
+		
+		out(labelExitCase + ":");
+
+		return null;
+	}
+
+	// class DefaultCase(List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		
+		line(defaultCase);
+
+		defaultCase.getStatements().forEach(statement -> {
+			execute(statement);
+		});
+
+		return null;
+	}
 
 	// Auxiliary methods for the generation of code
 

@@ -140,4 +140,48 @@ public class Execute extends AbstractCodeFunction {
 		return null;
 	}
 
+	// class Switch(Expression e1, List<SwitchCase> switchCases, Optional<DefaultCase> defaultCase)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		// value(switchValue.getE1());
+		// address(switchValue.getE1());
+
+		// execute(switchValue.switchCases());
+
+		// execute(switchValue.getDefaultCase());
+
+		out("<instruction>");
+
+		return null;
+	}
+
+	// class SwitchCase(Expression e1, List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		// value(switchCase.getE1());
+		// address(switchCase.getE1());
+
+		// execute(switchCase.statements());
+
+		out("<instruction>");
+
+		return null;
+	}
+
+	// class DefaultCase(List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		// execute(defaultCase.statements());
+
+		out("<instruction>");
+
+		return null;
+	}
+
 }

@@ -1,0 +1,138 @@
+#source "input.txt"
+call main
+halt
+#line 1
+main:
+enter 6
+
+#line 8
+pusha BP
+pushi -2
+add
+pushi 2
+storei
+
+#line 9
+pusha BP
+pushi -3
+add
+pushb 97
+storeb
+
+#line 10
+pusha BP
+pushi -4
+add
+pushb 98
+storeb
+
+#line 11
+pusha BP
+pushi -5
+add
+pushb 99
+storeb
+
+#line 12
+pusha BP
+pushi -6
+add
+pushb 100
+storeb
+
+#line 25
+
+#line 16
+pusha BP
+pushi -2
+add
+loadi
+pushi 1
+eq
+jz exitCase7
+
+#line 16
+pusha BP
+pushi -3
+add
+loadb
+outb
+jmp finSwitch1
+exitCase7:
+
+#line 19
+pusha BP
+pushi -2
+add
+loadi
+pushi 2
+eq
+jz exitCase8
+
+#line 19
+pusha BP
+pushi -4
+add
+loadb
+outb
+jmp evitarComprobacion3
+exitCase8:
+
+#line 21
+pusha BP
+pushi -2
+add
+loadi
+pushi 3
+eq
+jz exitCase9
+evitarComprobacion3:
+
+#line 21
+pusha BP
+pushi -4
+add
+loadb
+outb
+jmp evitarComprobacion4
+exitCase9:
+
+#line 23
+pusha BP
+pushi -2
+add
+loadi
+pushi 4
+eq
+jz exitCase10
+evitarComprobacion4:
+
+#line 23
+pusha BP
+pushi -5
+add
+loadb
+outb
+jmp evitarComprobacion5
+exitCase10:
+
+#line 25
+pusha BP
+pushi -2
+add
+loadi
+pushi 5
+eq
+jz exitCase11
+evitarComprobacion5:
+
+#line 25
+pusha BP
+pushi -5
+add
+loadb
+outb
+exitCase11:
+jmp finSwitch1
+finSwitch1:
+ret 0, 6, 0

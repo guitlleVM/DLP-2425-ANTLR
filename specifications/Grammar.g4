@@ -7,7 +7,7 @@ import Tokenizer;
     import ast.type.*;
     import ast.declaration.*;
     import ast.statement.*;
-    import ast.expression.*;
+    import ast.expression.*;    
     }
 
 program returns [Program ast] locals [List<Declaration> declarations = new ArrayList<>()]
@@ -53,6 +53,16 @@ statement returns [Statement ast]
     | 'return' ';' { $ast = new Return(null); $ast.updatePositions($ctx.start);}
     | e1=expression '=' e2=expression ';' { $ast = new Asignacion($e1.ast, $e2.ast); }
     | ID '(' expressionList ')' ';' { $ast = new FuncionLlamada($ID, $expressionList.ast); }
+    | 'switch' '(' expression ')' '{' switchCase '}' { $ast = new Switch($expression.ast, $switchCase.ast, null); }
+    | 'switch' '(' expression ')' '{' switchCase defaultCase '}' { $ast = new Switch($expression.ast, $switchCase.ast, $defaultCase.ast); }
+    ;
+
+switchCase returns [List<Statement> ast = new ArrayList<Statement>()] locals [String brk = null]
+    : ('case' expression ':' statements {$brk = null;}('break'{$brk = "break";} ';')?  {System.out.println($brk); $ast.add(new SwitchCase($expression.ast, $statements.ast, $brk != null)); })+    
+    ;
+
+defaultCase returns [Statement ast]
+    : 'default' ':' statements (brk='break' ';')? { boolean hasBreak = $brk != null; $ast = new DefaultCase($statements.ast, hasBreak); }
     ;
 
 statements returns[List<Statement> ast = new ArrayList<Statement>()]

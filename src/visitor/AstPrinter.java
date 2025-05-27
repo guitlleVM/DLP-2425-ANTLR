@@ -298,6 +298,55 @@ public class AstPrinter implements Visitor {
 	}
 
 	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printNodeChild(indent + 1, "e1", "Expression", switchValue.getE1());
+        printListOfNodesChild(indent + 1, "switchCases", "List<SwitchCase>", switchValue.getSwitchCases());
+        printNodeChild(indent + 1, "defaultCase", "Optional<DefaultCase>", switchValue.getDefaultCase().orElse(null));
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", switchValue.getFuncion());
+		printUnknownFields(indent + 1, switchValue, "e1", "switchCases", "defaultCase", "funcion");
+		return null;
+	}
+
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printNodeChild(indent + 1, "e1", "Expression", switchCase.getE1());
+        printListOfNodesChild(indent + 1, "statements", "List<Statement>", switchCase.getStatements());
+        printNonNodeChild(indent + 1, "brk", "boolean", switchCase.isBrk());
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", switchCase.getFuncion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "switchNode", "Switch", switchCase.getSwitchNode());
+		printUnknownFields(indent + 1, switchCase, "e1", "statements", "brk", "funcion", "switchNode");
+		return null;
+	}
+
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+        printListOfNodesChild(indent + 1, "statements", "List<Statement>", defaultCase.getStatements());
+        printNonNodeChild(indent + 1, "brk", "boolean", defaultCase.isBrk());
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+        printToString(indent + 1, "vgen-attribute-phase-1", "funcion", "FunctionDeclaration", defaultCase.getFuncion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "switchNode", "Switch", defaultCase.getSwitchNode());
+		printUnknownFields(indent + 1, defaultCase, "statements", "brk", "funcion", "switchNode");
+		return null;
+	}
+
+	@Override
 	public Object visit(Cast cast, Object param) {
 
 		int indent = ((Integer)param);

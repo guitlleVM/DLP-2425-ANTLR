@@ -217,6 +217,42 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
+	// class Switch(Expression e1, List<SwitchCase> switchCases, Optional<DefaultCase> defaultCase)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		// switchValue.getE1().accept(this, param);
+		// switchValue.getSwitchCases().forEach(switchCase -> switchCase.accept(this, param));
+		// switchValue.getDefaultCase().ifPresent(defaultCase -> defaultCase.accept(this, param));
+		super.visit(switchValue, param);
+
+		return null;
+	}
+
+	// class SwitchCase(Expression e1, List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		// switchCase.getE1().accept(this, param);
+		// switchCase.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(switchCase, param);
+
+		return null;
+	}
+
+	// class DefaultCase(List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		// defaultCase.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(defaultCase, param);
+
+		return null;
+	}
+
 	// class Cast(Type targetType, Expression expression)
 	// phase TypeChecking { Type type, boolean lvalue }
 	@Override

@@ -6,6 +6,9 @@
 package semantic;
 
 import visitor.DefaultVisitor;
+
+import javax.management.openmbean.SimpleType;
+
 import ast.*;
 import ast.declaration.*;
 import ast.statement.*;
@@ -419,6 +422,56 @@ public class TypeChecking extends DefaultVisitor {
 		litChar.setLvalue(false);
 		return null;
 	}
+
+	// class Switch(Expression e1, List<SwitchCase> switchCases)
+	// phase TypeChecking { FunctionDeclaration funcion }
+	@Override
+	public Object visit(Switch switchValue, Object param) {
+
+		for (var switchCase : switchValue.getSwitchCases()) {
+			switchCase.setSwitchNode(switchValue);
+		}
+
+		if (switchValue.getDefaultCase().isPresent()) {
+			switchValue.getDefaultCase().get().setFuncion(switchValue.getFuncion());
+		}
+
+		switchValue.getE1().accept(this, param);
+		predicate(isSimple(switchValue.getE1().getType()), "La expresion tiene que ser de tipo simple", switchValue);
+		switchValue.getSwitchCases().forEach(switchCase -> switchCase.accept(this, param));
+		switchValue.getDefaultCase().ifPresent(defaultCase -> defaultCase.accept(this, param));
+		
+		return null;
+	}
+	
+	// class SwitchCase(Expression e1, List<Statement> statements, boolean brk)
+	// phase TypeChecking { Switch switchNode }
+	@Override
+	public Object visit(SwitchCase switchCase, Object param) {
+
+		for (var statement : switchCase.getStatements()) {
+			statement.setFuncion(switchCase.getSwitchNode().getFuncion());
+		}
+
+		switchCase.getE1().accept(this, param);
+		predicate(isSimple(switchCase.getE1().getType()), "La expresion tiene que ser de tipo simple", switchCase);
+		switchCase.getStatements().forEach(statement -> statement.accept(this, param));
+		return null;
+	}
+
+	// class DefaultCase(List<Statement> statements, boolean brk)
+	// phase TypeChecking { FunctionDeclaration funcion, Switch switchNode }
+	@Override
+	public Object visit(DefaultCase defaultCase, Object param) {
+
+		defaultCase.getStatements().forEach(statement -> statement.setFuncion(defaultCase.getFuncion()));
+
+		defaultCase.getStatements().forEach(statement -> statement.accept(this, param));
+		super.visit(defaultCase, param);
+
+		return null;
+	}
+
 
     //# ----------------------------------------------------------
     //# Auxiliary methods (optional)

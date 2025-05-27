@@ -42,6 +42,12 @@ public interface Visitor {
 
 	public Object visit(FuncionLlamada funcionLlamada, Object param);
 
+	public Object visit(Switch switchValue, Object param);
+
+	public Object visit(SwitchCase switchCase, Object param);
+
+	public Object visit(DefaultCase defaultCase, Object param);
+
 	public Object visit(Cast cast, Object param);
 
 	public Object visit(StructAccess structAccess, Object param);
